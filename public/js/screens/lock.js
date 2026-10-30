@@ -350,6 +350,7 @@ export function createLockScreen({ onUnlock }) {
             const res = await verifyPinApi(slug, currentPin);
             const token = res.data?.token || res.token;
             const recipientName = res.data?.displayName || res.displayName || 'Sahabat';
+            const profile = res.data?.profile || res.profile || null;
 
             if (token) {
               triggerHaptic('success');
@@ -360,7 +361,8 @@ export function createLockScreen({ onUnlock }) {
 
               setTimeout(() => {
                 clearInterval(timeInterval);
-                if (typeof onUnlock === 'function') onUnlock({ token, recipientName });
+                // Profil ikut diteruskan agar tiap teman memakai notifikasi dan wallpaper miliknya.
+                if (typeof onUnlock === 'function') onUnlock({ token, recipientName, profile });
               }, 200);
             } else {
               triggerHaptic('error');

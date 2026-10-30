@@ -8,8 +8,8 @@
 
 ## Posisi sekarang
 - **Milestone aktif:** M6
-- **Sedang dikerjakan:** Polishing — bug fix lock screen, notifikasi WA, dan bug WA lainnya
-- **Langkah berikutnya:** Konfirmasi bug badge lock screen teratasi, lalu inventarisir sisa bug WA, lalu lanjut M6
+- **Sedang dikerjakan:** M6 — perbaikan alur profil setelah verifikasi PIN; audit bug WhatsApp
+- **Langkah berikutnya:** Verifikasi badge WA setelah chat dibuka, rincikan bug WA lain yang terlihat, lalu lanjut uji teman kedua dan polishing M6
 
 ## Checklist milestone
 - [x] M0 — Kerangka proyek
@@ -36,6 +36,7 @@
 - Badge "1" pada ikon Hadiah muncul saat UNLOCKED, hilang saat pertama kali dibuka.
 - Notifikasi lock screen menggunakan data dinamis dari `profile.contactName` & `profile.notifText`.
 - Badge WA di lock screen dikontrol via `state.waBadgeCount`; di-reset ke 0 saat WA dibuka.
+- Hasil verifikasi PIN meneruskan `profile` publik dari server ke aplikasi agar notifikasi dan wallpaper sesuai slug teman.
 
 ## Masalah terbuka
 - **[BELUM DIKONFIRMASI]** Badge WA (angka merah di avatar) di lock screen dilaporkan masih muncul setelah WA dibuka. Sudah diperbaiki di commit `a9a6421` — badge dikontrol oleh `state.waBadgeCount` via fungsi `updateLockNotification()`. Belum ada konfirmasi dari pemilik bahwa ini sudah teratasi. Kemungkinan penyebab jika masih terjadi: browser cache lama (solusi: `Ctrl+Shift+R`).
@@ -58,7 +59,7 @@
   - Ikon avatar WA di banner lock screen diganti dari gambar eksternal ke ikon WA hijau SVG lokal.
   - Tambah badge unread (angka merah) di avatar WA pada banner lock screen (`#lock-wa-badge`).
   - Badge WA lock screen dikontrol via `state.waBadgeCount` + fungsi `updateLockNotification()` di `main.js` — di-reset ke 0 dan disembunyikan saat WA dibuka.
-  - Fix `package.json`: tambah script `"dev": "vercel dev"` yang sebelumnya tidak ada.
+  - Commit `ee626fc` merapikan `dev.bat` agar tidak memanggil `vercel dev` secara rekursif; `package.json` tetap belum memiliki script `dev`.
   - **Kendala:** badge lock screen belum dikonfirmasi teratasi oleh pemilik.
 
 - **30 Oktober 2026 (Sesi 3):**
@@ -73,3 +74,8 @@
   - PRD F4 aktif: item pertama instan, animasi typing indikator, scripted typing mengunci tombol kirim.
   - Memisahkan elemen Catatan agar tidak menumpuk di DOM WhatsApp.
   - Semua unit test lolos (13 passed, 0 failed).
+
+- **30 Oktober 2026 (Sesi 5 — audit M6):**
+  - Memperbaiki alur PIN agar profil publik dari `/api/pin` diteruskan oleh lock screen ke `main.js`. Sebelumnya callback hanya membawa token dan nama penerima, sehingga data kontak/notifikasi/wallpaper teman kedua hilang.
+  - `npm.cmd test`: 13 lulus, 0 gagal.
+  - Folder `design/` tidak tersedia; referensi visual ada di `stitch_reference_screens/`.
