@@ -71,8 +71,7 @@ function initApp() {
       if (appName === 'whatsapp' && waScreenInstance) {
         // Sembunyikan badge WA di lock screen saat WA dibuka
         state.waBadgeCount = 0;
-        const lockWaBadge = lock.querySelector('#lock-wa-badge');
-        if (lockWaBadge) lockWaBadge.style.display = 'none';
+        updateLockNotification(state.profile.contactName, state.profile.notifText);
         
         if (options.directChat) {
           waScreenInstance.openDirectChat();
@@ -195,9 +194,16 @@ function initApp() {
     const senderEl = lock.querySelector('#lock-notif-sender');
     const textEl = lock.querySelector('#lock-notif-text');
     const countEl = lock.querySelector('#lock-wa-count');
+    const badgeEl = lock.querySelector('#lock-wa-badge');
+    
     if (senderEl) senderEl.textContent = sender || 'WhatsApp';
     if (textEl) textEl.textContent = message || 'Pesan baru masuk...';
+    
+    // Update badge berdasarkan state
     if (countEl) countEl.textContent = state.waBadgeCount || '1';
+    if (badgeEl) {
+      badgeEl.style.display = state.waBadgeCount > 0 ? 'flex' : 'none';
+    }
   }
 
   // Masukkan elemen ke container layar (Home di bawah, app-app di tengah, Lock di atas)
