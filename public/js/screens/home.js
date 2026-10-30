@@ -144,9 +144,12 @@ export function createHomeScreen({ state, onOpenApp }) {
         <div class="flex flex-col items-center cursor-pointer group active:scale-95 transition-transform" id="btn-app-hadiah">
           <div class="w-[60px] h-[60px] ios-squircle bg-gradient-to-tr from-[#1f2937] via-[#111827] to-[#374151] flex items-center justify-center text-white text-2xl shadow-md relative border border-white/10">
             <i class="fa-solid fa-gift text-amber-400 text-[26px]"></i>
+            <!-- Lock Badge (saat LOCKED) -->
             <div id="hadiah-lock-badge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#18181b] border border-white/20 flex items-center justify-center text-[10px] text-amber-400 shadow-md">
               <i class="fa-solid fa-lock text-[9px]"></i>
             </div>
+            <!-- Notification Badge (saat UNLOCKED belum dibuka) -->
+            <span id="hadiah-notif-badge" class="hidden absolute -top-1.5 -right-1.5 bg-red-500 text-white font-bold text-[11px] min-w-[20px] h-[20px] rounded-full flex items-center justify-center px-1 shadow-md border-2 border-black">1</span>
           </div>
           <span class="text-white text-[11px] font-medium tracking-tight mt-1.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Hadiah</span>
         </div>
@@ -300,9 +303,17 @@ export function createHomeScreen({ state, onOpenApp }) {
     },
     updateLockStatus: (isUnlocked) => {
       const lockBadge = container.querySelector('#hadiah-lock-badge');
+      const notifBadge = container.querySelector('#hadiah-notif-badge');
       if (lockBadge) {
         lockBadge.style.display = isUnlocked ? 'none' : 'flex';
       }
+      if (notifBadge && isUnlocked) {
+        notifBadge.classList.remove('hidden');
+      }
+    },
+    hideHadiahBadge: () => {
+      const notifBadge = container.querySelector('#hadiah-notif-badge');
+      if (notifBadge) notifBadge.classList.add('hidden');
     },
     // Ganti wallpaper home setelah PIN berhasil dan profile diterima dari server
     setWallpaper: (url) => {

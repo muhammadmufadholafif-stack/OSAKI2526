@@ -42,6 +42,30 @@ function initApp() {
     state,
     onOpenApp: (appName, options = {}) => {
       console.log('Membuka aplikasi:', appName);
+      
+      // PRD F7: Hadiah hanya bisa dibuka jika UNLOCKED
+      if (appName === 'hadiah') {
+        if (state.hadiahStatus === 'LOCKED') {
+          // Tampilkan toast dan getar (PRD F2)
+          if ('vibrate' in navigator) {
+            try { navigator.vibrate(200); } catch (e) {}
+          }
+          showToast('Selesaikan chat dulu ya 👀');
+          return;
+        }
+        // Jika UNLOCKED atau sudah OPENED, buka layar Hadiah
+        if (hadiahScreenInstance) {
+          state.currentScreen = appName;
+          // Mark sebagai opened dan sembunyikan badge setelah pertama kali dibuka
+          if (state.hadiahStatus === 'UNLOCKED') {
+            state.hadiahStatus = 'OPENED';
+            home.hideHadiahBadge();
+          }
+          hadiahScreenInstance.openScreen();
+        }
+        return;
+      }
+
       state.currentScreen = appName;
 
       if (appName === 'whatsapp' && waScreenInstance) {
@@ -56,13 +80,24 @@ function initApp() {
         spotifyScreenInstance.openScreen();
       } else if (appName === 'gallery' && galleryScreenInstance) {
         galleryScreenInstance.openScreen();
-      } else if (appName === 'hadiah' && hadiahScreenInstance) {
-        hadiahScreenInstance.openScreen();
       } else if (appName === 'notes' && notesScreenInstance) {
         notesScreenInstance.openScreen();
       }
     }
   });
+
+  // Helper: Show Toast
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#1C1C1E]/95 backdrop-blur-lg text-white px-6 py-3 rounded-2xl shadow-2xl border border-white/10 text-[13px] font-medium';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.transition = 'opacity 0.3s';
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 300);
+    }, 2000);
+  }
 
   // 2. Buat Layar WhatsApp
   waScreenInstance = createWhatsAppScreen({
@@ -74,6 +109,12 @@ function initApp() {
       console.log('Chat WhatsApp selesai! Membuka Hadiah...');
       state.hadiahStatus = 'UNLOCKED';
       home.updateLockStatus(true);
+      
+      // Animasi buka kunci (PRD F7)
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate([100, 50, 100]); } catch (e) {}
+      }
+      showToast('🎁 Hadiah terbuka! Tap ikon Hadiah untuk membuka');
     }
   });
 

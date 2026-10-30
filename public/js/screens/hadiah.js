@@ -1,255 +1,358 @@
 /**
- * Vault / Secret File Screen Component (Stitch 10 & 11)
- * Bertema AU Mystery: Berkas Rahasia Kasus Zahira.
- * Fitur:
- * - Status Dekripsi Berkas (Status Dokumen Rahasia)
- * - Transmisi Enkripsi / Pilih Kanal Rahasia (DANA, GoPay, OVO, ShopeePay / Jalur Aman)
- * - Rekaman Bukti Audio & Arsip Rahasia
- * - Transmisi Berhasil / Bukti Terkirim (Stitch 11)
+ * hadiah.js (PRD F7 & 12.4/12.5)
+ * Layar Hadiah: ucapan, form klaim, konfirmasi, dan status akhir.
+ * Status: LOCKED (chat belum selesai), UNLOCKED (siap diklaim), CLAIMED (sudah diklaim).
  */
 import { triggerHaptic } from '../haptics.js';
 import { getHadiahApi, claimHadiahApi } from '../api.js';
 
 export function createHadiahScreen({ state, onBackToHome }) {
   const container = document.createElement('div');
-  container.className = 'absolute inset-0 z-30 bg-[#0d0e12] flex flex-col justify-between overflow-y-auto no-scrollbar select-none transition-transform duration-300 translate-y-full text-[#e3e2e7]';
+  container.className = 'absolute inset-0 z-30 bg-[#000000] flex flex-col overflow-y-auto no-scrollbar select-none transition-transform duration-300 translate-y-full';
   container.id = 'hadiah-screen';
 
-  let vaultData = null;
-  let selectedMethod = 'DANA';
+  let hadiahData = null;
+  let selectedProvider = 'DANA';
+  let showingConfirmation = false;
 
   container.innerHTML = `
-    <!-- Top System Header (Stitch Screen 10) -->
-    <header class="sticky top-0 inset-x-0 z-40 bg-[#0d0e12]/95 backdrop-blur-xl border-b border-white/5">
-      <div class="w-full flex items-center justify-between px-6 pt-3 pb-1 text-white">
-        <span class="text-[14px] font-semibold" id="hadiah-status-time">07:54</span>
-        <div class="h-7 px-3.5 bg-black/90 rounded-full flex items-center justify-center gap-1.5 shadow-md border border-white/10">
-          <i class="fa-solid fa-lock-open text-amber-400 text-xs"></i>
-          <span class="text-[11px] text-zinc-300 font-medium">Berkas Didekripsi</span>
-        </div>
-        <div class="flex items-center gap-1 text-white">
-          <i class="fa-solid fa-signal text-[11px]"></i>
-          <i class="fa-solid fa-wifi text-[11px]"></i>
-          <div class="w-5 h-2.5 border border-white/80 rounded-[3px] p-[1px] flex items-center">
-            <div class="h-full w-full bg-white rounded-[1px]"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- In-App Header -->
-      <div class="h-12 px-4 flex items-center justify-between">
-        <button id="hadiah-home-btn" class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-800/80 backdrop-blur-xl text-amber-400 active:scale-95 transition-transform" type="button">
-          <i class="fa-solid fa-chevron-left text-xs"></i>
-          <span class="text-xs text-white font-medium">Home</span>
+    <!-- Header iOS-style -->
+    <header class="sticky top-0 z-40 bg-[#000000]/95 backdrop-blur-lg border-b border-white/10">
+      <div class="flex items-center justify-between px-4 h-12">
+        <button id="hadiah-back-btn" class="text-[#FF9F0A] text-[17px] active:opacity-50 transition-opacity" type="button">
+          ‹ Home
         </button>
-        <h1 class="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-gift text-amber-400 text-xs"></i>
-          <span>Kado Spesial</span>
-        </h1>
-        <div class="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-amber-400">
-          <i class="fa-solid fa-cake-candles text-sm"></i>
-        </div>
+        <h1 class="text-[17px] font-semibold text-white">Hadiah</h1>
+        <div class="w-12"></div>
       </div>
     </header>
 
-    <!-- Main Content Container: Dokumen Rahasia -->
-    <main class="flex-1 flex flex-col px-4 pt-3 pb-8 gap-4" id="hadiah-main-view">
-      <!-- Classified Dossier Card -->
-      <div class="w-full relative rounded-2xl bg-[#16181f] p-4 shadow-xl overflow-hidden border border-amber-500/20">
-        <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-amber-500 to-transparent opacity-80"></div>
-        <div class="flex flex-col gap-2 relative z-10">
-          <div class="flex items-center justify-between">
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/60 text-amber-400 text-[10px] font-bold tracking-wider border border-amber-500/30">
-              <i class="fa-solid fa-gift text-[10px]"></i>
-              <span>BIRTHDAY GIFT // SPECIAL FOR YOU</span>
-            </div>
-            <span class="text-[10px] text-zinc-400 font-mono">SPECIAL DAY</span>
-          </div>
-
-          <h2 class="text-base font-bold text-white mt-1" id="hadiah-greeting-title">
-            SELAMAT ULANG TAHUN! 🎉🎂
-          </h2>
-          <p class="text-xs text-zinc-300 leading-relaxed font-sans" id="hadiah-greeting-text">
-            Semoga panjang umur, sehat selalu, dan tercapai semua impianmu! Ada sedikit kado spesial buat kamu nih.
-          </p>
-
-          <div class="flex items-center gap-2.5 pt-2 border-t border-white/5 mt-1">
-            <div class="w-8 h-8 rounded-full bg-zinc-800 overflow-hidden shrink-0 border border-white/10">
-              <img class="w-full h-full object-cover" src="/assets/rina/f-a1b2.jpg" alt="Fanskey"/>
-            </div>
-            <div class="flex flex-col min-w-0">
-              <span class="text-[11px] font-semibold text-white">Dari: Fanskey</span>
-              <span class="text-[10px] text-emerald-400 flex items-center gap-1 font-mono">
-                <i class="fa-solid fa-heart text-[9px]"></i>
-                Tersimpan Spesial Untukmu
-              </span>
-            </div>
-          </div>
+    <!-- Main Content: Form Klaim -->
+    <main class="flex-1 flex flex-col px-6 py-6 gap-6" id="hadiah-form-view">
+      <!-- Kartu Ucapan -->
+      <div class="bg-[#1C1C1E] rounded-2xl p-6 space-y-4">
+        <div class="space-y-2">
+          <h2 class="text-[24px] font-bold text-white" id="hadiah-title">Selamat Ulang Tahun!</h2>
+          <div id="hadiah-message" class="text-[15px] text-[#8E8E93] leading-relaxed space-y-2"></div>
+        </div>
+        <div class="pt-4 border-t border-white/10">
+          <p class="text-[13px] text-[#FF9F0A] font-medium" id="hadiah-gift-label">Kado dari Fanskey</p>
         </div>
       </div>
 
-      <!-- Dana / Kompensasi Penyelidikan Card -->
-      <div class="w-full rounded-2xl bg-[#12141a] p-4 flex flex-col items-center justify-center text-center relative overflow-hidden shadow-lg border border-white/5">
-        <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-400 mb-0.5 font-mono">Kado Ulang Tahun</span>
-        <div class="flex items-baseline justify-center gap-1 my-0.5">
-          <span class="text-lg font-bold text-amber-400">Rp</span>
-          <span class="text-3xl font-extrabold text-white tracking-tight font-mono" id="hadiah-amount">500.000</span>
-        </div>
-        <div class="inline-flex items-center gap-1 px-2.5 py-0.5 mt-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-mono">
-          <i class="fa-solid fa-circle-check text-[9px]"></i>
-          <span>Kado Siap Ditransfer • E-Wallet Pilihanmu</span>
-        </div>
-      </div>
-
-      <!-- Form Transmisi Jalur Aman -->
-      <div class="flex flex-col gap-2 w-full">
-        <label class="text-xs font-semibold text-zinc-300">Pilih E-Wallet Penerima:</label>
-        <!-- Metode Chip Grid -->
-        <div class="grid grid-cols-4 gap-2 w-full">
-          ${['DANA', 'GoPay', 'OVO', 'ShopeePay'].map(m => `
-            <button type="button" class="method-chip flex flex-col items-center justify-center p-2 rounded-xl border ${m === selectedMethod ? 'bg-amber-500 text-black border-amber-400 font-bold' : 'bg-[#1e1f23] text-zinc-300 border-white/5 font-medium'} active:scale-95 transition-all text-xs" data-method="${m}">
-              <span class="truncate">${m}</span>
-            </button>
-          `).join('')}
+      <!-- Form Klaim -->
+      <div class="space-y-4">
+        <div>
+          <label class="text-[13px] text-[#8E8E93] mb-2 block">Pilih Metode Pembayaran</label>
+          <div id="provider-grid" class="grid grid-cols-2 gap-2"></div>
         </div>
 
-        <div class="mt-2 flex flex-col gap-1.5">
-          <label class="text-xs font-semibold text-zinc-300">Nomor Akun / Handphone:</label>
-          <input type="tel" id="input-account-number" placeholder="Contoh: 08123456789" class="w-full bg-[#1e1f23] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 transition font-mono"/>
-          <span class="text-[10px] text-zinc-400">Nomor kamu aman dan hanya dipakai untuk mengirim kado.</span>
+        <div id="bank-name-section" class="hidden">
+          <label class="text-[13px] text-[#8E8E93] mb-2 block">Nama Bank</label>
+          <input type="text" id="input-bank-name" placeholder="Contoh: BCA" 
+            class="w-full bg-[#1C1C1E] border border-white/10 rounded-xl px-4 py-3 text-[15px] text-white placeholder:text-[#3A3A3C] focus:outline-none focus:border-[#FF9F0A] transition"/>
         </div>
 
-        <button id="btn-submit-claim" class="w-full mt-2 py-3 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2">
-          <span>Klaim Kado Sekarang 🎁</span>
-          <i class="fa-solid fa-arrow-right text-xs"></i>
+        <div>
+          <label class="text-[13px] text-[#8E8E93] mb-2 block">Nomor Akun / HP (8-16 digit)</label>
+          <input type="tel" id="input-account-number" placeholder="08123456789" inputmode="numeric"
+            class="w-full bg-[#1C1C1E] border border-white/10 rounded-xl px-4 py-3 text-[15px] text-white placeholder:text-[#3A3A3C] focus:outline-none focus:border-[#FF9F0A] transition"/>
+        </div>
+
+        <div>
+          <label class="text-[13px] text-[#8E8E93] mb-2 block">Nama Pemilik Akun (opsional)</label>
+          <input type="text" id="input-account-name" placeholder="Nama lengkap" 
+            class="w-full bg-[#1C1C1E] border border-white/10 rounded-xl px-4 py-3 text-[15px] text-white placeholder:text-[#3A3A3C] focus:outline-none focus:border-[#FF9F0A] transition"/>
+        </div>
+
+        <button id="btn-submit-claim" class="w-full py-4 bg-[#FF9F0A] text-black text-[17px] font-semibold rounded-xl active:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed">
+          Klaim Hadiah
         </button>
       </div>
     </main>
 
-    <!-- SUCCESS RECEIPT VIEW (Stitch Screen 11_hadiah_success.html) -->
-    <div id="hadiah-success-view" class="flex-1 flex flex-col px-4 pt-3 pb-8 gap-4" style="display: none;">
-      <div class="relative flex flex-col items-center text-center pt-2 pb-4 overflow-hidden">
-        <div class="w-20 h-20 rounded-full bg-emerald-500 flex items-center justify-center shadow-[0_0_35px_rgba(16,185,129,0.35)] mb-3 text-black text-3xl font-black">
-          <i class="fa-solid fa-check"></i>
+    <!-- Konfirmasi Dialog -->
+    <div id="confirmation-overlay" class="hidden fixed inset-0 z-50 bg-black/60 flex items-end justify-center pb-6 px-6">
+      <div class="bg-[#1C1C1E] rounded-2xl w-full max-w-md overflow-hidden">
+        <div class="p-6 space-y-4">
+          <h3 class="text-[20px] font-bold text-white text-center">Konfirmasi Klaim</h3>
+          <div class="text-[15px] text-[#8E8E93] text-center space-y-1">
+            <p id="confirm-text">Nomor yang akan dipakai:</p>
+            <p class="text-white font-semibold" id="confirm-detail">08123456789 di DANA</p>
+            <p class="text-[13px] mt-2">Sudah benar?</p>
+          </div>
         </div>
-        <h2 class="text-xl font-bold text-white tracking-tight">Kado Berhasil Diklaim! 🎁</h2>
-        <p class="text-xs text-zinc-300 mt-1 font-sans">Kado sedang dalam perjalanan ke e-wallet kamu.</p>
-      </div>
-
-      <!-- Classified Receipt Card -->
-      <div class="w-full bg-[#16181f] rounded-2xl p-4 shadow-xl border border-white/5 flex flex-col gap-3 font-mono">
-        <div class="flex items-center justify-between pb-2 border-b border-white/5">
-          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Bukti Klaim Kado</span>
-          <span class="text-[11px] text-amber-400 bg-zinc-800 px-2 py-0.5 rounded-full" id="receipt-id">#GIFT-SUCCESS</span>
-        </div>
-        <div class="flex justify-between text-xs">
-          <span class="text-zinc-400">Penerima</span>
-          <span class="font-semibold text-white" id="receipt-recipient">Rina</span>
-        </div>
-        <div class="flex justify-between text-xs">
-          <span class="text-zinc-400">E-Wallet</span>
-          <span class="font-semibold text-white" id="receipt-method">DANA • 0812***</span>
-        </div>
-        <div class="flex justify-between text-xs">
-          <span class="text-zinc-400">Nominal Kado</span>
-          <span class="font-bold text-amber-400 text-sm" id="receipt-amount">Rp 500.000</span>
+        <div class="grid grid-cols-2 border-t border-white/10">
+          <button id="btn-confirm-cancel" class="py-4 text-[17px] text-[#FF9F0A] active:bg-white/5 transition-colors border-r border-white/10">
+            Ubah
+          </button>
+          <button id="btn-confirm-yes" class="py-4 text-[17px] text-white font-semibold active:bg-white/5 transition-colors">
+            Ya, Klaim
+          </button>
         </div>
       </div>
+    </div>
 
-      <button id="btn-back-home-success" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-xl active:scale-95 transition-transform mt-2">
-        Kembali ke Layar Utama
+    <!-- Status Loading -->
+    <div id="loading-overlay" class="hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center">
+      <div class="bg-[#1C1C1E] rounded-2xl p-8 flex flex-col items-center space-y-4">
+        <div class="w-12 h-12 border-4 border-[#FF9F0A] border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-white text-[15px]">Mengirim klaim...</p>
+      </div>
+    </div>
+
+    <!-- Status Akhir: Sukses -->
+    <div id="success-view" class="hidden flex-1 flex flex-col px-6 py-6 gap-6">
+      <div class="flex-1 flex flex-col items-center justify-center text-center space-y-6">
+        <div class="w-20 h-20 rounded-full bg-[#34C759] flex items-center justify-center">
+          <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <div class="space-y-2">
+          <h2 class="text-[24px] font-bold text-white">Saldo sedang dikirim 💌</h2>
+          <p class="text-[15px] text-[#8E8E93]">Tunggu sebentar ya, hadiah akan segera sampai!</p>
+        </div>
+        <div class="bg-[#1C1C1E] rounded-2xl p-4 w-full space-y-2">
+          <div class="flex justify-between text-[13px]">
+            <span class="text-[#8E8E93]">Metode</span>
+            <span class="text-white font-medium" id="success-provider">DANA</span>
+          </div>
+          <div class="flex justify-between text-[13px]">
+            <span class="text-[#8E8E93]">Nomor</span>
+            <span class="text-white font-medium font-mono" id="success-number">***789</span>
+          </div>
+        </div>
+      </div>
+      <button id="btn-back-home" class="w-full py-4 bg-[#FF9F0A] text-black text-[17px] font-semibold rounded-xl active:opacity-80 transition-opacity">
+        Kembali ke Home
+      </button>
+    </div>
+
+    <!-- Status Akhir: Error -->
+    <div id="error-view" class="hidden flex-1 flex flex-col px-6 py-6 gap-6">
+      <div class="flex-1 flex flex-col items-center justify-center text-center space-y-6">
+        <div class="w-20 h-20 rounded-full bg-[#FF3B30] flex items-center justify-center">
+          <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </div>
+        <div class="space-y-2">
+          <h2 class="text-[24px] font-bold text-white">Gagal Mengirim</h2>
+          <p class="text-[15px] text-[#8E8E93]" id="error-message">Terjadi kesalahan. Coba lagi ya.</p>
+        </div>
+      </div>
+      <button id="btn-retry" class="w-full py-4 bg-[#FF9F0A] text-black text-[17px] font-semibold rounded-xl active:opacity-80 transition-opacity">
+        Coba Lagi
       </button>
     </div>
   `;
 
-  // Status time
-  function updateTime() {
-    const now = new Date();
-    const timeEl = container.querySelector('#hadiah-status-time');
-    if (timeEl) timeEl.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-  }
-  updateTime();
-  setInterval(updateTime, 1000);
+  // Elemen-elemen view
+  const formView = container.querySelector('#hadiah-form-view');
+  const successView = container.querySelector('#success-view');
+  const errorView = container.querySelector('#error-view');
+  const confirmationOverlay = container.querySelector('#confirmation-overlay');
+  const loadingOverlay = container.querySelector('#loading-overlay');
 
-  // Close back to home
+  // Input elements
+  const providerGrid = container.querySelector('#provider-grid');
+  const bankNameSection = container.querySelector('#bank-name-section');
+  const inputBankName = container.querySelector('#input-bank-name');
+  const inputAccountNumber = container.querySelector('#input-account-number');
+  const inputAccountName = container.querySelector('#input-account-name');
+  const btnSubmitClaim = container.querySelector('#btn-submit-claim');
+
+  // Function: Close screen
   function closeScreen() {
     triggerHaptic('light');
     container.style.transform = 'translateY(100%)';
-    if (typeof onBackToHome === 'function') onBackToHome();
+    setTimeout(() => {
+      if (typeof onBackToHome === 'function') onBackToHome();
+    }, 300);
   }
-  container.querySelector('#hadiah-home-btn').addEventListener('click', closeScreen);
-  container.querySelector('#btn-back-home-success').addEventListener('click', closeScreen);
+  
+  container.querySelector('#hadiah-back-btn').addEventListener('click', closeScreen);
+  container.querySelector('#btn-back-home').addEventListener('click', closeScreen);
 
-  // Method Chip Selection
-  container.querySelectorAll('.method-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      triggerHaptic('light');
-      selectedMethod = chip.dataset.method;
-      container.querySelectorAll('.method-chip').forEach(c => {
-        if (c.dataset.method === selectedMethod) {
-          c.className = 'method-chip flex flex-col items-center justify-center p-2 rounded-xl border bg-amber-500 text-black border-amber-400 font-bold active:scale-95 transition-all text-xs';
+  // Function: Render provider chips
+  function renderProviders(providers) {
+    providerGrid.innerHTML = providers.map(p => `
+      <button type="button" class="provider-chip px-3 py-3 rounded-xl border text-[13px] font-medium transition-all active:scale-95 ${p === selectedProvider ? 'bg-[#FF9F0A] text-black border-[#FF9F0A]' : 'bg-[#1C1C1E] text-white border-white/10'}" data-provider="${p}">
+        ${p}
+      </button>
+    `).join('');
+
+    // Event listeners untuk chip
+    container.querySelectorAll('.provider-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        triggerHaptic('light');
+        selectedProvider = chip.dataset.provider;
+        renderProviders(providers);
+
+        // Show/hide bank name field
+        if (selectedProvider === 'Bank lain') {
+          bankNameSection.classList.remove('hidden');
         } else {
-          c.className = 'method-chip flex flex-col items-center justify-center p-2 rounded-xl border bg-[#1e1f23] text-zinc-300 border-white/5 font-medium active:scale-95 transition-all text-xs';
+          bankNameSection.classList.add('hidden');
+          inputBankName.value = '';
         }
       });
     });
-  });
+  }
 
-  // Submit Claim Handler
-  const mainView = container.querySelector('#hadiah-main-view');
-  const successView = container.querySelector('#hadiah-success-view');
-  const inputAcc = container.querySelector('#input-account-number');
+  // Function: Validate form
+  function validateForm() {
+    const accountNumber = inputAccountNumber.value.replace(/[\s-]/g, '');
+    const bankName = inputBankName.value.trim();
 
-  container.querySelector('#btn-submit-claim').addEventListener('click', async () => {
-    const accNumber = inputAcc.value.trim();
-    if (!accNumber || accNumber.length < 5) {
+    if (selectedProvider === 'Bank lain' && (!bankName || bankName.length < 2 || bankName.length > 30)) {
+      return { valid: false, message: 'Nama bank harus antara 2-30 karakter' };
+    }
+
+    if (!/^\d{8,16}$/.test(accountNumber)) {
+      return { valid: false, message: 'Nomor harus berupa 8-16 digit angka' };
+    }
+
+    return { valid: true };
+  }
+
+  // Function: Show confirmation
+  function showConfirmation() {
+    const accountNumber = inputAccountNumber.value.replace(/[\s-]/g, '');
+    const displayProvider = selectedProvider === 'Bank lain' ? inputBankName.value.trim() : selectedProvider;
+    
+    container.querySelector('#confirm-detail').textContent = `${accountNumber} di ${displayProvider}`;
+    confirmationOverlay.classList.remove('hidden');
+    triggerHaptic('light');
+  }
+
+  // Function: Hide confirmation
+  function hideConfirmation() {
+    confirmationOverlay.classList.add('hidden');
+    triggerHaptic('light');
+  }
+
+  // Function: Submit claim
+  async function submitClaim() {
+    hideConfirmation();
+    loadingOverlay.classList.remove('hidden');
+
+    const payload = {
+      provider: selectedProvider,
+      bankName: selectedProvider === 'Bank lain' ? inputBankName.value.trim() : null,
+      accountNumber: inputAccountNumber.value.trim(),
+      accountName: inputAccountName.value.trim() || null
+    };
+
+    try {
+      const res = await claimHadiahApi(state.token || state.session?.token, payload);
+      
+      loadingOverlay.classList.add('hidden');
+
+      if (res.ok && res.data && res.data.ok) {
+        // Success
+        triggerHaptic('success');
+        const summary = res.data.summary || {};
+        container.querySelector('#success-provider').textContent = summary.provider || selectedProvider;
+        container.querySelector('#success-number').textContent = `***${summary.last3 || ''}`;
+        
+        formView.classList.add('hidden');
+        successView.classList.remove('hidden');
+      } else {
+        // Error dari server
+        triggerHaptic('error');
+        const errorMsg = res.data?.message || res.data?.error || 'Terjadi kesalahan, coba lagi';
+        container.querySelector('#error-message').textContent = errorMsg;
+        formView.classList.add('hidden');
+        errorView.classList.remove('hidden');
+      }
+    } catch (err) {
+      loadingOverlay.classList.add('hidden');
       triggerHaptic('error');
-      alert('Silakan masukkan nomor akun / e-wallet yang valid.');
+      container.querySelector('#error-message').textContent = 'Koneksi bermasalah, coba lagi';
+      formView.classList.add('hidden');
+      errorView.classList.remove('hidden');
+    }
+  }
+
+  // Event: Submit button
+  btnSubmitClaim.addEventListener('click', () => {
+    const validation = validateForm();
+    if (!validation.valid) {
+      triggerHaptic('error');
+      alert(validation.message);
       return;
     }
+    showConfirmation();
+  });
 
-    triggerHaptic('medium');
-    try {
-      const res = await claimHadiahApi(state.token || state.session?.token, {
-        method: selectedMethod,
-        account: accNumber
-      });
+  // Event: Confirmation buttons
+  container.querySelector('#btn-confirm-cancel').addEventListener('click', hideConfirmation);
+  container.querySelector('#btn-confirm-yes').addEventListener('click', submitClaim);
 
-      if (res.ok) {
-        triggerHaptic('success');
-        container.querySelector('#receipt-recipient').textContent = state.recipientName || state.session?.recipientName || 'Agen Rina';
-        container.querySelector('#receipt-method').textContent = `${selectedMethod} • ${accNumber}`;
-        container.querySelector('#receipt-amount').textContent = vaultData?.amount ? `Rp ${Number(vaultData.amount).toLocaleString('id-ID')}` : 'Rp 500.000';
-
-        mainView.style.display = 'none';
-        successView.style.display = 'flex';
-      } else {
-        alert(res.data?.error || res.data?.message || 'Gagal memproses transmisi berkas.');
-      }
-    } catch (e) {
-      alert('Terjadi kesalahan saat memproses transmisi.');
-    }
+  // Event: Retry button
+  container.querySelector('#btn-retry').addEventListener('click', () => {
+    errorView.classList.add('hidden');
+    formView.classList.remove('hidden');
   });
 
   return {
     element: container,
     openScreen: async () => {
       container.style.transform = 'translateY(0)';
+      
       try {
         const res = await getHadiahApi(state.token || state.session?.token);
+        
         if (res.ok && res.data) {
-          vaultData = res.data;
-          if (vaultData.title) {
-            container.querySelector('#hadiah-greeting-title').textContent = vaultData.title;
+          hadiahData = res.data;
+          
+          // Populate title
+          if (hadiahData.title) {
+            container.querySelector('#hadiah-title').textContent = hadiahData.title;
           }
-          if (vaultData.message && Array.isArray(vaultData.message)) {
-            container.querySelector('#hadiah-greeting-text').textContent = vaultData.message.join(' ');
+          
+          // Populate message (array of paragraphs)
+          if (hadiahData.message && Array.isArray(hadiahData.message)) {
+            const messageContainer = container.querySelector('#hadiah-message');
+            messageContainer.innerHTML = hadiahData.message.map(p => `<p>${p}</p>`).join('');
           }
-          if (vaultData.amount) {
-            container.querySelector('#hadiah-amount').textContent = Number(vaultData.amount).toLocaleString('id-ID');
+          
+          // Populate gift label
+          if (hadiahData.giftLabel) {
+            container.querySelector('#hadiah-gift-label').textContent = hadiahData.giftLabel;
           }
+          
+          // Render providers
+          if (hadiahData.providers && Array.isArray(hadiahData.providers)) {
+            renderProviders(hadiahData.providers);
+          }
+          
+          // Check if already claimed
+          if (hadiahData.claimed && hadiahData.claimSummary) {
+            const summary = hadiahData.claimSummary;
+            container.querySelector('#success-provider').textContent = summary.provider || 'E-Wallet';
+            container.querySelector('#success-number').textContent = `***${summary.last3 || ''}`;
+            formView.classList.add('hidden');
+            successView.classList.remove('hidden');
+          }
+        } else if (res.status === 403) {
+          // Locked - seharusnya tidak sampai sini karena ikon Hadiah masih terkunci
+          triggerHaptic('error');
+          alert('Selesaikan chat dulu ya 👀');
+          closeScreen();
+        } else {
+          // Error lain
+          triggerHaptic('error');
+          alert('Gagal memuat hadiah');
+          closeScreen();
         }
-      } catch (e) {}
+      } catch (err) {
+        triggerHaptic('error');
+        alert('Koneksi bermasalah');
+        closeScreen();
+      }
     }
   };
 }
