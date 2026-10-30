@@ -42,3 +42,4 @@ module.exports = async (req, res) => {
     return error(res, 502, 'TELEGRAM_FAILED', 'Gagal meneruskan catatan ke Telegram');
   }
 };
+

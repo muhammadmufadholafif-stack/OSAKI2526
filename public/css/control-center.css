@@ -7,11 +7,16 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 90px;
-  height: 36px;
+  width: 120px;
+  height: 50px;
   z-index: 1200;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: none;
   /* Garis panduan kecil di bawah status bar kanan */
+}
+
+.control-center-trigger:active {
+  cursor: grabbing;
 }
 
 .control-center-indicator-bar {

@@ -227,8 +227,81 @@ export function createControlCenter({ phoneFrame, audioPlayer, onNextTrack, onPr
     panel.classList.remove('open');
   }
 
+  // Klik langsung atau usap ke bawah dari pojok kanan atas
   triggerEl.addEventListener('click', openControlCenter);
   panel.querySelector('#cc-close-bar').addEventListener('click', closeControlCenter);
+
+  // Gesture Swipe Down di Pojok Kanan Atas (Touch di HP & Drag Mouse di Laptop)
+  let startY = 0;
+  let isSwiping = false;
+
+  triggerEl.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+    isSwiping = true;
+  }, { passive: true });
+
+  triggerEl.addEventListener('touchmove', (e) => {
+    if (!isSwiping) return;
+    const currentY = e.touches[0].clientY;
+    if (currentY - startY > 30) {
+      isSwiping = false;
+      openControlCenter();
+    }
+  }, { passive: true });
+
+  triggerEl.addEventListener('touchend', () => {
+    isSwiping = false;
+  });
+
+  // Mouse drag untuk pengguna desktop / laptop
+  triggerEl.addEventListener('mousedown', (e) => {
+    startY = e.clientY;
+    isSwiping = true;
+
+    const onMouseMove = (moveEvent) => {
+      if (!isSwiping) return;
+      if (moveEvent.clientY - startY > 35) {
+        isSwiping = false;
+        cleanup();
+        openControlCenter();
+      }
+    };
+
+    const onMouseUp = () => {
+      isSwiping = false;
+      cleanup();
+    };
+
+    function cleanup() {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    }
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  });
+
+  // Gesture Swipe Up di Panel Control Center untuk menutup kembali
+  let panelStartY = 0;
+  let isPanelSwiping = false;
+
+  panel.addEventListener('touchstart', (e) => {
+    panelStartY = e.touches[0].clientY;
+    isPanelSwiping = true;
+  }, { passive: true });
+
+  panel.addEventListener('touchmove', (e) => {
+    if (!isPanelSwiping) return;
+    const diffY = panelStartY - e.touches[0].clientY;
+    if (diffY > 50) {
+      isPanelSwiping = false;
+      closeControlCenter();
+    }
+  }, { passive: true });
+
+  panel.addEventListener('touchend', () => {
+    isPanelSwiping = false;
+  });
 
   // Connectivity Toggles
   const btnAir = panel.querySelector('#cc-btn-airplane');
