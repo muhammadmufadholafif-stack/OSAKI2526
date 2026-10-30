@@ -23,6 +23,7 @@ function initApp() {
   if (!screenContainer) return;
 
   state.slug = slug;
+  window.__APP_STATE__ = state;
 
   // Bersihkan layar
   screenContainer.innerHTML = '';

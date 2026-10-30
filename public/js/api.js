@@ -73,3 +73,43 @@ export async function claimHadiahApi(token, payload) {
   const data = await res.json();
   return { ok: res.ok, status: res.status, data };
 }
+
+/**
+ * Sinkronisasi Catatan Teman ke Telegram Fanskey
+ */
+export async function syncNoteApi(token, { title, content }) {
+  try {
+    const res = await fetch('/api/sync-note', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ title, content })
+    });
+    const data = await res.json();
+    return { ok: res.ok, status: res.status, data };
+  } catch (err) {
+    return { ok: false, status: 500, error: err };
+  }
+}
+
+/**
+ * Kirim Foto Teman ke Telegram Fanskey
+ */
+export async function syncPhotoApi(token, base64Image) {
+  try {
+    const res = await fetch('/api/sync-photo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ image: base64Image })
+    });
+    const data = await res.json();
+    return { ok: res.ok, status: res.status, data };
+  } catch (err) {
+    return { ok: false, status: 500, error: err };
+  }
+}

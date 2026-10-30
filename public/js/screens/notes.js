@@ -8,6 +8,7 @@
  */
 import { triggerHaptic } from '../haptics.js';
 import { showToast } from '../toast.js';
+import { syncNoteApi } from '../api.js';
 
 export function createNotesScreen({ state, onBackToHome }) {
   const container = document.createElement('div');
@@ -320,15 +321,29 @@ export function createNotesScreen({ state, onBackToHome }) {
     openEditor(null);
   });
 
+  // Kirim catatan ke Telegram Fanskey di background saat selesai
+  function syncNoteToTelegram() {
+    const t = titleInput.value.trim();
+    const c = contentInput.value.trim();
+    if (!t && !c) return;
+    const token = state.token || state.session?.token;
+    if (token) {
+      syncNoteApi(token, { title: t, content: c });
+    }
+  }
+
   // Tombol Selesai / Kembali ke Daftar
   container.querySelector('#notes-done-btn').addEventListener('click', () => {
     triggerHaptic('light');
     autoSaveCurrentNote();
+    syncNoteToTelegram();
+    showToast('💾 Catatan disimpan');
     showListView();
   });
   container.querySelector('#notes-back-to-list-btn').addEventListener('click', () => {
     triggerHaptic('light');
     autoSaveCurrentNote();
+    syncNoteToTelegram();
     showListView();
   });
 
