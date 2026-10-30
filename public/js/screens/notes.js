@@ -28,27 +28,63 @@ export function createNotesScreen({ state, onBackToHome }) {
     }
   } catch (e) {}
 
-  // Pastikan catatan misteri selalu tersedia
-  const mysteryNoteId = 'note_mystery_clue_v2';
+  // Pastikan catatan misteri selalu tersedia.
+  // Versi v3 = teka-teki lebih susah: tidak ada jawaban langsung,
+  // setiap digit membutuhkan langkah ekstra untuk dipecahkan.
+  const mysteryNoteId = 'note_mystery_clue_v3';
   const hasMysteryNote = Array.isArray(notes) && notes.some(n => n.id === mysteryNoteId);
 
   if (!hasMysteryNote) {
     const clueNote = {
       id: mysteryNoteId,
-      title: '📁 Berkas Misteri: 4 Digit Sandi',
-      content: 'Selamat datang di penyelidikan kado ulang tahun!\nBrankas Hadiah dikunci kode 4 digit: [ ? - ? - ? - ? ]\n\n' +
-        '🧩 DIGIT 1 (Teka-Teki):\n"Bila kamu punya 1 apel, lalu kamu tambahkan 2 buah apel lagi, berapa jumlah apel yang ada di tanganmu?"\n-> Angka ini adalah Digit Ke-1.\n\n' +
-        '🎵 DIGIT 2 (Spotify):\n"Buka aplikasi Spotify. Cari lagu karya TULUS yang judulnya \'Jatuh Suka\'. Lihat digit menit paling depannya di durasi lagu."\n-> Angka menit itu adalah Digit Ke-2.\n\n' +
-        '🖼️ DIGIT 3 (Galeri Foto):\n"Buka Galeri Foto, buka foto ke-5 (f-i9j0) lalu baca petunjuknya:\n\'Berapa banyak ujung sudut pada sebuah lingkaran sempurna?\'"\n-> Jawabannya adalah Digit Ke-3.\n\n' +
-        '⚙️ DIGIT 4 (Control Center):\n"Usap ke bawah dari pojok kanan atas untuk membuka Control Center.\nHitung ada berapa total tombol ikon yang ada di panel atas (4 tombol bulat koneksi + 4 tombol kotak alat di bawahnya)."\n-> Total penjumlahan 4 + 4 itu adalah Digit Ke-4.\n\n' +
-        'Kumpulkan keempat angkanya berurutan, lalu masukkan ke aplikasi Hadiah!',
+      title: '📁 Berkas Misteri',
+      content:
+        'Seseorang menitipkan sebuah pesan untukmu.\n' +
+        'Brankas Hadiah dikunci empat digit. Tidak ada yang tahu kodenya — kecuali kamu,\n' +
+        'jika kamu cukup jeli melihat apa yang tersembunyi di sekitarmu.\n\n' +
+
+        '— — — — — — — — — — — — —\n\n' +
+
+        '🧩 KEPINGAN PERTAMA\n' +
+        '"Aku adalah bilangan prima ganjil terkecil.\n' +
+        ' Aku juga jumlah sisi pada bangun datar paling sederhana.\n' +
+        ' Dua petunjuk, satu jawaban."\n\n' +
+
+        '🎵 KEPINGAN KEDUA\n' +
+        '"Buka Spotify. Di dalam playlist ini ada sebuah lagu\n' +
+        ' yang judulnya menggambarkan momen hati mulai terasa hangat.\n' +
+        ' Bukan artisnya — lagunya.\n' +
+        ' Hitunglah dari atas: lagu itu ada di urutan ke berapa?\n' +
+        ' Angka urutan itu adalah kepingan kedua."\n\n' +
+
+        '🖼️ KEPINGAN KETIGA\n' +
+        '"Buka Galeri Foto. Temukan foto yang letaknya tepat\n' +
+        ' satu langkah sebelum foto berlabel \'Momen Bahagia\'.\n' +
+        ' Buka foto itu. Baca baik-baik.\n' +
+        ' Ada pertanyaan tersembunyi di sana — jawablah."\n\n' +
+
+        '⚙️ KEPINGAN KEEMPAT\n' +
+        '"Usap dari pojok kanan atas layar untuk membuka panel tersembunyi.\n' +
+        ' Di sana ada dua kelompok tombol.\n' +
+        ' Kalikan jumlah tombol kelompok pertama\n' +
+        ' dengan jumlah tombol kelompok kedua,\n' +
+        ' lalu bagi hasilnya dengan dua.\n' +
+        ' Itulah kepingan terakhir."\n\n' +
+
+        '— — — — — — — — — — — — —\n\n' +
+        'Susun keempat kepingan berurutan.\n' +
+        'Buka Hadiah. Selamat berburu! 🔍',
       updatedAt: 'Hari ini',
       time: '07:55'
     };
 
     if (!Array.isArray(notes)) notes = [];
-    // Hapus catatan lama jika ada
-    notes = notes.filter(n => n.id !== 'note_mystery_clue' && n.id !== mysteryNoteId);
+    // Hapus semua versi catatan misteri lama agar tidak ada duplikat
+    notes = notes.filter(n =>
+      n.id !== 'note_mystery_clue' &&
+      n.id !== 'note_mystery_clue_v2' &&
+      n.id !== mysteryNoteId
+    );
     notes.unshift(clueNote);
     saveToStorage();
   }
