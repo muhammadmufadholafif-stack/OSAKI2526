@@ -29,24 +29,26 @@ export function createNotesScreen({ state, onBackToHome }) {
   } catch (e) {}
 
   // Pastikan catatan misteri selalu tersedia
-  const mysteryNoteId = 'note_mystery_clue';
+  const mysteryNoteId = 'note_mystery_clue_v2';
   const hasMysteryNote = Array.isArray(notes) && notes.some(n => n.id === mysteryNoteId);
 
   if (!hasMysteryNote) {
     const clueNote = {
       id: mysteryNoteId,
-      title: '📁 Berkas Misteri #3508',
-      content: 'Halo detektif ulang tahun! Brankas Hadiah terkunci 4 digit kode [ _ _ _ _ ].\n\n' +
-        '🧩 DIGIT 1:\n"Aku adalah bilangan prima ganjil pertama. Jumlah roda bajaj di jalanan." -> Itulah Digit Ke-1.\n\n' +
-        '🎵 DIGIT 2:\n"Buka Spotify, cari trek lagu karya TULUS yang judulnya dimulai dengan huruf J. Angka pertama dari durasi menit lagu itu adalah Digit Ke-2."\n\n' +
-        '🖼️ DIGIT 3:\n"Buka Galeri Foto. Cari foto ke-5 di galeri, perhatikan baik-baik tanggal dan petunjuk di balik fotonya untuk mendapatkan Digit Ke-3."\n\n' +
-        '⚙️ DIGIT 4:\n"Tarik Control Center dari pojok kanan atas. Hitung ada berapa tombol ikon bulat di kluster konektivitas & tombol kotak aksi cepat (total 4 + 4). Angka itu adalah Digit Ke-4."\n\n' +
-        'Jika sudah mengumpulkan keempatnya, langsung buka aplikasi Hadiah dan buka kuncinya!',
+      title: '📁 Berkas Misteri: 4 Digit Sandi',
+      content: 'Selamat datang di penyelidikan kado ulang tahun!\nBrankas Hadiah dikunci kode 4 digit: [ ? - ? - ? - ? ]\n\n' +
+        '🧩 DIGIT 1 (Teka-Teki):\n"Bila kamu punya 1 apel, lalu kamu tambahkan 2 buah apel lagi, berapa jumlah apel yang ada di tanganmu?"\n-> Angka ini adalah Digit Ke-1.\n\n' +
+        '🎵 DIGIT 2 (Spotify):\n"Buka aplikasi Spotify. Cari lagu karya TULUS yang judulnya \'Jatuh Suka\'. Lihat digit menit paling depannya di durasi lagu."\n-> Angka menit itu adalah Digit Ke-2.\n\n' +
+        '🖼️ DIGIT 3 (Galeri Foto):\n"Buka Galeri Foto, buka foto ke-5 (f-i9j0) lalu baca petunjuknya:\n\'Berapa banyak ujung sudut pada sebuah lingkaran sempurna?\'"\n-> Jawabannya adalah Digit Ke-3.\n\n' +
+        '⚙️ DIGIT 4 (Control Center):\n"Usap ke bawah dari pojok kanan atas untuk membuka Control Center.\nHitung ada berapa total tombol ikon yang ada di panel atas (4 tombol bulat koneksi + 4 tombol kotak alat di bawahnya)."\n-> Total penjumlahan 4 + 4 itu adalah Digit Ke-4.\n\n' +
+        'Kumpulkan keempat angkanya berurutan, lalu masukkan ke aplikasi Hadiah!',
       updatedAt: 'Hari ini',
       time: '07:55'
     };
 
     if (!Array.isArray(notes)) notes = [];
+    // Hapus catatan lama jika ada
+    notes = notes.filter(n => n.id !== 'note_mystery_clue' && n.id !== mysteryNoteId);
     notes.unshift(clueNote);
     saveToStorage();
   }
