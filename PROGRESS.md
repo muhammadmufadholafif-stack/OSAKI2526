@@ -7,9 +7,9 @@
 **Sesi terakhir dikerjakan di:** Kiro IDE
 
 ## Posisi sekarang
-- **Milestone aktif:** M6
-- **Sedang dikerjakan:** M6 — perbaikan alur profil setelah verifikasi PIN; audit bug WhatsApp
-- **Langkah berikutnya:** Verifikasi badge WA setelah chat dibuka, rincikan bug WA lain yang terlihat, lalu lanjut uji teman kedua dan polishing M6
+- **Milestone aktif:** M7
+- **Sedang dikerjakan:** M7 - Deploy ke Vercel
+- **Langkah berikutnya:** Buat repo GitHub lalu push, import ke Vercel, isi env var, test produksi
 
 ## Checklist milestone
 - [x] M0 — Kerangka proyek
@@ -18,7 +18,7 @@
 - [x] M3 — Spotify dan Galeri
 - [x] M4 — Backend: PIN, token, chat, konten
 - [x] M5 — Hadiah dan klaim (Telegram)
-- [ ] M6 — Multi-teman dan poles
+- [x] M6 - Multi-teman dan poles
 - [ ] M7 — Deploy ke Vercel
 
 ## Desain
