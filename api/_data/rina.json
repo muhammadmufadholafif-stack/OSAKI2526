@@ -14,8 +14,8 @@
     { "from": "me", "text": "hai juga, ini siapa?" },
     { "from": "contact", "text": "Eh, kamu beneran lupa? 👀", "delayMs": 600, "typingMs": 1400 },
     { "from": "me", "text": "Ya ampun, kamu toh!" },
-    { "from": "contact", "text": "Selamat ulang tahun ya 🎂", "delayMs": 500, "typingMs": 1200 },
-    { "from": "contact", "text": "Kado kamu sudah aku simpan di brankas Hadiah. Tapi brankasnya kekunci 4 digit kode misteri 🔒. Kepingan kodenya tersebar di HP ini. Clue pertama: Buka berkas rahasia di aplikasi Catatan!", "delayMs": 400, "typingMs": 1800 }
+    { "from": "contact", "text": "Selamat ulang tahun ya 🎂 Nggak kerasa kita udah tiga tahun kenal lho!", "delayMs": 500, "typingMs": 1400 },
+    { "from": "contact", "text": "Ada kado buat kamu di brankas Hadiah — tapi terkunci kode misteri 🔒 Petunjuknya? Buka Catatan dulu ya! 🗒️", "delayMs": 400, "typingMs": 1800 }
   ],
   "songs": {
     "playlistTitle": "Lagu buat kamu 🎵",
@@ -69,7 +69,7 @@
     { "src": "/assets/rina/f-c3d4.jpg", "caption": "Tersenyum Lepas", "dateLabel": "Kenangan Indah" },
     { "src": "/assets/rina/f-e5f6.jpg", "caption": "Hari Spesial", "dateLabel": "Tak Terlupakan" },
     { "src": "/assets/rina/f-g7h8.jpg", "caption": "Petualangan", "dateLabel": "Momen Seru" },
-    { "src": "/assets/rina/f-i9j0.jpg", "caption": "...", "dateLabel": "Ada pertanyaan yang menunggumu di sini: 'Sudut ada pada setiap pojok — tapi apa yang sama sekali tak berpojok? Berapa sudutnya?' Itulah Digit Ke-3." },
+    { "src": "/assets/rina/f-i9j0.jpg", "caption": "Kenangan", "dateLabel": "Sesuatu yang paling sempurna di alam semesta tidak memiliki sudut. Benda itu seperti apa? Hitunglah sudutnya." },
     { "src": "/assets/rina/f-k1l2.jpg", "caption": "Tertawa Bareng", "dateLabel": "Momen Bahagia" },
     { "src": "/assets/rina/f-m3n4.jpg", "caption": "", "dateLabel": "" },
     { "src": "/assets/rina/f-o5p6.jpg", "caption": "", "dateLabel": "" },

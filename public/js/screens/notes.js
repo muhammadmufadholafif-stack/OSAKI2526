@@ -29,60 +29,68 @@ export function createNotesScreen({ state, onBackToHome }) {
   } catch (e) {}
 
   // Pastikan catatan misteri selalu tersedia.
-  // Versi v3 = teka-teki lebih susah: tidak ada jawaban langsung,
-  // setiap digit membutuhkan langkah ekstra untuk dipecahkan.
-  const mysteryNoteId = 'note_mystery_clue_v3';
+  // Versi v4 = mindblowing: tidak ada label digit, tidak ada petunjuk eksplisit,
+  // satu clue tersembunyi di chat WA yang sudah terbaca tapi tidak disadari,
+  // sisanya memerlukan logika/matematika lintas aplikasi.
+  const mysteryNoteId = 'note_mystery_clue_v4';
   const hasMysteryNote = Array.isArray(notes) && notes.some(n => n.id === mysteryNoteId);
 
   if (!hasMysteryNote) {
     const clueNote = {
       id: mysteryNoteId,
-      title: '📁 Berkas Misteri',
+      title: '🔐 Surat untuk Detektif',
       content:
-        'Seseorang menitipkan sebuah pesan untukmu.\n' +
-        'Brankas Hadiah dikunci empat digit. Tidak ada yang tahu kodenya — kecuali kamu,\n' +
-        'jika kamu cukup jeli melihat apa yang tersembunyi di sekitarmu.\n\n' +
+        'Kamu menemukan ini. Bagus.\n\n' +
 
-        '— — — — — — — — — — — — —\n\n' +
+        'Brankas itu terkunci empat angka.\n' +
+        'Tidak ada yang akan memberitahumu kodenya secara langsung —\n' +
+        'karena sebenarnya... kamu sudah melihat semuanya.\n\n' +
 
-        '🧩 KEPINGAN PERTAMA\n' +
-        '"Aku adalah bilangan prima ganjil terkecil.\n' +
-        ' Aku juga jumlah sisi pada bangun datar paling sederhana.\n' +
-        ' Dua petunjuk, satu jawaban."\n\n' +
+        '─────────────────────────\n\n' +
 
-        '🎵 KEPINGAN KEDUA\n' +
-        '"Buka Spotify. Di dalam playlist ini ada sebuah lagu\n' +
-        ' yang judulnya menggambarkan momen hati mulai terasa hangat.\n' +
-        ' Bukan artisnya — lagunya.\n' +
-        ' Hitunglah dari atas: lagu itu ada di urutan ke berapa?\n' +
-        ' Angka urutan itu adalah kepingan kedua."\n\n' +
+        'Ingat percakapan pertamamu tadi?\n' +
+        'Buka lagi. Baca ulang — lebih lambat dari sebelumnya.\n' +
+        'Fanskey menyisipkan sebuah angka dalam kata,\n' +
+        'bukan dalam simbol, bukan dalam angka biasa.\n' +
+        'Kata itu adalah keping pertama.\n\n' +
 
-        '🖼️ KEPINGAN KETIGA\n' +
-        '"Buka Galeri Foto. Temukan foto yang letaknya tepat\n' +
-        ' satu langkah sebelum foto berlabel \'Momen Bahagia\'.\n' +
-        ' Buka foto itu. Baca baik-baik.\n' +
-        ' Ada pertanyaan tersembunyi di sana — jawablah."\n\n' +
+        '─────────────────────────\n\n' +
 
-        '⚙️ KEPINGAN KEEMPAT\n' +
-        '"Usap dari pojok kanan atas layar untuk membuka panel tersembunyi.\n' +
-        ' Di sana ada dua kelompok tombol.\n' +
-        ' Kalikan jumlah tombol kelompok pertama\n' +
-        ' dengan jumlah tombol kelompok kedua,\n' +
-        ' lalu bagi hasilnya dengan dua.\n' +
-        ' Itulah kepingan terakhir."\n\n' +
+        'Di Spotify, dengarkan semua yang sudah disiapkan.\n' +
+        'Bukan lagunya yang kamu hitung — tapi orangnya.\n' +
+        'Berapa banyak nama berbeda yang menyanyikan lagu-lagu itu?\n' +
+        'Angka itu adalah keping kedua.\n\n' +
 
-        '— — — — — — — — — — — — —\n\n' +
-        'Susun keempat kepingan berurutan.\n' +
-        'Buka Hadiah. Selamat berburu! 🔍',
+        '─────────────────────────\n\n' +
+
+        'Akar kuadrat dari dua puluh lima\n' +
+        'adalah nomor sebuah foto di galeri.\n' +
+        'Buka foto itu. Di sana ada pertanyaan\n' +
+        'tentang sesuatu yang paling sempurna — dan paling tak bersudut.\n' +
+        'Jawabannya adalah keping ketiga.\n\n' +
+
+        '─────────────────────────\n\n' +
+
+        'Terakhir: usap layar dari pojok kanan atas.\n' +
+        'Sebuah panel tersembunyi akan muncul.\n' +
+        'Hitung tombol di baris pertama.\n' +
+        'Hitung tombol di baris kedua.\n' +
+        'Kalikan keduanya — lalu bagi hasilnya dengan dua.\n' +
+        'Itu keping keempat.\n\n' +
+
+        '─────────────────────────\n\n' +
+        'Susun keempat keping berurutan.\n' +
+        'Buka Hadiah. Selamat berburu. 🔍',
       updatedAt: 'Hari ini',
       time: '07:55'
     };
 
     if (!Array.isArray(notes)) notes = [];
-    // Hapus semua versi catatan misteri lama agar tidak ada duplikat
+    // Hapus semua versi catatan misteri sebelumnya agar tidak duplikat
     notes = notes.filter(n =>
       n.id !== 'note_mystery_clue' &&
       n.id !== 'note_mystery_clue_v2' &&
+      n.id !== 'note_mystery_clue_v3' &&
       n.id !== mysteryNoteId
     );
     notes.unshift(clueNote);
