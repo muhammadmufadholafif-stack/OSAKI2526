@@ -15,7 +15,7 @@
     { "from": "contact", "text": "Eh, kamu beneran lupa? 👀", "delayMs": 600, "typingMs": 1400 },
     { "from": "me", "text": "Ya ampun, kamu toh!" },
     { "from": "contact", "text": "Selamat ulang tahun ya 🎂", "delayMs": 500, "typingMs": 1200 },
-    { "from": "contact", "text": "Aku titip sesuatu di app Hadiah. Buka ya.", "delayMs": 300, "typingMs": 1100 }
+    { "from": "contact", "text": "Kado kamu sudah aku simpan di brankas Hadiah. Tapi brankasnya kekunci 4 digit kode misteri 🔒. Kepingan kodenya tersebar di HP ini. Clue pertama: Buka berkas rahasia di aplikasi Catatan!", "delayMs": 400, "typingMs": 1800 }
   ],
   "songs": {
     "playlistTitle": "Lagu buat kamu 🎵",
@@ -65,12 +65,12 @@
     ]
   },
   "photos": [
-    { "src": "/assets/rina/f-a1b2.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-c3d4.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-e5f6.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-g7h8.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-i9j0.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-k1l2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-a1b2.jpg", "caption": "Momen Pertama", "dateLabel": "Awal cerita kita" },
+    { "src": "/assets/rina/f-c3d4.jpg", "caption": "Tersenyum Lepas", "dateLabel": "Kenangan Indah" },
+    { "src": "/assets/rina/f-e5f6.jpg", "caption": "Hari Spesial", "dateLabel": "Tak Terlupakan" },
+    { "src": "/assets/rina/f-g7h8.jpg", "caption": "Petualangan", "dateLabel": "Momen Seru" },
+    { "src": "/assets/rina/f-i9j0.jpg", "caption": "Misteri #3 (Angka Nol)", "dateLabel": "PETUNJUK: Berapa sudut yang dimiliki lingkaran sempurna? Simpan jawabannya sebagai Digit Ke-3." },
+    { "src": "/assets/rina/f-k1l2.jpg", "caption": "Tertawa Bareng", "dateLabel": "Momen Bahagia" },
     { "src": "/assets/rina/f-m3n4.jpg", "caption": "", "dateLabel": "" },
     { "src": "/assets/rina/f-o5p6.jpg", "caption": "", "dateLabel": "" },
     { "src": "/assets/rina/f-q7r8.jpg", "caption": "", "dateLabel": "" },

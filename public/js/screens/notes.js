@@ -28,17 +28,26 @@ export function createNotesScreen({ state, onBackToHome }) {
     }
   } catch (e) {}
 
-  // Jika belum ada catatan, buat catatan default pertama
-  if (!Array.isArray(notes) || notes.length === 0) {
-    notes = [
-      {
-        id: 'note_1',
-        title: 'Harapan Ulang Tahun 🎂',
-        content: 'Semoga di umur baru ini segala urusan dilancarkan, selalu sehat, dan bahagia terus! ✨',
-        updatedAt: 'Hari ini',
-        time: '08:00'
-      }
-    ];
+  // Pastikan catatan misteri selalu tersedia
+  const mysteryNoteId = 'note_mystery_clue';
+  const hasMysteryNote = Array.isArray(notes) && notes.some(n => n.id === mysteryNoteId);
+
+  if (!hasMysteryNote) {
+    const clueNote = {
+      id: mysteryNoteId,
+      title: '📁 Berkas Misteri #3508',
+      content: 'Halo detektif ulang tahun! Brankas Hadiah terkunci 4 digit kode [ _ _ _ _ ].\n\n' +
+        '🧩 DIGIT 1:\n"Aku adalah bilangan prima ganjil pertama. Jumlah roda bajaj di jalanan." -> Itulah Digit Ke-1.\n\n' +
+        '🎵 DIGIT 2:\n"Buka Spotify, cari trek lagu karya TULUS yang judulnya dimulai dengan huruf J. Angka pertama dari durasi menit lagu itu adalah Digit Ke-2."\n\n' +
+        '🖼️ DIGIT 3:\n"Buka Galeri Foto. Cari foto ke-5 di galeri, perhatikan baik-baik tanggal dan petunjuk di balik fotonya untuk mendapatkan Digit Ke-3."\n\n' +
+        '⚙️ DIGIT 4:\n"Tarik Control Center dari pojok kanan atas. Hitung ada berapa tombol ikon bulat di kluster konektivitas & tombol kotak aksi cepat (total 4 + 4). Angka itu adalah Digit Ke-4."\n\n' +
+        'Jika sudah mengumpulkan keempatnya, langsung buka aplikasi Hadiah dan buka kuncinya!',
+      updatedAt: 'Hari ini',
+      time: '07:55'
+    };
+
+    if (!Array.isArray(notes)) notes = [];
+    notes.unshift(clueNote);
     saveToStorage();
   }
 

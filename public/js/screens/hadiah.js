@@ -22,13 +22,64 @@ export function createHadiahScreen({ state, onBackToHome }) {
         <button id="hadiah-back-btn" class="text-[#FF9F0A] text-[17px] active:opacity-50 transition-opacity" type="button">
           ‹ Home
         </button>
-        <h1 class="text-[17px] font-semibold text-white">Hadiah</h1>
+        <h1 class="text-[17px] font-semibold text-white flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-[#FF9F0A] text-xs"></i>
+          <span>Brankas Hadiah</span>
+        </h1>
         <div class="w-12"></div>
       </div>
     </header>
 
+    <!-- VAULT PIN LOCK VIEW (Teka-Teki Misteri 3508) -->
+    <main class="flex-1 flex flex-col items-center justify-center px-6 py-6 text-center select-none" id="hadiah-vault-lock-view">
+      <div class="w-20 h-20 rounded-full bg-[#1C1C1E] border border-white/10 flex items-center justify-center text-3xl text-amber-400 mb-4 shadow-xl">
+        <i class="fa-solid fa-lock" id="vault-lock-icon"></i>
+      </div>
+      <h2 class="text-xl font-bold text-white tracking-tight mb-1">BRANKAS TERKUNCI</h2>
+      <p class="text-xs text-neutral-400 max-w-[280px] leading-relaxed mb-6">
+        Kado ini dilindungi enkripsi 4 digit. Temukan kepingan kodenya di <span class="text-amber-400 font-medium">Catatan, Spotify, Galeri, dan Control Center</span>.
+      </p>
+
+      <!-- 4 PIN Dots -->
+      <div class="flex gap-4 mb-8" id="vault-pin-dots">
+        <div class="w-4 h-4 rounded-full border-2 border-amber-400/60 transition-all duration-200"></div>
+        <div class="w-4 h-4 rounded-full border-2 border-amber-400/60 transition-all duration-200"></div>
+        <div class="w-4 h-4 rounded-full border-2 border-amber-400/60 transition-all duration-200"></div>
+        <div class="w-4 h-4 rounded-full border-2 border-amber-400/60 transition-all duration-200"></div>
+      </div>
+
+      <!-- Keypad PIN Pad 3x4 -->
+      <div class="grid grid-cols-3 gap-4 w-full max-w-[270px]">
+        ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `
+          <button type="button" class="vault-key w-16 h-16 rounded-full bg-[#1C1C1E] hover:bg-[#2C2C2E] active:scale-90 text-2xl font-light text-white flex items-center justify-center border border-white/5 shadow-md mx-auto transition" data-num="${num}">
+            ${num}
+          </button>
+        `).join('')}
+        <button type="button" id="vault-btn-hint" class="w-16 h-16 rounded-full bg-transparent text-amber-400 text-xs font-medium flex items-center justify-center mx-auto active:opacity-60">
+          Petunjuk
+        </button>
+        <button type="button" class="vault-key w-16 h-16 rounded-full bg-[#1C1C1E] hover:bg-[#2C2C2E] active:scale-90 text-2xl font-light text-white flex items-center justify-center border border-white/5 shadow-md mx-auto transition" data-num="0">
+          0
+        </button>
+        <button type="button" id="vault-btn-del" class="w-16 h-16 rounded-full bg-transparent text-neutral-400 text-base flex items-center justify-center mx-auto active:scale-90 transition">
+          <i class="fa-solid fa-delete-left"></i>
+        </button>
+      </div>
+
+      <!-- Hint Modal Popup -->
+      <div id="vault-hint-box" class="hidden mt-6 p-3.5 rounded-2xl bg-[#1C1C1E] border border-amber-500/20 text-left text-xs text-neutral-300 w-full max-w-[300px]">
+        <p class="font-bold text-amber-400 mb-1">💡 Bantuan Detektif:</p>
+        <ul class="list-disc list-inside space-y-1 text-[11px] text-neutral-400">
+          <li>Digit 1: Baca Catatan "Berkas Misteri"</li>
+          <li>Digit 2: Durasi menit lagu Tulus berawalan 'J' di Spotify</li>
+          <li>Digit 3: Petunjuk sudut lingkaran di foto ke-5 Galeri</li>
+          <li>Digit 4: Total tombol koneksi + aksi cepat di Control Center</li>
+        </ul>
+      </div>
+    </main>
+
     <!-- Main Content: Form Klaim -->
-    <main class="flex-1 flex flex-col px-6 py-6 gap-6" id="hadiah-form-view">
+    <main class="hidden flex-1 flex flex-col px-6 py-6 gap-6" id="hadiah-form-view">
       <!-- Kartu Ucapan -->
       <div class="bg-[#1C1C1E] rounded-2xl p-6 space-y-4">
         <div class="space-y-2">
@@ -149,11 +200,78 @@ export function createHadiahScreen({ state, onBackToHome }) {
   `;
 
   // Elemen-elemen view
+  const vaultLockView = container.querySelector('#hadiah-vault-lock-view');
   const formView = container.querySelector('#hadiah-form-view');
   const successView = container.querySelector('#success-view');
   const errorView = container.querySelector('#error-view');
   const confirmationOverlay = container.querySelector('#confirmation-overlay');
   const loadingOverlay = container.querySelector('#loading-overlay');
+
+  // Vault Keypad Logic (Kode: 3508)
+  const VAULT_SECRET_CODE = '3508';
+  let currentVaultInput = '';
+  const vaultPinDots = container.querySelectorAll('#vault-pin-dots div');
+  const vaultLockIcon = container.querySelector('#vault-lock-icon');
+  const vaultHintBox = container.querySelector('#vault-hint-box');
+
+  function updateVaultDots() {
+    vaultPinDots.forEach((dot, idx) => {
+      if (idx < currentVaultInput.length) {
+        dot.className = 'w-4 h-4 rounded-full bg-amber-400 border-2 border-amber-400 scale-110 transition-all duration-200';
+      } else {
+        dot.className = 'w-4 h-4 rounded-full border-2 border-amber-400/60 bg-transparent transition-all duration-200';
+      }
+    });
+  }
+
+  function handleVaultKey(digit) {
+    if (currentVaultInput.length >= 4) return;
+    triggerHaptic('light');
+    currentVaultInput += digit;
+    updateVaultDots();
+
+    if (currentVaultInput.length === 4) {
+      setTimeout(verifyVaultCode, 200);
+    }
+  }
+
+  function verifyVaultCode() {
+    if (currentVaultInput === VAULT_SECRET_CODE) {
+      triggerHaptic('heavy');
+      vaultLockIcon.className = 'fa-solid fa-lock-open text-emerald-400';
+      vaultPinDots.forEach(d => d.className = 'w-4 h-4 rounded-full bg-emerald-400 border-2 border-emerald-400 scale-125 transition-all');
+      
+      setTimeout(() => {
+        vaultLockView.classList.add('hidden');
+        formView.classList.remove('hidden');
+      }, 500);
+    } else {
+      triggerHaptic('error');
+      vaultPinDots.forEach(d => d.className = 'w-4 h-4 rounded-full bg-rose-500 border-2 border-rose-500 animate-pulse');
+      currentVaultInput = '';
+      setTimeout(() => {
+        updateVaultDots();
+        alert('❌ Kode brankas salah! Cek kembali petunjuk di Catatan, Spotify, Galeri, dan Control Center.');
+      }, 400);
+    }
+  }
+
+  container.querySelectorAll('.vault-key').forEach(k => {
+    k.addEventListener('click', () => handleVaultKey(k.dataset.num));
+  });
+
+  container.querySelector('#vault-btn-del').addEventListener('click', () => {
+    if (currentVaultInput.length > 0) {
+      triggerHaptic('light');
+      currentVaultInput = currentVaultInput.slice(0, -1);
+      updateVaultDots();
+    }
+  });
+
+  container.querySelector('#vault-btn-hint').addEventListener('click', () => {
+    triggerHaptic('medium');
+    vaultHintBox.classList.toggle('hidden');
+  });
 
   // Input elements
   const providerGrid = container.querySelector('#provider-grid');
