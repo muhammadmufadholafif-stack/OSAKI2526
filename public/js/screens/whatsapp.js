@@ -212,7 +212,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
               <div class="flex items-center justify-between">
                 <p class="text-xs text-zinc-400 truncate pr-2">${c.lastMsg}</p>
                 ${c.unread > 0 ? `
-                  <span class="bg-[#25D366] text-black font-bold text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
+                  <span class="wa-unread-badge bg-[#25D366] text-black font-bold text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
                     ${c.unread}
                   </span>
                 ` : ''}
@@ -562,6 +562,14 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     headerDetail.style.display = 'flex';
     tabBar.style.display = 'none';
 
+    // Hapus badge unread untuk kontak ini
+    const itemEl = container.querySelector(`.inbox-item[data-id="${contact.id}"]`);
+    if (itemEl) {
+      const badge = itemEl.querySelector('.wa-unread-badge');
+      if (badge) badge.remove();
+    }
+    contact.unread = 0;
+
     // Isi header detail dengan info kontak yang dipilih
     const avatarEl = container.querySelector('#wa-chat-avatar');
     const nameEl = container.querySelector('#wa-contact-name');
@@ -627,6 +635,15 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     if (avatarEl) avatarEl.src = state.profile?.contactAvatar || mainContact.avatar;
     if (nameEl) nameEl.textContent = state.profile?.contactName || mainContact.name;
     if (statusEl) statusEl.textContent = 'online';
+
+    // Hapus badge unread untuk chat utama
+    const satyaItem = container.querySelector('.inbox-item[data-id="satya"]');
+    if (satyaItem) {
+      const badge = satyaItem.querySelector('.wa-unread-badge');
+      if (badge) badge.remove();
+    }
+    const satyaContact = mockInbox.find(c => c.id === 'satya');
+    if (satyaContact) satyaContact.unread = 0;
 
     if (!chatLoaded) {
       chatLoaded = true;
