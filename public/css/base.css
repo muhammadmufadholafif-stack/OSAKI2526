@@ -1,0 +1,147 @@
+/* Variabel Desain Global (Sesuai Stitch Nocturne iOS Gift Simulator & PRD) */
+:root {
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", Roboto, sans-serif;
+  --bg-desktop: #000000;
+  --bg-canvas: #05070a;
+  
+  /* Stitch Surface Hierarchy */
+  --surface-base: #121317;
+  --surface-container-lowest: #0d0e12;
+  --surface-container-low: #1a1b1f;
+  --surface-container: #1e1f23;
+  --surface-container-high: #292a2e;
+  --surface-container-highest: #343539;
+  
+  --text-main: #FFFFFF;
+  --text-secondary: #8E8E93;
+  --text-tertiary: #636366;
+  
+  /* Aksen Utama & Aplikasi */
+  --primary-accent: #ff9f0a;
+  --primary-dim: #ffb868;
+  --secondary-accent: #53e16f;
+  --tertiary-accent: #1db954;
+  
+  /* WhatsApp iOS Dark */
+  --wa-bg: #0B141A;
+  --wa-bubble-contact: #202C33;
+  --wa-bubble-me: #005C4B;
+  --wa-accent: #25D366;
+  
+  /* Spotify Brand */
+  --spotify-bg: #121212;
+  --spotify-accent: #1DB954;
+  
+  /* Hadiah Card Warm Amber */
+  --hadiah-accent: #ff9f0a;
+
+  /* Geometri Simulator iPhone 15/16 Pro */
+  --phone-width: 393px;
+  --phone-height: 852px;
+  --phone-radius: 54px;
+  --phone-border: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-desktop);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  overflow: hidden;
+}
+
+/* Tampilan Luar di Desktop: Berada di tengah dengan latar gelap */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bingkai HP Simulator */
+#phone-frame {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  background-color: #000000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Skala bingkai HP pada layar desktop (> 500px) */
+@media (min-width: 501px) {
+  #phone-frame {
+    width: var(--phone-width);
+    height: var(--phone-height);
+    max-height: 94vh;
+    border-radius: var(--phone-radius);
+    border: var(--phone-border) solid #2c2c2e;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Notch / Dynamic Island dekoratif */
+.phone-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 32px;
+  background-color: #000000;
+  border-radius: 20px;
+  z-index: 999;
+  pointer-events: none;
+}
+
+/* Kontainer Layar Utama */
+#screen-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Home Indicator (Garis Bawah iPhone) */
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  z-index: 998;
+  pointer-events: none;
+}
+
+/* Pesan Landscape HP */
+#landscape-warning {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  color: #FFFFFF;
+  z-index: 10000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  #landscape-warning {
+    display: flex;
+  }
+}

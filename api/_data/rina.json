@@ -1,0 +1,96 @@
+{
+  "slug": "rina",
+  "displayName": "Rina",
+  "profile": {
+    "contactName": "Fanskey",
+    "contactAvatar": "/assets/default/wallpaper-lock.jpg",
+    "notifText": "hai",
+    "clockTime": "",
+    "dateLabel": "",
+    "wallpaper": "/assets/default/wallpaper-lock.jpg"
+  },
+  "chat": [
+    { "from": "contact", "text": "hai" },
+    { "from": "me", "text": "hai juga, ini siapa?" },
+    { "from": "contact", "text": "Eh, kamu beneran lupa? 👀", "delayMs": 600, "typingMs": 1400 },
+    { "from": "me", "text": "Ya ampun, kamu toh!" },
+    { "from": "contact", "text": "Selamat ulang tahun ya 🎂", "delayMs": 500, "typingMs": 1200 },
+    { "from": "contact", "text": "Aku titip sesuatu di app Hadiah. Buka ya.", "delayMs": 300, "typingMs": 1100 }
+  ],
+  "songs": {
+    "playlistTitle": "Lagu buat kamu 🎵",
+    "items": [
+      {
+        "title": "Kita Ke Sana",
+        "artist": "Hindia",
+        "src": "/assets/rina/a1b2c3.mp3",
+        "cover": "/assets/rina/f-a1b2.jpg",
+        "durationLabel": "04:18"
+      },
+      {
+        "title": "Selamat Ulang Tahun",
+        "artist": "Jamrud",
+        "src": "/assets/rina/d4e5f6.mp3",
+        "cover": "/assets/rina/f-c3d4.jpg",
+        "durationLabel": "03:45"
+      },
+      {
+        "title": "Semua Aku Dirayakan",
+        "artist": "Nadin Amizah",
+        "src": "/assets/rina/g7h8i9.mp3",
+        "cover": "/assets/rina/f-e5f6.jpg",
+        "durationLabel": "04:52"
+      },
+      {
+        "title": "About You",
+        "artist": "The 1975",
+        "src": "/assets/rina/j0k1l2.mp3",
+        "cover": "/assets/rina/f-g7h8.jpg",
+        "durationLabel": "05:40"
+      },
+      {
+        "title": "Jatuh Suka",
+        "artist": "Tulus",
+        "src": "/assets/rina/m3n4o5.mp3",
+        "cover": "/assets/rina/f-i9j0.jpg",
+        "durationLabel": "04:01"
+      },
+      {
+        "title": "Monokrom",
+        "artist": "Tulus",
+        "src": "/assets/rina/p6q7r8.mp3",
+        "cover": "/assets/rina/f-k1l2.jpg",
+        "durationLabel": "03:52"
+      }
+    ]
+  },
+  "photos": [
+    { "src": "/assets/rina/f-a1b2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-c3d4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-e5f6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-g7h8.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-i9j0.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-k1l2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-m3n4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-o5p6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-q7r8.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-s9t0.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-u1v2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-w3x4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-y5z6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-a7b8.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-c9d0.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-e1f2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-g3h4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-i5j6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-k7l8.jpg", "caption": "", "dateLabel": "" }
+  ],
+  "hadiah": {
+    "title": "Selamat Ulang Tahun! 🎉",
+    "message": [
+      "Semoga tahun ini lebih baik dari yang kemarin.",
+      "Ada sedikit kado buat kamu. Pilih e-wallet kamu di bawah ya."
+    ],
+    "giftLabel": "Kado dari Fanskey"
+  }
+}

@@ -1,0 +1,175 @@
+/* ==========================================================================
+   GALERI FOTO & LIGHTBOX (iOS) - Sesuai PRD F6
+   ========================================================================== */
+
+.gallery-screen {
+  position: absolute;
+  inset: 0;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  z-index: 350;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  color: #FFFFFF;
+}
+
+.gallery-screen.open {
+  transform: translateY(0);
+}
+
+.gallery-header {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.gallery-back-btn {
+  background: rgba(44, 44, 46, 0.65);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 5px 12px;
+}
+
+.gallery-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.gallery-count {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Grid 3 Kolom Foto */
+.gallery-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 2px;
+}
+
+.gallery-thumb-item {
+  aspect-ratio: 1 / 1;
+  background-color: #1C1C1E;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Lightbox Layar Penuh */
+.lightbox-modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 600;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 16px;
+}
+
+.lightbox-modal.active {
+  display: flex;
+}
+
+.lightbox-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lightbox-counter {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lightbox-close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #FFFFFF;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.lightbox-main-img-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #FFFFFF;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.lightbox-prev { left: 4px; }
+.lightbox-next { right: 4px; }
+
+.lightbox-footer {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.lightbox-caption {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.lightbox-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}

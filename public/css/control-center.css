@@ -1,0 +1,254 @@
+/* ==========================================================================
+   CONTROL CENTER (iOS Simulator) - Sistem Interaktif
+   ========================================================================== */
+
+/* Area Pemicu Tarik di Pojok Kanan Atas iPhone */
+.control-center-trigger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90px;
+  height: 36px;
+  z-index: 1200;
+  cursor: pointer;
+  /* Garis panduan kecil di bawah status bar kanan */
+}
+
+.control-center-indicator-bar {
+  position: absolute;
+  top: 32px;
+  right: 18px;
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Panel Layar Penuh Control Center */
+.control-center-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 18, 20, 0.6);
+  backdrop-filter: blur(35px) saturate(180%);
+  -webkit-backdrop-filter: blur(35px) saturate(180%);
+  z-index: 1500;
+  transform: translateY(-100%);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 50px 20px 24px 20px;
+  gap: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  color: #FFFFFF;
+}
+
+.control-center-overlay.open {
+  transform: translateY(0);
+}
+
+/* Baris Drag Handle di Bagian Bawah Panel */
+.control-center-drag-bar {
+  align-self: center;
+  width: 48px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.5);
+  margin-top: auto;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+/* Grid Modul-Modul iOS */
+.cc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 100%;
+}
+
+/* Modul Blok Persegi Kaca */
+.cc-card {
+  background: rgba(45, 45, 50, 0.65);
+  border-radius: 20px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Modul Koneksi (Airplane, Cellular, Wifi, Bluetooth) */
+.cc-connectivity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  height: 140px;
+}
+
+.cc-toggle-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cc-toggle-btn:active {
+  transform: scale(0.92);
+}
+
+.cc-toggle-btn.active {
+  background: #0A84FF;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.4);
+}
+
+.cc-toggle-btn.active.cellular {
+  background: #30D158;
+  box-shadow: 0 4px 12px rgba(48, 209, 88, 0.4);
+}
+
+.cc-toggle-btn.active.airplane {
+  background: #FF9F0A;
+  box-shadow: 0 4px 12px rgba(255, 159, 10, 0.4);
+}
+
+/* Modul Musik Singkat */
+.cc-music-card {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 14px;
+}
+
+.cc-music-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-music-artist {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 2px;
+}
+
+.cc-music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: auto;
+}
+
+.cc-media-btn {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Slider Vertikal: Kecerahan & Volume */
+.cc-sliders-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.cc-slider-card {
+  height: 140px;
+  background: rgba(45, 45, 50, 0.65);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.cc-slider-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  transition: height 0.1s ease;
+  pointer-events: none;
+}
+
+.cc-slider-icon {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  margin-bottom: 14px;
+  color: #1C1C1E;
+  pointer-events: none;
+}
+
+/* Modul Cepat Bawah: Senter, Kalkulator, Kamera, Low Power */
+.cc-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.cc-action-item {
+  aspect-ratio: 1 / 1;
+  background: rgba(45, 45, 50, 0.65);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-action-item:active {
+  transform: scale(0.92);
+}
+
+.cc-action-item.active {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+/* Layer Senter Overlay (Efek Layar Putih Terang saat Senter Aktif) */
+#flashlight-overlay {
+  position: absolute;
+  inset: 0;
+  background: #FFFFFF;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+#flashlight-overlay.on {
+  opacity: 0.92;
+  pointer-events: auto;
+  cursor: pointer;
+}

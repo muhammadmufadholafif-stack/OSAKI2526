@@ -1,0 +1,30 @@
+{
+  "slug": "template",
+  "displayName": "Nama Teman",
+  "profile": {
+    "contactName": "Fanskey",
+    "contactAvatar": "/assets/template/avatar.jpg",
+    "notifText": "hai",
+    "clockTime": "09:41",
+    "dateLabel": "Kamis, 29 Oktober",
+    "wallpaper": "/assets/template/wallpaper.jpg"
+  },
+  "chat": [
+    { "from": "contact", "text": "hai" },
+    { "from": "me", "text": "hai juga, ini siapa?" },
+    { "from": "contact", "text": "Selamat ulang tahun ya! 🎂" }
+  ],
+  "songs": {
+    "playlistTitle": "Lagu Spesial",
+    "items": []
+  },
+  "photos": [],
+  "hadiah": {
+    "title": "Selamat Ulang Tahun!",
+    "message": [
+      "Semoga panjang umur dan sukses selalu.",
+      "Pilih e-wallet kamu di bawah ya."
+    ],
+    "giftLabel": "Kado dari Fanskey"
+  }
+}

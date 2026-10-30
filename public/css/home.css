@@ -1,0 +1,371 @@
+/* ==========================================================================
+   HOME SCREEN (Gaya iPhone iOS) - Sesuai Acuan Persis Stitch Screen 02 & 03
+   ========================================================================== */
+
+.home-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 18px 18px 18px;
+  background: radial-gradient(circle at 60% 30%, #4a3429 0%, #201b1b 50%, #0d0f12 100%),
+              linear-gradient(180deg, rgba(20, 20, 25, 0.7) 0%, rgba(10, 10, 15, 0.95) 100%);
+  background-size: cover;
+  background-position: center;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 50;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+
+/* Status Bar Atas: Jam, Sinyal, Wifi, Baterai */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  padding: 0 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  z-index: 200;
+}
+
+.status-bar-icons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+}
+
+/* Banner Notifikasi WhatsApp yang Turun dari Atas (Stitch Screen 03) */
+.wa-banner {
+  position: absolute;
+  top: -140px;
+  left: 14px;
+  right: 14px;
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: 20px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+  z-index: 500;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.wa-banner.show {
+  transform: translateY(180px);
+}
+
+.wa-banner-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--wa-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.wa-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.wa-banner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.wa-banner-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.wa-banner-time {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.wa-banner-msg {
+  font-size: 0.84rem;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Grid Widget Ganda Persis Stitch: Kalender (Kiri) & Cuaca (Kanan) */
+.home-widgets-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.ios-widget-card {
+  height: 146px;
+  border-radius: 22px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Widget Kalender Dark */
+.widget-calendar {
+  background: rgba(28, 28, 30, 0.8);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.widget-cal-day {
+  color: #FF453A;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.widget-cal-num {
+  color: #FFFFFF;
+  font-size: 3.2rem;
+  font-weight: 300;
+  line-height: 1;
+  margin-top: 2px;
+  letter-spacing: -0.04em;
+}
+
+.widget-cal-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cal-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FF453A;
+}
+
+/* Widget Cuaca Biru Langit */
+.widget-weather {
+  background: linear-gradient(180deg, #2b5993 0%, #1e3c66 100%);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.widget-weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.weather-city {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.weather-temp {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #FFFFFF;
+  margin-top: 2px;
+}
+
+.weather-icon {
+  font-size: 1.6rem;
+  color: #FFFFFF;
+}
+
+.weather-desc {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Grid 4 Aplikasi iPhone Utama */
+.home-apps-grid {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px 10px;
+  text-align: center;
+}
+
+.app-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.app-icon-wrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease;
+}
+
+.app-item:active .app-icon-wrapper {
+  transform: scale(0.92);
+}
+
+.app-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Ikon Aplikasi Sesuai Visual Stitch */
+.app-wa {
+  background: #25D366;
+  color: #FFFFFF;
+  font-size: 1.9rem;
+}
+
+.app-spotify {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-spotify-inner {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #1DB954;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  font-size: 1.7rem;
+}
+
+.app-gallery {
+  background: #FFFFFF;
+}
+
+.app-hadiah {
+  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+  color: #FFFFFF;
+  font-size: 1.7rem;
+}
+
+.app-hadiah.locked {
+  filter: grayscale(40%) opacity(0.8);
+}
+
+.lock-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #18181b;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  color: #FFB340;
+}
+
+/* Capsule Search Bar di Bawah Aplikasi (Stitch) */
+.home-search-pill {
+  margin-top: auto;
+  margin-bottom: 14px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Floating Dock Bawah Khas iOS (Stitch Screen 02) */
+.home-dock-container {
+  width: 100%;
+  height: 84px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  border-radius: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.5);
+  margin-bottom: 4px;
+}
+
+.dock-app-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  color: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s ease;
+}
+
+.dock-app-icon:active {
+  transform: scale(0.9);
+}
+
+.dock-phone {
+  background: linear-gradient(180deg, #34D399 0%, #059669 100%);
+}
+
+.dock-safari {
+  background: #FFFFFF;
+}
+
+.dock-wa {
+  background: #25D366;
+}
+
+.dock-music {
+  background: linear-gradient(135deg, #fa2d48 0%, #fb6578 100%);
+}

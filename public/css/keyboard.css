@@ -1,0 +1,91 @@
+/* ==========================================================================
+   KEYBOARD VIRTUAL iPHONE (Mode Gelap) - Sesuai PRD F4
+   ========================================================================== */
+
+.keyboard-container {
+  width: 100%;
+  background: #1C1C1E;
+  padding: 8px 4px 22px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+  -webkit-user-select: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
+  z-index: 400;
+  transition: transform 0.25s ease;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.key-btn {
+  height: 42px;
+  min-width: 32px;
+  flex: 1;
+  max-width: 42px;
+  background: #48484A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.15rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: background-color 0.08s ease, transform 0.08s ease;
+}
+
+.key-btn:active {
+  background: #636366;
+  transform: scale(0.96);
+}
+
+/* Tombol Khusus: Shift, Backspace, 123, Return, Spasi */
+.key-btn.special-key {
+  background: #2C2C2E;
+  flex: 1.4;
+  max-width: 52px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.key-btn.space-key {
+  flex: 5;
+  max-width: 190px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.key-btn.return-key {
+  flex: 2.2;
+  max-width: 80px;
+  background: #005C4B;
+  color: #FFFFFF;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.key-btn.return-key.disabled {
+  background: #2C2C2E;
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Shake Animasi tombol Return bila teks belum lengkap */
+@keyframes shakeBtn {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.key-btn.return-key.shake {
+  animation: shakeBtn 0.3s ease;
+}

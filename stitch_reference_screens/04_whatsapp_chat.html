@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WhatsApp Chat - Fanskey</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style data-purpose="custom-scroll-and-theme">
+    /* Subtle WhatsApp chat pattern */
+    .wa-bg-pattern {
+      background-color: #0b141a;
+      background-image: radial-gradient(#182229 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    /* iOS system font styling */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen flex items-center justify-center p-0 sm:p-4">
+<!-- BEGIN: PhoneContainer -->
+<!-- Mimicking an authentic iOS frame in 9:16 aspect ratio -->
+<main class="w-full max-w-[400px] h-[100dvh] max-h-[860px] bg-[#0b141a] flex flex-col justify-between relative overflow-hidden shadow-2xl sm:rounded-[48px] sm:border-[8px] sm:border-[#222]">
+<!-- BEGIN: TopBarAndHeader -->
+<header class="w-full bg-[#111b21]/95 backdrop-blur-md z-30 shrink-0 border-b border-[#202c33]/70">
+<!-- iOS Status Bar & Dynamic Island -->
+<div class="pt-3 px-7 flex items-center justify-between text-xs font-semibold tracking-tight text-white select-none">
+<span class="text-[14px] font-semibold pl-1">07:51</span>
+<!-- Dynamic Island pill -->
+<div class="w-[96px] h-[25px] bg-black rounded-full flex items-center justify-end pr-2.5 space-x-1.5 shadow-inner">
+<div class="w-2.5 h-2.5 rounded-full bg-[#0a0a0a] border border-[#1a1a1a]"></div>
+</div>
+<div class="flex items-center space-x-1.5 pr-1">
+<!-- Signal icon -->
+<i class="fa-solid fa-signal text-[11px]"></i>
+<!-- 5G text/Wifi -->
+<i class="fa-solid fa-wifi text-[11px]"></i>
+<!-- Battery icon -->
+<div class="w-5 h-2.5 border border-white/80 rounded-[3px] p-[1px] flex items-center">
+<div class="bg-white h-full w-[70%] rounded-[1.5px]"></div>
+</div>
+</div>
+</div>
+<!-- Reference Floating '< Home' Pill Button (as seen in panel 7 of reference) -->
+<div class="px-3 pt-1 pb-0.5">
+<button aria-label="Back to Home" class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-white/10 hover:bg-white/15 text-[11px] text-zinc-300 font-medium backdrop-blur-sm transition" type="button">
+<i class="fa-solid fa-chevron-left text-[9px]"></i>
+<span>Home</span>
+</button>
+</div>
+<!-- WhatsApp App Bar -->
+<div class="px-3 pb-2 pt-1 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<!-- Back Chevron -->
+<button aria-label="Kembali" class="w-8 h-8 flex items-center justify-center text-[#53bdeb] active:opacity-70 transition" type="button">
+<i class="fa-solid fa-chevron-left text-lg"></i>
+</button>
+<!-- Contact Avatar & Info -->
+<div class="flex items-center space-x-2.5 cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-[#202c33] border border-white/10 flex items-center justify-center text-white overflow-hidden shadow">
+<i class="fa-solid fa-user-astronaut text-xl text-teal-400"></i>
+</div>
+<div class="flex flex-col">
+<span class="font-semibold text-[15px] leading-tight text-[#e9edef] flex items-center gap-1.5">
+                Fanskey
+              </span>
+<span class="text-[11px] text-[#8696a0] leading-none">online</span>
+</div>
+</div>
+</div>
+<!-- Right action: Phone call circle button -->
+<div class="flex items-center">
+<button aria-label="Panggil Suara" class="w-9 h-9 rounded-full bg-[#202c33] hover:bg-[#2a3942] active:scale-95 flex items-center justify-center text-[#aebac1] transition" type="button">
+<i class="fa-solid fa-phone text-xs"></i>
+</button>
+</div>
+</div>
+</header>
+<!-- END: TopBarAndHeader -->
+<!-- BEGIN: ChatArea -->
+<!-- Message history stream with dark WhatsApp pattern -->
+<section aria-label="Riwayat Percakapan" class="flex-1 overflow-y-auto px-3.5 py-3 wa-bg-pattern flex flex-col justify-end space-y-2.5 text-[14px]">
+<!-- Date Divider -->
+<div class="flex justify-center my-1 select-none">
+<span class="bg-[#182229]/90 text-[#8696a0] text-[10px] uppercase font-semibold px-2.5 py-0.5 rounded-md shadow-sm border border-white/5">
+          Hari Ini
+        </span>
+</div>
+<!-- Incoming Bubble 1 -->
+<div class="flex justify-start">
+<div class="max-w-[78%] bg-[#202c33] text-[#e9edef] rounded-2xl rounded-tl-sm px-3 pt-2 pb-1.5 shadow-md relative group">
+<p class="leading-relaxed">hai</p>
+<div class="flex justify-end items-center mt-0.5 space-x-1">
+<span class="text-[10px] text-[#8696a0] font-light">07:49</span>
+</div>
+</div>
+</div>
+<!-- Outgoing Bubble -->
+<div class="flex justify-end">
+<div class="max-w-[78%] bg-[#005c4b] text-[#e9edef] rounded-2xl rounded-tr-sm px-3 pt-2 pb-1.5 shadow-md relative">
+<p class="leading-relaxed">hai juga, ini siapa?</p>
+<div class="flex justify-end items-center mt-0.5 space-x-1 select-none">
+<span class="text-[10px] text-[#8696a0] font-light">07:50</span>
+<!-- Double blue checkmarks -->
+<span class="text-[#53bdeb] text-[10px]">
+<i class="fa-solid fa-check-double"></i>
+</span>
+</div>
+</div>
+</div>
+<!-- Incoming Bubble 2 -->
+<div class="flex justify-start">
+<div class="max-w-[78%] bg-[#202c33] text-[#e9edef] rounded-2xl rounded-tl-sm px-3 pt-2 pb-1.5 shadow-md relative">
+<p class="leading-relaxed">Eh, kamu beneran lupa? 👀</p>
+<div class="flex justify-end items-center mt-0.5 space-x-1">
+<span class="text-[10px] text-[#8696a0] font-light">07:51</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ChatArea -->
+<!-- BEGIN: InputBarAndHomeIndicator -->
+<footer class="bg-[#111b21] border-t border-[#202c33]/80 px-2.5 pt-2 pb-1 z-30 shrink-0">
+<!-- Input Row -->
+<div class="flex items-center space-x-2">
+<!-- Plus Button -->
+<button aria-label="Lampirkan File" class="w-9 h-9 rounded-full flex items-center justify-center text-[#8696a0] hover:text-white hover:bg-[#202c33] transition" type="button">
+<i class="fa-solid fa-plus text-lg"></i>
+</button>
+<!-- Text Input Field Container -->
+<div class="flex-1 bg-[#202c33] rounded-2xl px-3.5 py-1.5 flex items-center justify-between border border-transparent focus-within:border-[#00a884]/40">
+<input class="w-full bg-transparent border-none p-0 text-sm text-[#e9edef] placeholder-[#8696a0] focus:ring-0 outline-none" placeholder="Ketik pesan..." type="text"/>
+<div class="flex items-center space-x-2 text-[#8696a0] pl-2">
+<button aria-label="Stiker" class="hover:text-white transition" type="button">
+<i class="fa-regular fa-note-sticky text-base"></i>
+</button>
+<button aria-label="Kamera" class="hover:text-white transition" type="button">
+<i class="fa-solid fa-camera text-base"></i>
+</button>
+</div>
+</div>
+<!-- Voice / Send Microphone Button -->
+<button aria-label="Rekam Suara" class="w-10 h-10 rounded-full bg-[#00a884] hover:bg-[#008f72] active:scale-95 text-[#111b21] flex items-center justify-center shadow-md transition shrink-0" type="button">
+<i class="fa-solid fa-microphone text-base font-semibold"></i>
+</button>
+</div>
+<!-- iOS Home Indicator Indicator -->
+<div class="w-full flex justify-center pt-3 pb-1 select-none">
+<div class="w-32 h-1 bg-white/30 rounded-full"></div>
+</div>
+</footer>
+<!-- END: InputBarAndHomeIndicator -->
+</main>
+<!-- END: PhoneContainer -->
+</body></html>

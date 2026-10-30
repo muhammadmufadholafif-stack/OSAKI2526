@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>iPhone Simulator</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Google Fonts: Inter & Nunito & SF Pro styling -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Phosphor Icons CDN -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Tailwind Custom Config Matching Stitch Screens -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Inter', 'sans-serif'],
+            sf: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Inter', 'sans-serif'],
+            nunito: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            'ios-glass': 'rgba(255, 255, 255, 0.16)',
+            'ios-dock': 'rgba(40, 42, 48, 0.45)',
+            'iosDark': '#000000',
+            'cardDark': '#161618',
+            'spotifyGreen': '#1DB954',
+            'waBg': '#0B141A',
+            'waIncoming': '#202C33',
+            'waOutgoing': '#005C4B',
+          },
+          backdropBlur: {
+            'ios': '30px',
+            'dock': '35px',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      background-color: #050507;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* iOS Large Clock Font Style */
+    .ios-clock {
+      font-feature-settings: "tnum";
+      letter-spacing: -0.04em;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+    }
+
+    /* AU Outlined Headline Text */
+    .au-outline-text {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-text-stroke: 4px #000000;
+      paint-order: stroke fill;
+      filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.85));
+    }
+
+    /* iOS App Icon Squircle Radius */
+    .ios-squircle {
+      border-radius: 22.37%;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .ios-widget-shape {
+      border-radius: 24px;
+    }
+
+    .ios-wallpaper {
+      background: radial-gradient(circle at 60% 30%, #4a3429 0%, #201b1b 50%, #0d0f12 100%),
+                  linear-gradient(180deg, rgba(20, 20, 25, 0.7) 0%, rgba(10, 10, 15, 0.95) 100%);
+    }
+
+    .ambient-glow {
+      background: radial-gradient(circle at 75% 25%, rgba(205, 120, 75, 0.28) 0%, rgba(0,0,0,0) 60%),
+                  radial-gradient(circle at 20% 70%, rgba(45, 65, 100, 0.25) 0%, rgba(0,0,0,0) 50%);
+    }
+
+    /* Hide scrollbar */
+    .no-scrollbar::-webkit-scrollbar,
+    .custom-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar,
+    .custom-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Phone frame container adjustments */
+    #phone-frame {
+      width: 100%;
+      max-width: 395px;
+      height: 844px;
+      max-height: 100dvh;
+      position: relative;
+      overflow: hidden;
+      background-color: #000000;
+    }
+    @media (min-width: 640px) {
+      #phone-frame {
+        border-radius: 50px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 0 8px #222428, 0 0 0 9px rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    /* Keypad frosted glass */
+    .ios-key-btn {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .ios-key-btn:active {
+      background: rgba(255, 255, 255, 0.35);
+      transform: scale(0.96);
+    }
+
+    /* Toast styling */
+    .ios-toast {
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: rgba(30, 30, 32, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .ios-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Shake animation */
+    @keyframes shakePin {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+    .shake-anim {
+      animation: shakePin 0.4s ease;
+    }
+  </style>
+
+  <link rel="stylesheet" href="/css/control-center.css">
+</head>
+<body class="bg-[#050507] text-white flex items-center justify-center min-h-screen p-0 sm:p-4 overflow-hidden">
+
+  <!-- Peringatan untuk mode landscape di HP -->
+  <div id="landscape-warning" style="display: none; position: fixed; inset: 0; background: #000; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;">
+    <p style="font-size: 2rem; margin-bottom: 8px;">📱</p>
+    <p style="color: #fff; font-size: 0.95rem;">Silakan putar HP Anda ke mode potret untuk pengalaman terbaik.</p>
+  </div>
+
+  <!-- Kontainer Simulator iPhone -->
+  <div id="phone-frame" class="relative flex flex-col justify-between">
+    <!-- Area Konten Layar Aktif -->
+    <main id="screen-container" class="relative w-full h-full flex flex-col overflow-hidden"></main>
+  </div>
+
+  <!-- Script Aplikasi -->
+  <script type="module" src="/js/main.js?v=2.1"></script>
+</body>
+</html>

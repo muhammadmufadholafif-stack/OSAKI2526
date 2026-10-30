@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>iOS Home Screen with WhatsApp Notification</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+          },
+          colors: {
+            iosGlass: 'rgba(28, 28, 30, 0.78)',
+            dockGlass: 'rgba(255, 255, 255, 0.18)',
+            pillGlass: 'rgba(50, 50, 52, 0.65)'
+          },
+          animation: {
+            'slide-down': 'slideDown 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          },
+          keyframes: {
+            slideDown: {
+              '0%': { transform: 'translateY(-40px) scale(0.96)', opacity: '0' },
+              '100%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles for iOS Glassmorphism and details -->
+<style data-purpose="custom-styling">
+    .ios-blur {
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+    }
+    .widget-blur {
+      backdrop-filter: blur(35px);
+      -webkit-backdrop-filter: blur(35px);
+    }
+    .app-icon-shadow {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .text-shadow-sm {
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen p-0 sm:p-4 select-none antialiased font-sans">
+<!-- BEGIN: DeviceContainer -->
+<!-- iPhone 15 Pro Portrait Canvas Frame (393px x 852px) -->
+<main class="relative w-full max-w-[393px] h-[852px] rounded-[52px] overflow-hidden shadow-2xl border-[5px] border-[#2d2d2d] bg-[#0c0d12] flex flex-col justify-between" data-purpose="device-frame">
+<!-- BEGIN: WallpaperBackground -->
+<!-- Dark moody blurred photography background matching reference panel 2 -->
+<div class="absolute inset-0 z-0 bg-gradient-to-b from-[#181920] via-[#0d0f14] to-[#050608]" data-purpose="background-layer">
+<!-- Ambient light blobs mimicking the blurred aesthetic of panel 2 -->
+<div class="absolute top-[80px] left-[-30px] w-56 h-56 bg-sky-900/20 rounded-full blur-3xl"></div>
+<div class="absolute bottom-[200px] right-[-20px] w-64 h-64 bg-amber-900/10 rounded-full blur-3xl"></div>
+<div class="absolute top-1/2 left-1/3 w-48 h-48 bg-indigo-950/30 rounded-full blur-2xl"></div>
+</div>
+<!-- END: WallpaperBackground -->
+<!-- BEGIN: TopOverlayArea -->
+<!-- Contains Status Bar, Dynamic Island, and Floating Drop Notification -->
+<header class="relative z-50 w-full pt-3 px-6 flex flex-col items-center">
+<!-- Status Bar Details -->
+<div class="w-full flex items-center justify-between text-white text-[15px] font-semibold tracking-tight px-2 h-7" data-purpose="status-bar">
+<span class="tracking-normal pl-1">07:51</span>
+<!-- Dynamic Island Pill -->
+<div class="w-[124px] h-[34px] bg-black rounded-full flex items-center justify-between px-3" data-purpose="dynamic-island">
+<div class="w-2.5 h-2.5 bg-[#080808] rounded-full ring-1 ring-neutral-800"></div>
+<div class="w-3 h-3 bg-[#0a1220] rounded-full ring-1 ring-[#15233d] flex items-center justify-center">
+<div class="w-1 h-1 bg-[#1a4480] rounded-full"></div>
+</div>
+</div>
+<!-- Status Bar Right Icons (Signal, 5G/Wifi, Battery) -->
+<div class="flex items-center gap-1.5 text-white pr-0.5">
+<!-- Cellular -->
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+<path d="M2 17h2v3H2zm4-3h2v6H6zm4-4h2v10h-2zm4-4h2v14h-2zm4-4h2v18h-2z"></path>
+</svg>
+<!-- Wifi -->
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.71 0 7.08 1.44 9.61 3.82L12 18.3 2.39 11.32C4.92 8.94 8.29 7.5 12 7.5z"></path>
+</svg>
+<!-- Battery -->
+<div class="w-5 h-[10.5px] border border-white/80 rounded-[3px] p-[1px] flex items-center relative">
+<div class="w-3 h-full bg-white rounded-[1.5px]"></div>
+<div class="absolute -right-1 top-1 w-0.5 h-1 bg-white/80 rounded-r-sm"></div>
+</div>
+</div>
+</div>
+<!-- BEGIN: PushNotificationBanner -->
+<!-- WhatsApp Floating Interactive Notification Drop -->
+<section class="mt-2 w-full animate-slide-down" data-purpose="push-notification-banner">
+<div class="w-full bg-[#1c1c1e]/90 ios-blur rounded-[24px] p-3 shadow-2xl border border-white/10 flex flex-col gap-1 text-white">
+<!-- Notification Top Header Row -->
+<div class="flex items-center justify-between text-[11px] font-medium text-neutral-400">
+<div class="flex items-center gap-1.5">
+<!-- WhatsApp Mini Icon -->
+<div class="w-4 h-4 bg-[#25D366] rounded flex items-center justify-center">
+<svg class="w-2.5 h-2.5 fill-white" viewbox="0 0 24 24">
+<path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 20.15C10.58 20.15 9.13 19.76 7.86 19.01L7.56 18.83L4.44 19.65L5.27 16.6L5.07 16.29C4.24 14.97 3.81 13.46 3.81 11.91C3.81 7.37 7.5 3.69 12.05 3.69C16.59 3.69 20.28 7.37 20.28 11.92C20.28 16.46 16.59 20.15 12.05 20.15Z"></path>
+</svg>
+</div>
+<span class="tracking-wider uppercase font-semibold text-[10px] text-neutral-300">WHATSAPP</span>
+</div>
+<span class="text-neutral-400 text-[11px]">sekarang</span>
+</div>
+<!-- Notification Body -->
+<div class="flex items-center justify-between pl-0.5 mt-0.5">
+<div class="flex flex-col">
+<span class="font-bold text-[14.5px] leading-tight text-white tracking-tight">Fanskey</span>
+<span class="text-[13.5px] text-neutral-200 font-normal leading-snug">hai</span>
+</div>
+<!-- Indicator Drag Line / Subtle Pill -->
+<div class="w-1.5 h-1.5 rounded-full bg-neutral-500 mr-1.5 opacity-60"></div>
+</div>
+</div>
+</section>
+<!-- END: PushNotificationBanner -->
+</header>
+<!-- END: TopOverlayArea -->
+<!-- BEGIN: MainHomeScreenContent -->
+<main class="relative z-10 flex-1 px-5 pt-3 pb-2 flex flex-col justify-start">
+<!-- BEGIN: WidgetsGrid -->
+<!-- 2 Medium Widgets: Calendar & Weather (matching reference panel 2) -->
+<section class="grid grid-cols-2 gap-3.5 mb-5" data-purpose="ios-widgets">
+<!-- Widget 1: Calendar "Thursday 22" -->
+<article class="h-[148px] bg-black/40 widget-blur rounded-[24px] p-3.5 flex flex-col justify-between border border-white/5 shadow-lg text-white">
+<div>
+<div class="text-[13px] font-semibold text-[#ff453a] tracking-tight">Thursday</div>
+<div class="text-4xl font-light tracking-tight mt-0.5">22</div>
+</div>
+<div class="space-y-0.5 border-t border-white/10 pt-2">
+<p class="text-[11px] text-neutral-400 truncate font-normal">Tidak ada agenda</p>
+<p class="text-[10px] text-neutral-500 font-normal">Hari ini</p>
+</div>
+</article>
+<!-- Widget 2: Weather -->
+<article class="h-[148px] bg-[#1c2c44]/45 widget-blur rounded-[24px] p-3.5 flex flex-col justify-between border border-white/5 shadow-lg text-white">
+<div class="flex justify-between items-start">
+<div>
+<div class="text-[13px] font-semibold text-neutral-200 tracking-tight flex items-center gap-1">
+                Weather
+                <svg class="w-2.5 h-2.5 opacity-70" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17"></path></svg>
+</div>
+<div class="text-3xl font-light tracking-tight mt-1">--°</div>
+</div>
+<!-- Cloud Icon -->
+<svg class="w-6 h-6 text-neutral-300 fill-neutral-300/80" viewbox="0 0 24 24">
+<path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path>
+</svg>
+</div>
+<p class="text-[11px] text-neutral-300/80 font-normal">No forecast added</p>
+</article>
+</section>
+<!-- END: WidgetsGrid -->
+<!-- BEGIN: FirstAppGridRow -->
+<!-- Row 1: Photos, Mail, Weather, Calendar -->
+<section class="grid grid-cols-4 gap-4 mb-4 text-center" data-purpose="app-grid-row-1">
+<!-- Photos -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-white rounded-[15px] p-2 app-icon-shadow flex items-center justify-center overflow-hidden">
+<div class="w-full h-full relative flex items-center justify-center">
+<div class="absolute w-3.5 h-3.5 bg-yellow-400 rounded-full opacity-90 -top-0.5"></div>
+<div class="absolute w-3.5 h-3.5 bg-red-400 rounded-full opacity-90 -right-0.5"></div>
+<div class="absolute w-3.5 h-3.5 bg-purple-500 rounded-full opacity-90 -bottom-0.5"></div>
+<div class="absolute w-3.5 h-3.5 bg-blue-500 rounded-full opacity-90 -left-0.5"></div>
+<div class="absolute w-3 h-3 bg-green-400 rounded-full opacity-80"></div>
+</div>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">Photos</span>
+</div>
+<!-- Mail -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-gradient-to-b from-[#3ba2f8] to-[#147efb] rounded-[15px] app-icon-shadow flex items-center justify-center">
+<svg class="w-7 h-7 text-white fill-current" viewbox="0 0 24 24">
+<path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
+</svg>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">Mail</span>
+</div>
+<!-- Weather -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-gradient-to-b from-[#2890e7] to-[#125ca4] rounded-[15px] app-icon-shadow flex items-center justify-center relative overflow-hidden">
+<div class="w-6 h-6 rounded-full bg-amber-400 absolute top-2 right-2"></div>
+<div class="w-8 h-5 bg-white/90 rounded-full absolute bottom-2 left-2"></div>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">Weather</span>
+</div>
+<!-- Calendar App -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-white rounded-[15px] app-icon-shadow flex flex-col items-center justify-center">
+<span class="text-[9px] font-bold text-red-500 uppercase leading-none tracking-tighter">THURSDAY</span>
+<span class="text-[22px] font-light text-black leading-none mt-0.5">22</span>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">Calendar</span>
+</div>
+</section>
+<!-- END: FirstAppGridRow -->
+<!-- BEGIN: SecondAppGridRow -->
+<!-- Row 2: Clock, Instagram, X, WhatsApp (with badge '1') -->
+<section class="grid grid-cols-4 gap-4 mb-2 text-center" data-purpose="app-grid-row-2">
+<!-- Clock -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-black rounded-[15px] app-icon-shadow flex items-center justify-center relative border border-neutral-800">
+<div class="w-9 h-9 rounded-full border border-neutral-600 relative flex items-center justify-center">
+<div class="w-0.5 h-2.5 bg-white absolute top-2"></div>
+<div class="w-2.5 h-0.5 bg-white absolute right-2"></div>
+<div class="w-0.5 h-3 bg-orange-500 absolute -bottom-1"></div>
+</div>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">Clock</span>
+</div>
+<!-- Instagram -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] rounded-[15px] app-icon-shadow flex items-center justify-center">
+<svg class="w-7 h-7 fill-white" viewbox="0 0 24 24">
+<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.13-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+</svg>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">Instagram</span>
+</div>
+<!-- X (Twitter) -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[58px] h-[58px] bg-black rounded-[15px] app-icon-shadow flex items-center justify-center border border-neutral-800">
+<svg class="w-6 h-6 fill-white" viewbox="0 0 24 24">
+<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+</svg>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">X</span>
+</div>
+<!-- WhatsApp with Request Badge '1' -->
+<div class="flex flex-col items-center gap-1 relative" data-purpose="whatsapp-app-icon">
+<!-- Notification Pill Badge (Bright Red "1") -->
+<div class="absolute -top-1.5 -right-1 z-20 min-w-[20px] h-[20px] bg-[#ff3b30] text-white text-[12px] font-bold rounded-full px-1.5 flex items-center justify-center shadow-lg border border-[#1c1c1e]">
+            1
+          </div>
+<div class="w-[58px] h-[58px] bg-[#25D366] rounded-[15px] app-icon-shadow flex items-center justify-center">
+<svg class="w-8 h-8 fill-white" viewbox="0 0 24 24">
+<path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2M12.05 20.15C10.58 20.15 9.13 19.76 7.86 19.01L7.56 18.83L4.44 19.65L5.27 16.6L5.07 16.29C4.24 14.97 3.81 13.46 3.81 11.91C3.81 7.37 7.5 3.69 12.05 3.69C16.59 3.69 20.28 7.37 20.28 11.92C20.28 16.46 16.59 20.15 12.05 20.15Z"></path>
+</svg>
+</div>
+<span class="text-white text-[11px] font-medium text-shadow-sm tracking-tight">WhatsApp</span>
+</div>
+</section>
+<!-- END: SecondAppGridRow -->
+<!-- BEGIN: SearchCapsulePill -->
+<!-- iOS Home Screen Spotlight Search Capsule -->
+<div class="w-full flex justify-center my-3" data-purpose="search-spotlight-pill">
+<button class="bg-black/35 widget-blur border border-white/10 text-white/90 text-[11.5px] font-medium px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-md active:scale-95 transition-transform">
+<svg class="w-3 h-3 stroke-white/80" fill="none" stroke-width="2.5" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+          Search
+        </button>
+</div>
+<!-- END: SearchCapsulePill -->
+</main>
+<!-- END: MainHomeScreenContent -->
+<!-- BEGIN: BottomDockAndHomeBar -->
+<footer class="relative z-30 px-4 pb-2.5 w-full flex flex-col items-center" data-purpose="dock-container">
+<!-- Floating iOS Dock Glassmorphic Bar -->
+<nav class="w-full h-[88px] bg-white/20 ios-blur rounded-[35px] px-3.5 flex items-center justify-between shadow-2xl border border-white/15 mb-4">
+<!-- Dock Item 1: Phone -->
+<div class="w-[56px] h-[56px] bg-[#34c759] rounded-[15px] app-icon-shadow flex items-center justify-center">
+<svg class="w-7 h-7 fill-white" viewbox="0 0 24 24">
+<path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+</svg>
+</div>
+<!-- Dock Item 2: Safari -->
+<div class="w-[56px] h-[56px] bg-white rounded-[15px] app-icon-shadow flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-gradient-to-tr from-[#0051d5] to-[#40b0ff] flex items-center justify-center relative">
+<div class="w-9 h-9 border border-white/40 rounded-full flex items-center justify-center relative">
+<div class="w-1 h-7 bg-red-500 rounded-full rotate-45 transform origin-center shadow-sm"></div>
+<div class="w-1 h-7 bg-white rounded-full -rotate-[135deg] transform origin-center absolute shadow-sm"></div>
+</div>
+</div>
+</div>
+<!-- Dock Item 3: Messages -->
+<div class="w-[56px] h-[56px] bg-[#34c759] rounded-[15px] app-icon-shadow flex items-center justify-center">
+<svg class="w-7 h-7 fill-white" viewbox="0 0 24 24">
+<path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
+</svg>
+</div>
+<!-- Dock Item 4: Music (Apple Music) -->
+<div class="w-[56px] h-[56px] bg-gradient-to-tr from-[#fc3d39] to-[#fd5d7a] rounded-[15px] app-icon-shadow flex items-center justify-center">
+<svg class="w-7 h-7 fill-white" viewbox="0 0 24 24">
+<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"></path>
+</svg>
+</div>
+</nav>
+<!-- Home Bar Indicator -->
+<div class="w-[136px] h-[4.5px] bg-white/70 rounded-full mb-1" data-purpose="home-indicator"></div>
+</footer>
+<!-- END: BottomDockAndHomeBar -->
+</main>
+<!-- END: DeviceContainer -->
+</body></html>

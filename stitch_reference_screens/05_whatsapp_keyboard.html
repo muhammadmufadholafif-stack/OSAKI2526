@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>WhatsApp Chat - iPhone Simulator</title>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            iosKeyboard: '#1b1b1d',
+            iosKey: '#424244',
+            iosKeySpecial: '#2b2b2d',
+            waBg: '#0B141A',
+            waIncoming: '#202C33',
+            waOutgoing: '#005C4B',
+            waAccent: '#00A884',
+            waTimestamp: '#8696A0',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Helvetica', 'Arial', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="custom-scroll-and-effects">
+    /* Prevent default selection and bounce on mobile */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .custom-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Typing cursor animation */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      animation: blink 1.05s infinite;
+    }
+  </style>
+<style data-purpose="keyboard-popup-shapes">
+    /* iOS keyboard key magnification popup tail/body styling */
+    .key-popup {
+      position: absolute;
+      bottom: 0px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48px;
+      height: 74px;
+      background: #FFFFFF;
+      border-radius: 9px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+      z-index: 50;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 10px;
+    }
+  </style>
+<!-- END: Custom Styles -->
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen p-0 sm:p-4 font-sans text-white">
+<!-- BEGIN: Phone Frame Container (Matches 9:16 aspect ratio & Dark iPhone Aesthetic) -->
+<main class="relative w-full max-w-[400px] h-[100dvh] max-h-[852px] bg-waBg overflow-hidden rounded-none sm:rounded-[50px] shadow-2xl flex flex-col border border-neutral-800" data-purpose="mobile-screen-simulator">
+<!-- BEGIN: Top Status & Dynamic Island -->
+<header class="relative z-40 w-full pt-3 px-6 flex justify-between items-center bg-[#111B21]/90 backdrop-blur-md" data-purpose="status-bar">
+<!-- Left: Clock -->
+<span class="text-sm font-semibold tracking-tight text-white/95">07:51</span>
+<!-- Dynamic Island Notch Pill -->
+<div class="absolute left-1/2 top-2.5 -translate-x-1/2 w-[114px] h-[30px] bg-black rounded-full flex items-center justify-end pr-2.5 space-x-1.5 shadow-inner" data-purpose="dynamic-island">
+<div class="w-2.5 h-2.5 rounded-full bg-[#0a1020] border border-white/10"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#121c17] flex items-center justify-center">
+<div class="w-1 h-1 rounded-full bg-[#10b981]/80"></div>
+</div>
+</div>
+<!-- Right: Status Icons (Cellular, 5G, Battery) -->
+<div class="flex items-center space-x-1.5 text-xs text-white font-medium" data-purpose="system-icons">
+<svg class="w-4 h-3.5 fill-current" viewbox="0 0 20 15">
+<rect height="4" rx="0.7" width="3" x="1" y="10"></rect>
+<rect height="6.5" rx="0.7" width="3" x="5.5" y="7.5"></rect>
+<rect height="9.5" rx="0.7" width="3" x="10" y="4.5"></rect>
+<rect height="13" rx="0.7" width="3" x="14.5" y="1"></rect>
+</svg>
+<span class="text-[11px] font-bold tracking-tighter">5G</span>
+<div class="relative w-5 h-2.5 border border-white/80 rounded-[3px] p-[1px] flex items-center">
+<div class="h-full w-full bg-white rounded-[1.5px]"></div>
+<div class="absolute -right-1 top-0.5 w-0.5 h-1.5 bg-white/80 rounded-r-[1px]"></div>
+</div>
+</div>
+</header>
+<!-- END: Top Status & Dynamic Island -->
+<!-- BEGIN: Top Breadcrumb "< Home" Pill -->
+<div class="px-3 pt-1.5 pb-1 bg-[#111B21]/90 flex items-center z-30" data-purpose="navigation-breadcrumb">
+<button class="flex items-center space-x-1 text-[#8696A0] hover:text-white px-2 py-0.5 rounded-full hover:bg-white/10 transition-colors text-[11px] font-normal" title="Kembali ke Home">
+<svg class="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Home</span>
+</button>
+</div>
+<!-- END: Top Breadcrumb -->
+<!-- BEGIN: WhatsApp Header Bar -->
+<section class="w-full bg-[#111B21] px-3 pb-2.5 pt-0.5 flex items-center justify-between border-b border-[#222E35] z-30" data-purpose="chat-header">
+<div class="flex items-center space-x-2">
+<!-- Back Arrow -->
+<button class="text-[#00A884] p-1 -ml-1 rounded-full hover:bg-white/5" title="Kembali">
+<svg class="w-5 h-5 fill-none stroke-[#00A884] stroke-[2.5]" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Avatar Container -->
+<div class="relative w-9 h-9 rounded-full overflow-hidden bg-gradient-to-tr from-amber-600 via-orange-500 to-yellow-400 p-[1.5px] shrink-0" data-purpose="profile-avatar">
+<div class="w-full h-full rounded-full bg-[#1F2C34] flex items-center justify-center font-bold text-xs text-amber-200">
+            F
+          </div>
+</div>
+<!-- Contact Name and Status -->
+<div class="flex flex-col leading-tight cursor-pointer">
+<span class="font-semibold text-sm tracking-tight text-white flex items-center space-x-1">
+<span>Fanskey</span>
+</span>
+<span class="text-[11px] text-[#00A884]">online</span>
+</div>
+</div>
+<!-- Right Action: Phone Audio Call Icon -->
+<div class="flex items-center space-x-2 pr-1">
+<button class="w-8 h-8 rounded-full bg-[#202C33] flex items-center justify-center text-[#00A884] active:scale-95 transition-transform" title="Panggilan Suara">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+<path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: WhatsApp Header Bar -->
+<!-- BEGIN: Chat Conversation Area -->
+<section class="flex-1 w-full bg-waBg px-3 py-3 overflow-y-auto custom-scroll flex flex-col space-y-2.5 justify-end" data-purpose="chat-messages-container">
+<!-- Date Divider -->
+<div class="flex justify-center mb-1">
+<span class="bg-[#182229]/80 text-[#8696A0] text-[10px] uppercase font-semibold px-2.5 py-0.5 rounded-md shadow-sm tracking-wider">
+          Hari ini
+        </span>
+</div>
+<!-- Message 1: Incoming ("hai") -->
+<div class="flex justify-start items-end" data-purpose="incoming-message-bubble">
+<div class="relative max-w-[78%] bg-waIncoming text-[#E9EDEF] text-[14px] px-3 py-1.5 rounded-2xl rounded-bl-sm shadow-sm flex flex-col">
+<p class="leading-snug pr-8">hai</p>
+<div class="self-end -mt-1.5 flex items-center space-x-1">
+<span class="text-[10px] text-waTimestamp">07:49</span>
+</div>
+</div>
+</div>
+<!-- Message 2: Outgoing ("hai juga, ini siapa?") with double checkmarks -->
+<div class="flex justify-end items-end" data-purpose="outgoing-message-bubble">
+<div class="relative max-w-[80%] bg-waOutgoing text-[#E9EDEF] text-[14px] px-3 py-1.5 rounded-2xl rounded-br-sm shadow-sm flex flex-col">
+<p class="leading-snug pr-12 text-[#E9EDEF]">hai juga, ini siapa?</p>
+<div class="self-end -mt-1.5 flex items-center space-x-1">
+<span class="text-[10px] text-emerald-200/70">07:50</span>
+<!-- Double Blue Checks -->
+<svg class="w-3.5 h-3.5 fill-[#53bdeb]" viewbox="0 0 16 11">
+<path d="M15.01 2.31L13.6 0.9l-6.4 6.4-2.6-2.6L3.2 6.1l4 4 7.81-7.79zM10.8 2.31L9.39 0.9 5.8 4.5l1.41 1.41 3.59-3.6z"></path>
+</svg>
+</div>
+</div>
+</div>
+<!-- Message 3: Incoming ("Eh, kamu beneran lupa? 👀") -->
+<div class="flex justify-start items-end" data-purpose="incoming-message-bubble">
+<div class="relative max-w-[82%] bg-waIncoming text-[#E9EDEF] text-[14px] px-3 py-1.5 rounded-2xl rounded-bl-sm shadow-sm flex flex-col">
+<p class="leading-snug pr-8">Eh, kamu beneran lupa? 👀</p>
+<div class="self-end -mt-1.5 flex items-center space-x-1">
+<span class="text-[10px] text-waTimestamp">07:51</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Chat Conversation Area -->
+<!-- BEGIN: WhatsApp Input Bar -->
+<div class="w-full bg-[#111B21] px-2 py-1.5 flex items-center space-x-2 border-t border-[#202C33]" data-purpose="message-input-toolbar">
+<!-- Plus Action -->
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-[#8696A0] hover:text-white" title="Lampirkan Dokumen/Foto">
+<svg class="w-6 h-6 stroke-current stroke-2 fill-none" viewbox="0 0 24 24">
+<path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Input Box -->
+<div class="flex-1 bg-[#2A3942] rounded-2xl px-3 py-1.5 flex items-center justify-between border border-transparent focus-within:border-waAccent transition">
+<div class="flex items-center text-[14px] text-white overflow-hidden tracking-normal">
+<span>hai juga, ini sia</span>
+<span class="w-[2px] h-4 bg-waAccent ml-0.5 cursor-blink"></span>
+</div>
+<!-- Voice/Sticker placeholder icon inside input -->
+<svg class="w-5 h-5 fill-[#8696A0] opacity-75 shrink-0 ml-1" viewbox="0 0 24 24">
+<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zm5 7v3a5 5 0 0 1-10 0V9H5v3a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12V9h-2z"></path>
+</svg>
+</div>
+<!-- Green Send Button -->
+<button class="w-9 h-9 rounded-full bg-[#00A884] flex items-center justify-center text-white shrink-0 active:scale-90 transition-transform shadow-md" title="Kirim">
+<svg class="w-4 h-4 fill-white translate-x-[1px]" viewbox="0 0 24 24">
+<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+</svg>
+</button>
+</div>
+<!-- END: WhatsApp Input Bar -->
+<!-- BEGIN: iOS Dark Virtual Keyboard -->
+<div class="w-full bg-[#18181A] pt-2 pb-5 px-1.5 flex flex-col space-y-2 select-none relative shadow-2xl" data-purpose="ios-virtual-keyboard">
+<!-- Keyboard Row 1: q w e r t y u i o p (With 'u' Popup Highlight) -->
+<div class="relative flex justify-center space-x-1.5 w-full">
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">q</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">w</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">e</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">r</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">t</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">y</button>
+<!-- Key with iOS Magnified Typing Popup: Key 'u' -->
+<div class="relative flex-1 max-w-[34px]">
+<!-- Active popup tooltip replica from Reference Image Panel 7 -->
+<div class="key-popup -top-[42px]">
+<span class="text-black text-2xl font-light leading-none">u</span>
+</div>
+<!-- Base Key -->
+<button class="w-full h-[42px] rounded-md bg-white text-black font-normal text-lg flex items-center justify-center shadow">u</button>
+</div>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">i</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">o</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">p</button>
+</div>
+<!-- Keyboard Row 2: a s d f g h j k l -->
+<div class="flex justify-center space-x-1.5 w-full px-3">
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">a</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">s</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">d</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">f</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">g</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">h</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">j</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">k</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">l</button>
+</div>
+<!-- Keyboard Row 3: Shift, z x c v b n m, Backspace -->
+<div class="flex justify-between space-x-1.5 w-full">
+<!-- Shift Key -->
+<button class="w-[42px] h-[42px] rounded-md bg-iosKeySpecial text-white flex items-center justify-center shadow" title="Shift">
+<svg class="w-4 h-4 fill-white" viewbox="0 0 24 24">
+<path d="M12 4l-7 7h4v8h6v-8h4z"></path>
+</svg>
+</button>
+<div class="flex-1 flex justify-center space-x-1.5">
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">z</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">x</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">c</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">v</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">b</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">n</button>
+<button class="flex-1 h-[42px] max-w-[34px] rounded-md bg-iosKey text-white font-normal text-lg flex items-center justify-center shadow">m</button>
+</div>
+<!-- Backspace Key -->
+<button class="w-[42px] h-[42px] rounded-md bg-iosKeySpecial text-white flex items-center justify-center shadow" title="Hapus">
+<svg class="w-5 h-5 fill-white" viewbox="0 0 24 24">
+<path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-3 12.59L17.59 17 14 13.41 10.41 17 9 15.59 12.59 12 9 8.41 10.41 7 14 10.59 17.59 7 19 8.41 15.41 12 19 15.59z"></path>
+</svg>
+</button>
+</div>
+<!-- Keyboard Row 4: 123, Emoji, Spacebar, Return -->
+<div class="flex justify-between space-x-1.5 w-full pt-0.5">
+<button class="w-[42px] h-[42px] rounded-md bg-iosKeySpecial text-white text-xs font-medium flex items-center justify-center shadow">123</button>
+<button class="w-[34px] h-[42px] rounded-md bg-iosKeySpecial text-white flex items-center justify-center shadow text-base" title="Emoji">
+          😊
+        </button>
+<!-- Space bar ("space") -->
+<button class="flex-1 h-[42px] rounded-md bg-iosKey text-[#E5E5EA] text-sm font-normal flex items-center justify-center shadow">
+          space
+        </button>
+<!-- Return button -->
+<button class="px-3.5 h-[42px] rounded-md bg-iosKeySpecial text-white text-xs font-medium flex items-center justify-center shadow">
+          return
+        </button>
+</div>
+<!-- Keyboard Bottom Accessories: Globe & Microphone icons -->
+<div class="flex justify-between items-center px-4 pt-1 text-neutral-400">
+<!-- Globe Icon -->
+<button class="p-1 hover:text-white" title="Ganti Bahasa">
+<svg class="w-5 h-5 fill-none stroke-current stroke-[1.8]" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+</svg>
+</button>
+<!-- Microphone Icon -->
+<button class="p-1 hover:text-white" title="Dikte Suara">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"></path>
+<path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"></path>
+</svg>
+</button>
+</div>
+<!-- iOS Home Indicator bar -->
+<div class="w-full flex justify-center pt-1.5 pb-1">
+<div class="w-32 h-1 bg-white/70 rounded-full"></div>
+</div>
+</div>
+<!-- END: iOS Dark Virtual Keyboard -->
+</main>
+<!-- END: Phone Frame Container -->
+</body></html>

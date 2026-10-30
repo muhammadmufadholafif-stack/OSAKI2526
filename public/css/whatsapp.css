@@ -1,0 +1,236 @@
+/* ==========================================================================
+   WHATSAPP SCREEN (Mode Gelap iOS) - Sesuai PRD F4
+   ========================================================================== */
+
+.whatsapp-screen {
+  position: absolute;
+  inset: 0;
+  background-color: var(--wa-bg);
+  display: flex;
+  flex-direction: column;
+  z-index: 350;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+
+.whatsapp-screen.open {
+  transform: translateY(0);
+}
+
+/* Header WhatsApp iOS */
+.wa-header {
+  height: 56px;
+  background-color: #1F2C34;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.wa-back-btn {
+  background: transparent;
+  border: none;
+  color: var(--wa-accent);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.wa-header-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #2A3942;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.wa-header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.wa-header-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.wa-header-status {
+  font-size: 0.75rem;
+  color: #8696A0;
+}
+
+.wa-header-status.typing {
+  color: var(--wa-accent);
+  font-weight: 500;
+}
+
+/* Area Daftar Pesan Chat */
+.wa-messages-area {
+  flex: 1;
+  padding: 14px 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 16px 16px;
+  scroll-behavior: smooth;
+}
+
+/* Badge Pemisah Tanggal ("Hari ini") */
+.wa-date-divider {
+  align-self: center;
+  background: #182229;
+  color: #8696A0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 8px;
+  margin: 6px 0 10px 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Gelembung Pesan */
+.wa-bubble {
+  max-width: 78%;
+  padding: 8px 12px 6px 12px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  color: #E9EDEF;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  animation: fadeInBubble 0.2s ease;
+}
+
+@keyframes fadeInBubble {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wa-bubble.contact {
+  align-self: flex-start;
+  background-color: var(--wa-bubble-contact);
+  border-top-left-radius: 2px;
+}
+
+.wa-bubble.me {
+  align-self: flex-end;
+  background-color: var(--wa-bubble-me);
+  border-top-right-radius: 2px;
+}
+
+.wa-bubble-meta {
+  align-self: flex-end;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.wa-ticks {
+  color: #53BDEB;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* Indikator Mengetik (Tiga Titik) */
+.wa-typing-indicator {
+  align-self: flex-start;
+  background-color: var(--wa-bubble-contact);
+  padding: 10px 16px;
+  border-radius: 14px;
+  border-top-left-radius: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+}
+
+.typing-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8696A0;
+  animation: typingBounce 1.3s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* Bar Input Chat di Bawah */
+.wa-input-bar {
+  background: #1F2C34;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+/* Div tiruan input (bukan <input> asli agar keyboard fisik HP tidak memotong PRD Bagian 21) */
+.wa-input-mock {
+  flex: 1;
+  background: #2A3942;
+  color: #FFFFFF;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  min-height: 20px;
+  max-height: 80px;
+  overflow-y: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.wa-input-mock.placeholder {
+  color: #8696A0;
+}
+
+.wa-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--wa-accent);
+  border: none;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.wa-send-btn.disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.wa-send-btn:active:not(.disabled) {
+  transform: scale(0.92);
+}

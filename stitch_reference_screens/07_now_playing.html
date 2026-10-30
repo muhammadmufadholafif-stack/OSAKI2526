@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Now Playing - Screen 7 Phone Simulator</title>
+<!-- Tailwind CSS CDN with forms and container queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- BEGIN: Custom Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ios: {
+              bg: '#000000',
+              card: 'rgba(255, 255, 255, 0.08)',
+              subtext: '#8E8E93',
+              spotify: '#1DB954',
+              accent: '#30D158',
+              pill: 'rgba(255, 255, 255, 0.12)'
+            }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'San Francisco', 'Helvetica Neue', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+<!-- END: Custom Tailwind Configuration -->
+<!-- BEGIN: Custom Stylesheet -->
+<style data-purpose="custom-layout-styles">
+    /* iOS frame wrapper and scrollbar adjustments */
+    body {
+      background-color: #0d0d11;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    .iphone-canvas {
+      width: 100%;
+      max-width: 390px;
+      height: 844px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 48px;
+      background-color: #000000;
+      box-shadow: 0 0 0 12px #1f1f23, 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Ambient backdrop glow behind album cover */
+    .ambient-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(194, 65, 12, 0.35) 0%, rgba(29, 185, 84, 0.1) 50%, rgba(0,0,0,0) 75%);
+      filter: blur(48px);
+      z-index: 1;
+      top: 140px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+  </style>
+<!-- END: Custom Stylesheet -->
+</head>
+<body class="p-0 sm:p-4">
+<!-- BEGIN: PhoneSimulatorContainer -->
+<main class="iphone-canvas flex flex-col justify-between text-white" data-purpose="mobile-screen-wrapper">
+<!-- Ambient glow under the album artwork -->
+<div aria-hidden="true" class="ambient-glow"></div>
+<!-- BEGIN: TopStatusBarAndIsland -->
+<header class="relative z-20 pt-3 px-7 flex flex-col items-center w-full" data-purpose="ios-top-bar">
+<!-- Status bar info row -->
+<div class="w-full flex justify-between items-center text-xs font-semibold tracking-tight text-white/95">
+<span class="pl-1">07:54</span>
+<!-- Dynamic Island Pill -->
+<div class="w-28 h-7 bg-black rounded-full flex items-center justify-between px-2.5 mx-auto border border-white/5 shadow-inner">
+<div class="w-2.5 h-2.5 rounded-full bg-[#0d0d12]"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-[#121929] flex items-center justify-center">
+<div class="w-1 h-1 rounded-full bg-[#1f3765]"></div>
+</div>
+</div>
+<!-- Status Icons -->
+<div class="flex items-center space-x-1.5 pr-1">
+<!-- Cellular Signal -->
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24">
+<path d="M2 19h2.5V13H2v6zm5 0h2.5V9H7v10zm5 0h2.5V5H12v14zm5 0h2.5V2H17v17z"></path>
+</svg>
+<!-- Wi-Fi -->
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.5 0 6.7 1.4 9 3.69L12 19.3 3 11.19C5.3 8.9 8.5 7.5 12 7.5z"></path>
+</svg>
+<!-- Battery -->
+<div class="w-5 h-2.5 border border-white/80 rounded-[3px] p-0.5 flex items-center">
+<div class="h-full w-full bg-white rounded-[1px]"></div>
+</div>
+</div>
+</div>
+<!-- Navigation & Header Bar -->
+<nav aria-label="Player Navigation" class="w-full flex items-center justify-between mt-3 px-1">
+<!-- Back to Home pill -->
+<button aria-label="Kembali ke Beranda" class="bg-ios-pill hover:bg-white/20 active:scale-95 transition-all text-white/90 text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1 backdrop-blur-md">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+<span>Home</span>
+</button>
+<!-- Down Chevron & Header Title -->
+<div class="flex flex-col items-center">
+<svg class="w-4 h-4 text-ios-subtext -mb-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+<span class="text-xs uppercase tracking-widest text-ios-subtext font-semibold">Memutar Musik</span>
+</div>
+<!-- Menu Action Options -->
+<button aria-label="Menu Opsi" class="w-8 h-8 rounded-full bg-ios-pill flex items-center justify-center hover:bg-white/20 active:scale-95 transition-all text-white/90">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+<circle cx="5" cy="12" r="2"></circle>
+<circle cx="12" cy="12" r="2"></circle>
+<circle cx="19" cy="12" r="2"></circle>
+</svg>
+</button>
+</nav>
+</header>
+<!-- END: TopStatusBarAndIsland -->
+<!-- BEGIN: MainPlayerBody -->
+<section class="relative z-10 flex-1 flex flex-col justify-center px-7 space-y-6" data-purpose="track-and-controls">
+<!-- Album Artwork Card -->
+<div class="relative w-full aspect-square rounded-3xl overflow-hidden shadow-2xl mx-auto border border-white/10 group" data-purpose="album-artwork">
+<!-- Vintage aesthetic cover image -->
+<img alt="Cover Lagu Abdi Lara Insani - Feast" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUL1Wopa-0RmVbJGJEDDEvvfp1QDNbQvl1MyoD-SACW3DWh_e9oGsC8RqM-gclfstXv-5uvYJb8kShARjezRDOuucZCc6vJzD5It6ZfX26_crXgdl3TqsMCM3BH1pZU3BlAkMbN4ckrFX6kR6MAR7HE2CarptUBmCNWGwToGYbWdbpjv9KVDctsIXMNQpUzWPsBu-QKBeJCwIjgwyWl7fXMmK_0NCw8yyVnAamSTte"/>
+<!-- Inner subtle gradient overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1 border border-white/10">
+<span class="w-2 h-2 rounded-full bg-ios-spotify animate-pulse"></span>
+<span class="text-[10px] font-medium tracking-wide text-white/90">HQ Audio</span>
+</div>
+</div>
+<!-- Song Meta Info & Favorite Button -->
+<div class="flex items-center justify-between pt-1" data-purpose="song-meta">
+<div class="space-y-0.5 truncate pr-3">
+<h1 class="text-[22px] font-bold tracking-tight text-white leading-tight truncate">Abdi Lara Insani</h1>
+<p class="text-sm font-medium text-ios-subtext truncate">.Feast • Spesial Ulang Tahun Rina</p>
+</div>
+<!-- Favorite Heart Button -->
+<button aria-label="Suka lagu ini" class="w-10 h-10 rounded-full flex items-center justify-center text-red-500 hover:scale-110 active:scale-95 transition-all">
+<svg class="w-7 h-7 fill-current" viewbox="0 0 24 24">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+</svg>
+</button>
+</div>
+<!-- Scrubber Progress Bar -->
+<div class="space-y-1.5" data-purpose="scrubber-timeline">
+<!-- Interactive Progress track -->
+<div class="relative w-full h-1.5 bg-white/20 rounded-full cursor-pointer overflow-hidden group">
+<div class="h-full bg-ios-spotify rounded-full w-[36%] group-hover:bg-green-400 transition-colors"></div>
+</div>
+<!-- Time indicators -->
+<div class="flex justify-between items-center text-[11px] font-medium text-ios-subtext">
+<span>01:12</span>
+<span>-02:22</span>
+</div>
+</div>
+<!-- Playback Controls -->
+<div class="flex items-center justify-between px-2 pt-1" data-purpose="playback-controls">
+<!-- Shuffle button -->
+<button aria-label="Acak lagu" class="text-ios-spotify hover:text-green-400 active:scale-90 transition p-2">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"></path>
+</svg>
+</button>
+<!-- Previous Track -->
+<button aria-label="Lagu sebelumnya" class="text-white hover:text-white/80 active:scale-90 transition p-2">
+<svg class="w-7 h-7 fill-current" viewbox="0 0 24 24">
+<path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
+</svg>
+</button>
+<!-- Big Play / Pause Button -->
+<button aria-label="Jeda lagu" class="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center hover:scale-105 active:scale-95 transition shadow-lg shadow-white/10">
+<svg class="w-7 h-7 fill-current" viewbox="0 0 24 24">
+<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+</svg>
+</button>
+<!-- Next Track -->
+<button aria-label="Lagu berikutnya" class="text-white hover:text-white/80 active:scale-90 transition p-2">
+<svg class="w-7 h-7 fill-current" viewbox="0 0 24 24">
+<path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
+</svg>
+</button>
+<!-- Repeat Button -->
+<button aria-label="Ulangi lagu" class="text-white/60 hover:text-white active:scale-90 transition p-2">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"></path>
+</svg>
+</button>
+</div>
+</section>
+<!-- END: MainPlayerBody -->
+<!-- BEGIN: BottomDeckActions -->
+<footer class="relative z-20 pb-2 px-7 flex flex-col items-center space-y-4" data-purpose="audio-routing-and-queue">
+<!-- Output device selector pill -->
+<div class="flex items-center justify-between w-full text-xs">
+<button aria-label="Output Audio" class="flex items-center space-x-2 text-ios-spotify bg-ios-card border border-white/5 px-3 py-1.5 rounded-full hover:bg-white/10 transition">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
+</svg>
+<span class="font-medium text-[11px] tracking-tight">AirPlay • Speaker iPhone Rina</span>
+</button>
+<!-- Queue & Lyrics Buttons -->
+<div class="flex items-center space-x-3 text-white/70">
+<button aria-label="Buka Lirik Lagu" class="p-2 hover:text-white transition">
+<svg class="w-5 h-5 fill-none stroke-currentColor stroke-2" viewbox="0 0 24 24">
+<path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button aria-label="Antrean Lagu Berikutnya" class="p-2 hover:text-white transition">
+<svg class="w-5 h-5 fill-none stroke-currentColor stroke-2" viewbox="0 0 24 24">
+<path d="M4 6h16M4 12h16M4 18h7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Up-next Peek Drawer Card -->
+<div class="w-full bg-ios-card/70 border border-white/5 rounded-2xl p-3 flex items-center justify-between backdrop-blur-md cursor-pointer hover:bg-ios-card transition">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-xs font-bold text-ios-subtext">
+            02
+          </div>
+<div class="text-left">
+<p class="text-xs font-semibold text-white/90">Berikutnya: Berhenti di Kotak Pesan Suara</p>
+<p class="text-[10px] text-ios-subtext">.Feast • 02:14</p>
+</div>
+</div>
+<svg class="w-4 h-4 text-ios-subtext" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<!-- iOS Home Indicator bar -->
+<div class="w-full flex justify-center pt-2 pb-1" data-purpose="home-indicator">
+<div class="w-36 h-1 bg-white/40 rounded-full"></div>
+</div>
+</footer>
+<!-- END: BottomDeckActions -->
+</main>
+<!-- END: PhoneSimulatorContainer -->
+</body></html>

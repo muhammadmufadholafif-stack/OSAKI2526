@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>iOS Lock Screen - AU Mystery</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter & SF Pro-like typography -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Nunito:wght@800;900&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="custom-typography">
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* iOS Large Clock Font Style */
+    .ios-clock {
+      font-feature-settings: "tnum";
+      letter-spacing: -0.04em;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    /* AU Outlined Headline Text */
+    .au-outline-text {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-text-stroke: 4px #000000;
+      paint-order: stroke fill;
+      filter: drop-shadow(0px 3px 5px rgba(0, 0, 0, 0.8));
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 flex items-center justify-center min-h-screen p-0 sm:p-4 text-white">
+<!-- BEGIN: PhoneContainer -->
+<!-- Outer Smartphone Frame -->
+<div class="relative w-full max-w-[395px] h-[844px] max-h-screen sm:rounded-[50px] overflow-hidden shadow-2xl ring-1 sm:ring-8 ring-zinc-800 bg-black flex flex-col justify-between" data-purpose="mobile-screen-wrapper">
+<!-- Wallpaper Background Image Layer -->
+<div class="absolute inset-0 z-0 overflow-hidden" data-purpose="wallpaper-background">
+<img alt="Lock screen wallpaper" class="w-full h-full object-cover object-center filter brightness-90 contrast-[1.03]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL7LjkNdpGfnmsYLz_D6I-KCpqmy-KaXlHiaoPJQha7u53MYMW-Z2FRAERPEHqtiN_75aG2cyuNlnJYAWIq2UaB7PfgOieel49ede8yAVoXjHVdbDMnw_DH3mh_dw2FjE6i5tBWUziS0zvMYpQV5vwEzOh9-IVEpxNwlRw2AZgdI6_HlvB164L2dbE-6PV8fC4U598OG0ZJ-cyUySUnYvQnk8EBMtm2Ca82wOjL5oSmEgBq5DpVwpNEQ"/>
+<!-- Subtle top & bottom shadow gradient overlay for status readability -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60 pointer-events-none"></div>
+</div>
+<!-- BEGIN: TopBarAndDynamicIsland -->
+<!-- Top Bar with Dynamic Island and Status Icons -->
+<header class="relative z-30 pt-3 px-7 flex items-center justify-between text-white" data-purpose="ios-status-bar">
+<!-- Left: Carrier Time -->
+<span class="text-[14px] font-semibold tracking-tight text-white/95">07:51</span>
+<!-- Center: Dynamic Island Pill -->
+<div class="w-[96px] h-[26px] bg-black rounded-full flex items-center justify-end px-2.5 space-x-1.5 shadow-md">
+<!-- Front Camera Lens subtle reflection -->
+<div class="w-2.5 h-2.5 rounded-full bg-zinc-900 border border-zinc-800"></div>
+</div>
+<!-- Right: Cellular, Wi-Fi & Battery Status -->
+<div class="flex items-center space-x-1.5 text-white/95">
+<!-- Cellular Signal -->
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 18 18">
+<rect height="4" rx="0.5" width="2.5" x="1" y="12"></rect>
+<rect height="7" rx="0.5" width="2.5" x="5" y="9"></rect>
+<rect height="10" rx="0.5" width="2.5" x="9" y="6"></rect>
+<rect height="14" rx="0.5" width="2.5" x="13" y="2"></rect>
+</svg>
+<!-- Wi-Fi Icon -->
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24">
+<path d="M12 18.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-4.95-3.535a7 7 0 0 1 9.9 0l-1.414 1.414a5 5 0 0 0-7.072 0L7.05 14.965zm-3.536-3.535a12 12 0 0 1 16.972 0l-1.414 1.414a10 10 0 0 0-14.144 0L3.515 11.43z"></path>
+</svg>
+<!-- Battery Container -->
+<div class="w-5 h-2.5 border border-white/80 rounded-[3px] p-[1px] flex items-center relative">
+<div class="h-full w-[80%] bg-white rounded-[1.5px]"></div>
+<div class="absolute -right-[3px] top-[2.5px] w-[1.5px] h-[3px] bg-white/80 rounded-r-sm"></div>
+</div>
+</div>
+</header>
+<!-- END: TopBarAndDynamicIsland -->
+<!-- BEGIN: LockScreenClockAndTitle -->
+<!-- Center Section: Date, Big Clock, Language Pill, and AU Overlay Title -->
+<main class="relative z-20 flex flex-col items-center mt-2 flex-grow" data-purpose="lock-screen-content">
+<!-- Date -->
+<p class="text-sm font-medium tracking-normal text-white/90 drop-shadow-md">
+        Thursday, October 22
+      </p>
+<!-- Large Bold iOS Lock Screen Clock -->
+<h1 class="ios-clock text-[82px] font-bold leading-none text-white/90 my-0 py-0 select-none">
+        07:51
+      </h1>
+<!-- Language / Region Pill Badge -->
+<div class="mt-2.5 px-3 py-1 bg-black/30 backdrop-blur-md rounded-full border border-white/10 flex items-center space-x-1.5 shadow-sm">
+<!-- Globe Icon -->
+<svg class="w-3.5 h-3.5 text-white/80" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M12 2a14.5 14.5 0 0 0 0 20M12 2a14.5 14.5 0 0 1 0 20M2 12h20"></path>
+</svg>
+<span class="text-[11px] font-medium text-white/90">English</span>
+</div>
+<!-- Custom AU Overlay Title Text -->
+<div class="mt-7 text-center select-none" data-purpose="story-title-overlay">
+<h2 class="au-outline-text text-[31px] font-black text-white tracking-wide uppercase leading-tight">
+          ALD1 x Cortis’s AU
+        </h2>
+<div class="au-outline-text text-[27px] font-black text-white mt-1 flex items-center justify-center space-x-1">
+<span>-Mystery</span>
+<span class="inline-block text-2xl -mt-0.5">🔍</span>
+<span class="inline-block text-2xl -mt-0.5">🕵🏻‍♂️</span>
+<span class="inline-block">”</span>
+</div>
+</div>
+</main>
+<!-- END: LockScreenClockAndTitle -->
+<!-- BEGIN: NotificationAndFooterControls -->
+<!-- Bottom Group: Notification Card, Quick Action Buttons, Home Bar -->
+<footer class="relative z-20 w-full px-5 pb-2 flex flex-col items-center" data-purpose="notification-and-controls">
+<!-- WhatsApp Notification Banner -->
+<div class="w-full bg-[#1C1C1E]/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-2xl mb-6 transition-transform" data-purpose="lockscreen-notification">
+<div class="flex items-start space-x-3">
+<!-- Profile Avatar with WhatsApp App Icon Badge -->
+<div class="relative shrink-0 mt-0.5">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-zinc-700 ring-1 ring-black/40">
+<!-- Avatar placeholder portrait -->
+<img alt="Satya avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAytJh5EsgkQ7f7_MU67YKboGD5iMC2VL9mP3PoTvr6OKhSXqGR2ZofcTeY9slIeUn4D7IorsDO1PEfdEki-BX9aQA-PqnVGiBr2pHk70EcTg-LKrsNg2UoduEOma4F3KPT8T3ttdtTnYAV94rCiot6x1CoRTqd8-FzWQ7Sd20XSwTPXoA59Taa6QLQWXzJaxQNlLXica32Yh2iWO-x9TJxayPJD4ELYASTFtbkPlTV"/>
+</div>
+<!-- Small WhatsApp badge overlay -->
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#25D366] rounded-full flex items-center justify-center ring-2 ring-[#1C1C1E]">
+<svg class="w-2.5 h-2.5 fill-white" viewbox="0 0 24 24">
+<path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"></path>
+</svg>
+</div>
+</div>
+<!-- Notification Text Body -->
+<div class="flex-1 min-w-0 pr-1">
+<div class="flex items-baseline justify-between mb-0.5">
+<span class="text-[14px] font-semibold text-white tracking-tight">Satya</span>
+<span class="text-[11px] text-zinc-400 font-normal">now</span>
+</div>
+<p class="text-[13px] text-zinc-200 leading-snug font-normal line-clamp-2">
+              Jangan ikut campur soal kematian mba Zahira.
+            </p>
+</div>
+</div>
+</div>
+<!-- Quick Action Buttons: Flashlight & Camera -->
+<div class="w-full flex items-center justify-between px-3 mb-3" data-purpose="quick-actions">
+<!-- Flashlight Button -->
+<button aria-label="Toggle Flashlight" class="w-[50px] h-[50px] rounded-full bg-black/40 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/90 active:bg-white active:text-black transition">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M7 2h10v3l-2.5 3.5V20a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2V8.5L7 5V2zm4 8v3h2v-3h-2z"></path>
+</svg>
+</button>
+<!-- Swipe Indicator Text -->
+<span class="text-[13px] text-white/60 font-medium tracking-tight">
+          Swipe up to open
+        </span>
+<!-- Camera Button -->
+<button aria-label="Open Camera" class="w-[50px] h-[50px] rounded-full bg-black/40 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/90 active:bg-white active:text-black transition">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M12 9a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm0-2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11zm7.5-1h-2.17l-.82-1.78A1.5 1.5 0 0 0 15.15 3h-6.3a1.5 1.5 0 0 0-1.36.22L6.67 6H4.5A2.5 2.5 0 0 0 2 8.5v10A2.5 2.5 0 0 0 4.5 21h15a2.5 2.5 0 0 0 2.5-2.5v-10A2.5 2.5 0 0 0 19.5 6z"></path>
+</svg>
+</button>
+</div>
+<!-- iOS Bottom Home Indicator Bar -->
+<div class="w-32 h-1 bg-white/70 rounded-full mt-1 mb-1" data-purpose="home-indicator"></div>
+</footer>
+<!-- END: NotificationAndFooterControls -->
+</div>
+<!-- END: PhoneContainer -->
+</body></html>

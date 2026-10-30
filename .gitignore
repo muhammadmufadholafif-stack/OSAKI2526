@@ -1,0 +1,17 @@
+# Environment variables lokal (rahasia jangan sampai ter-commit)
+.env
+.env.local
+.env.*.local
+
+# Dependency & build artifacts
+node_modules/
+.vercel/
+
+# OS and Editor metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+.vercel
+.env*

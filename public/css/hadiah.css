@@ -1,0 +1,208 @@
+
+/* ==========================================================================
+   HADIAH & FORM KLAIM (iOS) - Sesuai PRD F7
+   ========================================================================== */
+
+.hadiah-screen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #2c1a06 0%, #171109 40%, #0d0a06 100%);
+  display: flex;
+  flex-direction: column;
+  z-index: 350;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  color: #FFFFFF;
+}
+
+.hadiah-screen.open {
+  transform: translateY(0);
+}
+
+.hadiah-header {
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.hadiah-back-btn {
+  background: transparent;
+  border: none;
+  color: var(--hadiah-accent);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.hadiah-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 18px 40px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Kartu Ucapan */
+.hadiah-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 20px 18px;
+  border: 1px solid rgba(255, 159, 10, 0.3);
+  box-shadow: 0 8px 32px rgba(255, 159, 10, 0.15);
+}
+
+.hadiah-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FFB340;
+  margin-bottom: 12px;
+}
+
+.hadiah-card-paragraphs {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hadiah-label-tag {
+  align-self: flex-start;
+  margin-top: 14px;
+  background: rgba(255, 159, 10, 0.2);
+  color: var(--hadiah-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* Form Klaim E-Wallet */
+.claim-box {
+  background: rgba(28, 28, 30, 0.85);
+  border-radius: 16px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.claim-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.provider-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.provider-chip {
+  background: #2C2C2E;
+  border: 1.5px solid transparent;
+  color: #FFFFFF;
+  padding: 8px 4px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.provider-chip.active {
+  background: #3A3A3C;
+  border-color: var(--hadiah-accent);
+  color: #FFB340;
+  font-weight: 600;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.form-input {
+  background: #2C2C2E;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #FFFFFF;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--hadiah-accent);
+}
+
+.claim-submit-btn {
+  background: var(--hadiah-accent);
+  color: #000000;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.claim-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.claim-submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Status Akhir Terkirim (PRD F7) */
+.claim-success-card {
+  background: rgba(30, 45, 35, 0.8);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  border-radius: 16px;
+  padding: 24px 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.claim-success-icon {
+  font-size: 3rem;
+}
+
+.claim-success-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #25D366;
+}
+
+.claim-success-msg {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}

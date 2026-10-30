@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>08. Galeri Foto - iOS Simulator</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            iosDark: '#000000',
+            iosGray: '#1C1C1E',
+            iosLightGray: '#2C2C2E',
+            iosBlue: '#0A84FF',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles -->
+<style data-purpose="custom-scroll-and-effects">
+    /* Hide scrollbar for clean mobile preview */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Dynamic blur pill effect */
+    .glass-pill {
+      background: rgba(44, 44, 46, 0.65);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .glass-nav {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen flex items-center justify-center p-0 sm:p-4 select-none font-sans">
+<!-- BEGIN: PhoneFrameContainer -->
+<!-- 9:16 mobile aspect ratio screen container mimicking iPhone style from reference -->
+<div class="relative w-full max-w-[400px] h-[844px] bg-black rounded-[48px] overflow-hidden border-[6px] border-zinc-800 shadow-2xl flex flex-col justify-between" data-purpose="mobile-device-simulator">
+<!-- BEGIN: DynamicIslandAndStatusBar -->
+<!-- Top System Header: Status Bar & Island -->
+<header class="relative z-50 pt-3 px-7 flex flex-col w-full bg-black/80 backdrop-blur-md">
+<!-- Status bar row -->
+<div class="flex justify-between items-center text-xs font-semibold text-white tracking-tight h-5">
+<!-- Time -->
+<span class="text-[14px] font-semibold pl-1">07:55</span>
+<!-- Center Dynamic Island pill -->
+<div class="absolute left-1/2 -translate-x-1/2 top-2.5 w-[105px] h-[28px] bg-black rounded-full flex items-center justify-end pr-2.5 space-x-1 border border-zinc-900/60 shadow-inner" data-purpose="dynamic-island">
+<div class="w-2.5 h-2.5 rounded-full bg-neutral-900/90 ring-1 ring-neutral-800"></div>
+<div class="w-2 h-2 rounded-full bg-emerald-500/80 animate-pulse"></div>
+</div>
+<!-- Icons right (5G, Wi-Fi, Battery) -->
+<div class="flex items-center space-x-1.5 pr-0.5">
+<span class="text-[11px] font-semibold tracking-tighter">5G</span>
+<!-- Wi-Fi Icon -->
+<svg class="w-3.5 h-3.5 fill-current" viewbox="0 0 24 24">
+<path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.67 0 7 1.45 9.47 3.82L12 19.12 2.53 11.32C5 8.95 8.33 7.5 12 7.5z"></path>
+</svg>
+<!-- Battery Container -->
+<div class="flex items-center space-x-0.5">
+<div class="w-5 h-2.5 border border-white/70 rounded-[3px] p-[1px] flex items-center">
+<div class="bg-white h-full w-[88%] rounded-[1.5px]"></div>
+</div>
+<div class="w-0.5 h-1 bg-white/60 rounded-r-sm"></div>
+</div>
+</div>
+</div>
+<!-- END: Status bar row -->
+</header>
+<!-- END: DynamicIslandAndStatusBar -->
+<!-- BEGIN: TopNavigationBar -->
+<!-- App Bar with "< Home" pill button and Select action -->
+<div class="px-4 pt-2 pb-2 flex items-center justify-between z-40 bg-black" data-purpose="navigation-header">
+<!-- Back pill button matching reference (< Home) -->
+<button class="flex items-center space-x-1 text-white text-[13px] font-medium bg-[#1F1F21]/80 hover:bg-neutral-800 px-3 py-1 rounded-full border border-white/10 transition-all">
+<svg class="w-4 h-4 -ml-1 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Home</span>
+</button>
+<!-- Select Button -->
+<button class="text-iosBlue text-[14px] font-semibold hover:opacity-80 px-2 py-1">
+        Pilih
+      </button>
+</div>
+<!-- END: TopNavigationBar -->
+<!-- BEGIN: MainContentArea -->
+<!-- Main scrollable gallery content -->
+<main class="flex-1 overflow-y-auto no-scrollbar pb-24">
+<!-- App title & Segment Control Section -->
+<section class="px-4 pt-1 pb-3">
+<h1 class="text-3xl font-bold tracking-tight text-white mb-3">Foto</h1>
+<!-- Segmented Filter Pills -->
+<div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1 text-xs font-medium">
+<button class="bg-white text-black font-semibold px-3 py-1.5 rounded-full shadow-sm">
+            Semua Foto
+          </button>
+<button class="bg-[#1C1C1E] text-neutral-300 hover:text-white px-3 py-1.5 rounded-full border border-white/5">
+            Album
+          </button>
+<button class="bg-[#1C1C1E] text-neutral-300 hover:text-white px-3 py-1.5 rounded-full border border-white/5">
+            Kenangan
+          </button>
+<button class="bg-[#1C1C1E] text-neutral-300 hover:text-white px-3 py-1.5 rounded-full border border-white/5">
+            Terkini
+          </button>
+</div>
+</section>
+<!-- Date Group Section Header -->
+<section class="px-4 py-2 flex items-baseline justify-between">
+<div>
+<h2 class="text-lg font-bold text-white tracking-tight">Oktober 2024</h2>
+<p class="text-xs text-neutral-400 font-medium">Jakarta &amp; Study Tour Seru ✨</p>
+</div>
+<span class="text-xs text-neutral-500 font-medium">12 Foto</span>
+</section>
+<!-- Photo Grid Section (3 Columns, 2px iOS Gap) -->
+<section class="grid grid-cols-3 gap-[2px] w-full pt-1 px-[2px]" data-purpose="photo-grid">
+<!-- Photo 1: Aesthetic Cafe -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Aesthetic cafe table with latte and notebook" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWmI4SGY3zMX2wtqsSZJ-lHgb3_2SbwMKTSkbhG2Vxl9BkQ3hYROn_qW3E5waiFFWNZ5lXFkSMmcAHrL4-Nu_Icmywch2ZK_snpsLfso9dG3ODbd-cpQdIsCcgHEjP_aEkpyu28ooZZrfcHp5rHxkAnnXLH-aXYlX4fYoeiyQQ8X1IwagHLkNKrWTFUPsvob6C6uljUAzlbh4o0niDoZDy59WqYetVXobRvPipHkQq"/>
+</div>
+<!-- Photo 2: Birthday Cake with Live Badge -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Birthday cake with lit candles" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZOK1gYkiv49-ENgfN0AYSqlJN2Rlt3kcAVxUUYmpDxcF7pyqW5HQis7T70jASl2Z9p1dZelS0Q8xvGklKfNzxFN6SpJGXiwl_dl7cTp58nWae7jqHI_-zX1O4xLaGkNVWCz42yLZC4F_RJ36cGYXq9STMUKYhQrH5kiSI4GDgQ5rOm--AmpwRMr370yz-hufXWgZsKuu8oFOBNRARkRus06msnORUVIDu_T9rJztX"/>
+<!-- iOS Live Photo Indicator -->
+<div class="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded flex items-center space-x-1">
+<span class="w-1.5 h-1.5 rounded-full border border-white/80"></span>
+<span class="text-[9px] font-bold text-white tracking-tight uppercase">LIVE</span>
+</div>
+</div>
+<!-- Photo 3: Study Tour Notes (AU Book Vibe) -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Law notes and criminal book" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdk7_C-BQD1wWeKimjXsV1Wvp6mXT8pPNqziVlMEdm1FrMUgAWeMmy0cesqbyn_BCNG93dHddvoo0-45fzY_Y25iD3HsRpMcwyj4KjV41qDACY3ng659EeQBC9ypCF6YOlVahTIctc9zqq78deaspITBj_jrvQ7p-i7LDoE6XBhePiDuqWBNHvYjqyx3PjjDkhQNnjqvg78XjRwAQDqaZbDF57pXlWXmRzzhi95cb4"/>
+</div>
+<!-- Photo 4: Polaroid aesthetic / Friendship -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Polaroid style picture with friends" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC64bDtC3-QPpdGppQ9HqzP7nSYuG07a6cm4LCIpTmsnobu4DR8DEzqN7F9KXO9jcyBuYEaVfCGJpz8fKi7BbF_cGuWBlehr-2laEccNYQ3rX_J-C4sGsWwww-NaFY_D4ltigqnOfeFXU655GEqncVmvPYXPaE_f8CVW5iOTRE_C9gZq2ytGrJzhWZkP2xhIhLESNKGEhbZInca_mpVg3J_d3qjBhWtq2a6sBYBSPR5"/>
+</div>
+<!-- Photo 5: Concert / Night Lights (Marked Favorite with Star) -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Concert stage lights and crowd" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNoWevMvH7QqJWe5yH5ZORbG0eBeyAX1Zc__K3Z3-3gRrn9MRBtBkOzKtPRfjyEjQId4AEUUQN70Fzx_xDxtBHEKtEgy1BAhBRLCN3bcotLTCweacBot3RpWDdJzZP4WNAFA-FkvbefrexUf17oUErjYLyfmWlukrhB7xMc676rv7MkbzPLyUJv2WGppRJbnbKXLU3Jtxa71Ls03YN922I12hGamuwERG0wKUbDGcY"/>
+<!-- Star / Favorite Badge -->
+<div class="absolute bottom-1.5 right-1.5 bg-black/50 p-1 rounded-full backdrop-blur-sm">
+<svg class="w-3.5 h-3.5 text-yellow-400 fill-current" viewbox="0 0 20 20">
+<path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+</svg>
+</div>
+</div>
+<!-- Photo 6: Sunset Skyline -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Skyline during sunset" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzNDHzDuzt2IrphYMOOYv0kpn54XyxLb-RpTwcgndGtLLYNK5CH2edBHTfeVvS0jf2gSzWW_XcBkvtbcBGOUlzHs9bD89ZtGSareoHaLY-5JLuZsj22zC466CACvpR0ZrBEzHlph7vrAjoU0lldh8krvHVyiJ1Hp0O5NGjCFjGzQN-qj78-ybDrmFq6-uxH66Co2EXj2LVhDfduVZgGtjpPbnvu1yCiIP9Z6IJosSH"/>
+</div>
+<!-- Photo 7: Coffee & Pastry -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Pastry and iced coffee on wooden counter" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChNsEul-onzgVaspn3fLtB2Qxq6ATZPYwWWtXA-RpmYGMwuBmcdUSsIEDKU2zq--kfNW5NdOubMROep5i2ju9eQLJcR-3Ywd4YqXJ4i_nH-pkUi0Rbbl4FoNOHiwluHIfYnyFUEJJTRgSIzQVDdfRCnXoDYehhylK_hamkcRcSLh9gP2gbMWHcmI9X-fblnQA6cUFWdCCUBWylhzE0htX1haFv2WHQyiWA-KNT1CDB"/>
+</div>
+<!-- Photo 8: Train Window Travel -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="View from train window" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-QU-oxl6j4dkptjPehJMx2VAxB0V3utZVgaPOQPODU4ARLMOsgAqprvZt9FiyqRIcDtTNCawbsIzK1aBzryES5N2vZKVlMEJO4l1oWvNOVa6LMDYItAUEUrjWF99kdJ3DszGGRmAVW1uZ-4dkzR3WhVAeroT1QNML-H8puAJY0jsPsozV_FmxY4WK5S6psQhxBpZJWw2Ut0MWBaBhBnqJ-wIvvC35LrGJDjyrwOzK"/>
+</div>
+<!-- Photo 9: Film Camera Snapshot -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Film camera candid snapshot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi6LL_HR05PjHhfcEkgiz_fv59Yr-NMSiH91q-skqGGVGBc1bm50CE9MFw5z4GfdY90F05qIm2RF0FrVJLAPgXwYvlFitWSngSJKNorP-5nHXSgu-Nt0jPCf7g6d1ijr-J6Yi53SMx3wjVvOyTHdZ6sNpZl2rXhBGr7x99S8fIeKxLtlrg5ODaiRLdLo7M_-w5k4spD91cD1B5qgNveyQUNCp5dljogvUOsbsk54f2"/>
+</div>
+<!-- Photo 10: Museum Art Gallery -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Museum contemporary artwork view" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVgQNUTyvew1paSC8uh8oxbzxXi2YskkYBZZzIsEbScQuPh3eGlPzYn5KNmoNs0MygH-zF7E7w56wt2bIW-GmckobcVZWk664h99NRByJ3MXJ-R0fnyMnVSlkq3mkoeYFzsDRfpUdaBGsv6e1KKXqFCbvJdG3DSlhJFOf7CMRwe_eN7-vs0cXLqp_yNB1buqbP0ZI1PvIwKcSm2d6jz-gwo7AG_bHZs4LB-066n5iU"/>
+</div>
+<!-- Photo 11: Photo Booth Strips -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Photobooth print strips" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEU_xza9HUrEBY-NuSfnLfIjTVy8dT_Y3-nVCxoOYarDud-4XjW14Assnxhn-UzfI8asHWX63rEv5TMomsZMDtphCghICuSoTNwvulvZ6jTgaK7iHoCbxrRzc5nr579h9I4E4agDzZyk94lFgSBmnlCu5WB2gHi4UHwL_l_Smz45rPRIi6lyk-sloi4HdTdRbvqlGrfpFzG_5L4LjcEndQK3YhdhfyxtFKGRVTWglv"/>
+</div>
+<!-- Photo 12: Birthday Balloons & Gift Box -->
+<div class="relative aspect-square overflow-hidden group bg-neutral-900">
+<img alt="Gift box and balloons for birthday" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo1FM1ewaEEOMDN7tNsoWUIT7h0S9VKQZP39j2Y-d3LvWzIXsoTAJP_tXQp7ycMSTjVKPOufYECBLJBd0S37CM62ZPojLDO90ZdZfcXdgH6Dz4i9h9uPPwgajnAiwKXZI5TytuYOsr_UXaEheXySpYA7KpxjZqeVcMdcIVZvCZ76Igy80zz0tBDvCc9AtWzO1Muo352o5WQJVSh_4ABEk28CjK7OIdT-nzml1Ppdp_"/>
+</div>
+</section>
+<!-- Bottom Spacer for Floating Bar -->
+<div class="h-10"></div>
+</main>
+<!-- END: MainContentArea -->
+<!-- BEGIN: FloatingBottomTabBar -->
+<!-- Frosted Dark Navigation Bar at Bottom -->
+<nav class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[92%] glass-pill rounded-full border border-white/10 px-4 py-2.5 z-50 flex items-center justify-around shadow-2xl" data-purpose="bottom-tab-bar">
+<!-- Tab 1: Perpustakaan (Active) -->
+<button class="flex flex-col items-center space-y-0.5 text-iosBlue transition-colors group">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"></path>
+</svg>
+<span class="text-[10px] font-semibold">Perpustakaan</span>
+</button>
+<!-- Tab 2: Untuk Anda -->
+<button class="flex flex-col items-center space-y-0.5 text-neutral-400 hover:text-neutral-200 transition-colors">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+</svg>
+<span class="text-[10px] font-medium">Untuk Anda</span>
+</button>
+<!-- Tab 3: Album -->
+<button class="flex flex-col items-center space-y-0.5 text-neutral-400 hover:text-neutral-200 transition-colors">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24">
+<path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 16H5c-.55 0-1-.45-1-1s.45-1 1-1h14c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H5c-.55 0-1-.45-1-1s.45-1 1-1h14c.55 0 1 .45 1 1s-.45 1-1 1zm0-4H5c-.55 0-1-.45-1-1s.45-1 1-1h14c.55 0 1 .45 1 1s-.45 1-1 1z"></path>
+</svg>
+<span class="text-[10px] font-medium">Album</span>
+</button>
+<!-- Tab 4: Cari -->
+<button class="flex flex-col items-center space-y-0.5 text-neutral-400 hover:text-neutral-200 transition-colors">
+<svg class="w-5 h-5 fill-none stroke-currentColor stroke-2" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="7"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+<span class="text-[10px] font-medium">Cari</span>
+</button>
+</nav>
+<!-- END: FloatingBottomTabBar -->
+<!-- BEGIN: HomeIndicator -->
+<!-- Bottom White Home Bar Indicator for iPhone -->
+<div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/70 rounded-full z-50 pointer-events-none" data-purpose="home-indicator"></div>
+<!-- END: HomeIndicator -->
+</div>
+<!-- END: PhoneFrameContainer -->
+</body></html>

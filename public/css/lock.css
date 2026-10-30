@@ -1,0 +1,272 @@
+/* ==========================================================================
+   LOCK SCREEN (Gaya iPhone iOS) - Sesuai PRD F1
+   ========================================================================== */
+
+.lock-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 24px 36px 24px;
+  background: radial-gradient(circle at 50% 20%, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.96) 65%, #05070a 100%),
+              linear-gradient(180deg, #182232 0%, #0d121c 50%, #06080d 100%);
+  background-size: cover;
+  background-position: center;
+  color: var(--text-main);
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.lock-screen.hidden {
+  opacity: 0;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+/* Layer 1: Layar Awal Jam + Wallpaper (Sebelum Usap ke Atas) */
+.lock-cover-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 24px 40px 24px;
+  background: inherit;
+  z-index: 110;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.lock-cover-view.swipe-up {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Teks Petunjuk "Usap ke atas untuk membuka" */
+.lock-swipe-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  animation: bounceHint 2s infinite ease-in-out;
+}
+
+.lock-swipe-text {
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.lock-swipe-bar {
+  width: 120px;
+  height: 5px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Tombol Senter & Kamera di Pojok Bawah Layar Kunci */
+.lock-bottom-shortcuts {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.lock-shortcut-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s ease, background-color 0.15s ease;
+}
+
+.lock-shortcut-btn:active {
+  transform: scale(0.9);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Layer 2: Layar Input PIN Pad */
+.lock-pin-view {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 24px 36px 24px;
+  opacity: 1;
+  transition: transform 0.35s ease;
+}
+
+/* Bagian Atas: Gembok, Tanggal, Jam Besar iOS */
+.lock-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.lock-icon-status {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+
+.lock-date {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: -0.01em;
+}
+
+.lock-clock {
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin-top: 2px;
+}
+
+/* Bagian Tengah: Indikator Titik PIN & Pesan Error */
+.lock-pin-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: -10px;
+}
+
+.lock-pin-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.01em;
+}
+
+.lock-dots {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  height: 20px;
+}
+
+.lock-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  background: transparent;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.lock-dot.filled {
+  background: #ffffff;
+  transform: scale(1.1);
+}
+
+.lock-error-msg {
+  font-size: 0.85rem;
+  color: #ff453a;
+  min-height: 18px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.lock-error-msg.visible {
+  opacity: 1;
+}
+
+/* Animasi Shake saat PIN Salah */
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-12px); }
+  40%, 80% { transform: translateX(12px); }
+}
+
+.lock-dots.shake {
+  animation: pinShake 0.4s ease;
+}
+
+/* Bagian Bawah: Keypad Numerik iPhone */
+.lock-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 24px;
+  width: 100%;
+  max-width: 290px;
+  margin-bottom: 10px;
+}
+
+.keypad-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: none;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.keypad-btn:active {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0.95);
+}
+
+.keypad-number {
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.keypad-letters {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+/* Baris Bawah Keypad: Darurat / Batal */
+.keypad-action-btn {
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.keypad-action-btn:active {
+  background: transparent;
+  opacity: 0.6;
+}
