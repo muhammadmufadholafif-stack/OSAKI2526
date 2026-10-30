@@ -612,11 +612,21 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     currentView = 'chat';
     viewInbox.style.display = 'none';
     viewStatus.style.display = 'none';
+    viewReadonly.style.display = 'none';
     viewChat.style.display = 'flex';
 
     headerInbox.style.display = 'none';
     headerDetail.style.display = 'flex';
     tabBar.style.display = 'none'; // Sembunyikan tab bar saat sedang di ruang obrolan
+
+    // Kembalikan info header chat ke kontak utama (Fanskey)
+    const avatarEl = container.querySelector('#wa-chat-avatar');
+    const nameEl = container.querySelector('#wa-contact-name');
+    const statusEl = container.querySelector('#wa-contact-status');
+    const mainContact = mockInbox[0];
+    if (avatarEl) avatarEl.src = state.profile?.contactAvatar || mainContact.avatar;
+    if (nameEl) nameEl.textContent = state.profile?.contactName || mainContact.name;
+    if (statusEl) statusEl.textContent = 'online';
 
     if (!chatLoaded) {
       chatLoaded = true;
@@ -846,6 +856,28 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
 
   return {
     element: container,
+    updateProfile: (profile) => {
+      if (!profile) return;
+      if (profile.contactName) {
+        mockInbox[0].name = profile.contactName;
+        const inboxNameEl = container.querySelector('.inbox-item[data-id="satya"] .truncate');
+        if (inboxNameEl) inboxNameEl.textContent = profile.contactName;
+        const nameEl = container.querySelector('#wa-contact-name');
+        if (nameEl && currentView === 'chat') nameEl.textContent = profile.contactName;
+      }
+      if (profile.contactAvatar) {
+        mockInbox[0].avatar = profile.contactAvatar;
+        const inboxAvatarEl = container.querySelector('.inbox-item[data-id="satya"] img');
+        if (inboxAvatarEl) inboxAvatarEl.src = profile.contactAvatar;
+        const avatarEl = container.querySelector('#wa-chat-avatar');
+        if (avatarEl && currentView === 'chat') avatarEl.src = profile.contactAvatar;
+      }
+      if (profile.notifText) {
+        mockInbox[0].lastMsg = profile.notifText;
+        const inboxMsgEl = container.querySelector('.inbox-item[data-id="satya"] p');
+        if (inboxMsgEl) inboxMsgEl.textContent = profile.notifText;
+      }
+    },
     openScreen: () => {
       container.style.transform = 'translateY(0)';
       showInbox();

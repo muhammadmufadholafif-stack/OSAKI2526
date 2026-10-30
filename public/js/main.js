@@ -164,6 +164,9 @@ function initApp() {
         if (result.profile.wallpaper) {
           home.setWallpaper(result.profile.wallpaper);
         }
+        if (waScreenInstance && waScreenInstance.updateProfile) {
+          waScreenInstance.updateProfile(result.profile);
+        }
         // Update lock screen notification dengan data profile
         updateLockNotification(result.profile.contactName, result.profile.notifText);
         state.waBadgeCount = 1; // Set badge count awal
