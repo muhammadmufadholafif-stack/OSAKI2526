@@ -145,3 +145,20 @@ body {
     display: flex;
   }
 }
+
+/* ===================================================================
+ * PRD 8.3: Hormati prefers-reduced-motion
+ * Pengguna yang sensitif terhadap gerakan bisa mematikan animasi di
+ * pengaturan aksesibilitas OS. Di sini kita matikan semua transisi
+ * dan animasi besar agar tidak mengganggu mereka.
+ * =================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

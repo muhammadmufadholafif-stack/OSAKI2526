@@ -1,0 +1,41 @@
+{
+  "slug": "budi",
+  "displayName": "Budi",
+  "profile": {
+    "contactName": "Fanskey",
+    "contactAvatar": "/assets/default/wallpaper-lock.jpg",
+    "notifText": "Heyy!",
+    "clockTime": "",
+    "dateLabel": "",
+    "wallpaper": "/assets/default/wallpaper-lock.jpg"
+  },
+  "chat": [
+    { "from": "contact", "text": "Heyy!" },
+    { "from": "me", "text": "Eh, ada apa?" },
+    { "from": "contact", "text": "Selamat ulang tahun ya, Bud! 🎂", "delayMs": 500, "typingMs": 1200 },
+    { "from": "contact", "text": "Ada surprise buat kamu di aplikasi Hadiah. Tapi terkunci dulu, jangan lupa buka ya! 🎁", "delayMs": 400, "typingMs": 1600 }
+  ],
+  "songs": {
+    "playlistTitle": "Playlist buat Budi 🎵",
+    "items": [
+      {
+        "title": "Lagu Placeholder",
+        "artist": "Artis",
+        "src": "/assets/budi/lagu1.mp3",
+        "cover": "/assets/budi/cover1.jpg",
+        "durationLabel": "03:30"
+      }
+    ]
+  },
+  "photos": [
+    { "src": "/assets/budi/foto1.jpg", "caption": "Kenangan Bersama", "dateLabel": "Momen Indah" }
+  ],
+  "hadiah": {
+    "title": "Selamat Ulang Tahun, Budi! 🎉",
+    "message": [
+      "Semoga tahun ini penuh kebaikan dan kebahagiaan.",
+      "Ada kado kecil buat kamu. Pilih e-wallet kamu di bawah ya."
+    ],
+    "giftLabel": "Kado dari Fanskey"
+  }
+}
