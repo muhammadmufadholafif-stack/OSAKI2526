@@ -69,6 +69,11 @@ function initApp() {
       state.currentScreen = appName;
 
       if (appName === 'whatsapp' && waScreenInstance) {
+        // Sembunyikan notif WA di lock screen saat WA dibuka
+        state.waBadgeCount = 0;
+        const lockNotifBanner = lock.querySelector('#cover-notif-banner');
+        if (lockNotifBanner) lockNotifBanner.style.display = 'none';
+        
         if (options.directChat) {
           waScreenInstance.openDirectChat();
         } else {
@@ -160,6 +165,9 @@ function initApp() {
         if (result.profile.wallpaper) {
           home.setWallpaper(result.profile.wallpaper);
         }
+        // Update lock screen notification dengan data profile
+        updateLockNotification(result.profile.contactName, result.profile.notifText);
+        state.waBadgeCount = 1; // Set badge count awal
       }
       // Pre-load daftar lagu agar Control Center langsung siap memutar musik
       if (spotifyScreenInstance && spotifyScreenInstance.loadSongsIfNeeded) {
@@ -181,6 +189,16 @@ function initApp() {
       }, 1500);
     }
   });
+
+  // Helper: Update lock screen notification content
+  function updateLockNotification(sender, message) {
+    const senderEl = lock.querySelector('#lock-notif-sender');
+    const textEl = lock.querySelector('#lock-notif-text');
+    const countEl = lock.querySelector('#lock-wa-count');
+    if (senderEl) senderEl.textContent = sender || 'WhatsApp';
+    if (textEl) textEl.textContent = message || 'Pesan baru masuk...';
+    if (countEl) countEl.textContent = state.waBadgeCount || '1';
+  }
 
   // Masukkan elemen ke container layar (Home di bawah, app-app di tengah, Lock di atas)
   screenContainer.appendChild(home.element);

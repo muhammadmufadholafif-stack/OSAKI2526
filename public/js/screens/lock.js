@@ -76,26 +76,27 @@ export function createLockScreen({ onUnlock }) {
 
       <!-- Bottom Group: Notification Card, Quick Action Buttons, Home Bar -->
       <footer class="relative z-20 w-full px-5 pb-2 flex flex-col items-center" data-purpose="notification-and-controls">
-        <!-- WhatsApp Notification Banner (Satya) -->
+        <!-- WhatsApp Notification Banner (Dynamic from profile) -->
         <div class="w-full bg-[#1C1C1E]/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-3 shadow-2xl mb-6 transition-transform cursor-pointer active:scale-95" id="cover-notif-banner">
           <div class="flex items-start space-x-3">
             <div class="relative shrink-0 mt-0.5">
-              <div class="w-10 h-10 rounded-full overflow-hidden bg-zinc-700 ring-1 ring-black/40">
-                <img alt="Satya avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAytJh5EsgkQ7f7_MU67YKboGD5iMC2VL9mP3PoTvr6OKhSXqGR2ZofcTeY9slIeUn4D7IorsDO1PEfdEki-BX9aQA-PqnVGiBr2pHk70EcTg-LKrsNg2UoduEOma4F3KPT8T3ttdtTnYAV94rCiot6x1CoRTqd8-FzWQ7Sd20XSwTPXoA59Taa6QLQWXzJaxQNlLXica32Yh2iWO-x9TJxayPJD4ELYASTFtbkPlTV"/>
-              </div>
-              <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-[#25D366] rounded-full flex items-center justify-center ring-2 ring-[#1C1C1E]">
-                <svg class="w-2.5 h-2.5 fill-white" viewBox="0 0 24 24">
+              <div class="w-10 h-10 rounded-full overflow-hidden bg-[#25D366] ring-1 ring-black/40 flex items-center justify-center">
+                <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24">
                   <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"></path>
                 </svg>
+              </div>
+              <!-- Badge unread count -->
+              <div class="absolute -bottom-1 -right-1 min-w-[18px] h-[18px] px-1 bg-red-500 rounded-full flex items-center justify-center ring-2 ring-[#1C1C1E]" id="lock-wa-badge">
+                <span class="text-[11px] font-bold text-white" id="lock-wa-count">1</span>
               </div>
             </div>
             <div class="flex-1 min-w-0 pr-1">
               <div class="flex items-baseline justify-between mb-0.5">
-                <span class="text-[14px] font-semibold text-white tracking-tight">Satya</span>
+                <span class="text-[14px] font-semibold text-white tracking-tight" id="lock-notif-sender">WhatsApp</span>
                 <span class="text-[11px] text-zinc-400 font-normal">now</span>
               </div>
-              <p class="text-[13px] text-zinc-200 leading-snug font-normal line-clamp-2">
-                Jangan ikut campur soal kematian mba Zahira.
+              <p class="text-[13px] text-zinc-200 leading-snug font-normal line-clamp-2" id="lock-notif-text">
+                Pesan baru masuk...
               </p>
             </div>
           </div>

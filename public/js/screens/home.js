@@ -291,6 +291,22 @@ export function createHomeScreen({ state, onOpenApp }) {
       if (textEl) textEl.textContent = message;
       if (badgeEl) badgeEl.style.display = 'flex';
 
+      // Putar suara notifikasi (PRD F3)
+      try {
+        const notifSound = new Audio('/assets/default/notif.mp3');
+        notifSound.volume = 0.5;
+        notifSound.play().catch(e => {
+          console.log('Audio notifikasi tidak bisa diputar (browser policy):', e);
+        });
+      } catch (e) {
+        console.log('Audio notifikasi error:', e);
+      }
+
+      // Getar jika didukung
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate(200); } catch (e) {}
+      }
+
       notifBanner.style.transform = 'translateY(0)';
       notifBanner.style.opacity = '1';
       notifBanner.style.pointerEvents = 'auto';
@@ -299,7 +315,7 @@ export function createHomeScreen({ state, onOpenApp }) {
         notifBanner.style.transform = 'translateY(-96px)';
         notifBanner.style.opacity = '0';
         notifBanner.style.pointerEvents = 'none';
-      }, 5000);
+      }, 8000);
     },
     updateLockStatus: (isUnlocked) => {
       const lockBadge = container.querySelector('#hadiah-lock-badge');
