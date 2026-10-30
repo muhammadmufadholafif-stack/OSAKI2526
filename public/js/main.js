@@ -69,10 +69,10 @@ function initApp() {
       state.currentScreen = appName;
 
       if (appName === 'whatsapp' && waScreenInstance) {
-        // Sembunyikan notif WA di lock screen saat WA dibuka
+        // Sembunyikan badge WA di lock screen saat WA dibuka
         state.waBadgeCount = 0;
-        const lockNotifBanner = lock.querySelector('#cover-notif-banner');
-        if (lockNotifBanner) lockNotifBanner.style.display = 'none';
+        const lockWaBadge = lock.querySelector('#lock-wa-badge');
+        if (lockWaBadge) lockWaBadge.style.display = 'none';
         
         if (options.directChat) {
           waScreenInstance.openDirectChat();
