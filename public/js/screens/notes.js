@@ -1,28 +1,54 @@
 /**
- * Notes Screen Component (Aplikasi Catatan Bergaya Apple Notes)
+ * Notes Screen Component (Aplikasi Catatan Bergaya Asli Apple Notes iOS)
  * Fitur:
- * - Menulis catatan judul dan isi
- * - Auto-save langsung ke localStorage browser (tersimpan terus tanpa database eksternal)
- * - Tampilan khas kertas catatan iOS (kuning/amber warm text + background gelap)
+ * - View 1: List Catatan (Daftar semua catatan, tombol tambah "+", search bar, preview tanggal & isi)
+ * - View 2: Editor Catatan (Judul, isi, auto-save, tombol hapus & selesai)
+ * - Multi-catatan: Bisa tambah Judul 1, Judul 2, dst.
+ * - Tersimpan permanen di localStorage browser per teman (slug)
  */
 import { triggerHaptic } from '../haptics.js';
 import { showToast } from '../toast.js';
 
 export function createNotesScreen({ state, onBackToHome }) {
   const container = document.createElement('div');
-  container.className = 'fixed inset-0 z-50 bg-[#000000] flex flex-col justify-between overflow-hidden transition-transform duration-300 translate-y-full text-white pointer-events-none';
+  container.className = 'fixed inset-0 z-50 bg-[#000000] flex flex-col justify-between overflow-hidden transition-transform duration-300 translate-y-full text-white pointer-events-none select-none';
   container.id = 'notes-screen';
   container.style.display = 'none';
   container.style.visibility = 'hidden';
 
-  const STORAGE_KEY = `ultah_notes_${state.slug || 'default'}`;
+  const STORAGE_KEY = `ultah_notes_list_${state.slug || 'default'}`;
 
-  // Ambil catatan yang tersimpan sebelumnya
-  let savedData = { title: '', content: '', date: '' };
+  // Ambil daftar catatan dari localStorage
+  let notes = [];
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) savedData = JSON.parse(raw);
-  } catch {}
+    if (raw) {
+      notes = JSON.parse(raw);
+    }
+  } catch (e) {}
+
+  // Jika belum ada catatan, buat catatan default pertama
+  if (!Array.isArray(notes) || notes.length === 0) {
+    notes = [
+      {
+        id: 'note_1',
+        title: 'Harapan Ulang Tahun 🎂',
+        content: 'Semoga di umur baru ini segala urusan dilancarkan, selalu sehat, dan bahagia terus! ✨',
+        updatedAt: 'Hari ini',
+        time: '08:00'
+      }
+    ];
+    saveToStorage();
+  }
+
+  let currentNoteId = null;
+  let currentView = 'list'; // 'list' | 'editor'
+
+  function saveToStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+    } catch (e) {}
+  }
 
   container.innerHTML = `
     <!-- Top System Header (Status Bar iOS) -->
@@ -40,134 +66,306 @@ export function createNotesScreen({ state, onBackToHome }) {
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-between py-1 text-xs text-white">
-        <button id="notes-back-btn" class="flex items-center gap-1.5 text-amber-400 font-medium active:opacity-60 transition text-[13px]">
+
+      <!-- Navigation Header: List Mode -->
+      <div id="notes-nav-list" class="flex items-center justify-between py-2 text-white">
+        <button id="notes-home-btn" class="flex items-center gap-1.5 text-amber-400 font-medium active:opacity-60 transition text-[14px]">
           <i class="fa-solid fa-chevron-left text-xs"></i>
           <span>Home</span>
         </button>
-        <span class="text-[15px] font-bold text-white">Catatan</span>
-        <button id="notes-done-btn" class="text-amber-400 font-semibold active:opacity-60 transition text-[13px]">
+        <span class="text-[16px] font-bold text-white">Catatan</span>
+        <button id="notes-new-btn-top" class="text-amber-400 font-semibold active:opacity-60 transition text-[14px]">
+          <i class="fa-solid fa-pen-to-square text-base"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Header: Editor Mode -->
+      <div id="notes-nav-editor" class="flex items-center justify-between py-2 text-white" style="display: none;">
+        <button id="notes-back-to-list-btn" class="flex items-center gap-1.5 text-amber-400 font-medium active:opacity-60 transition text-[14px]">
+          <i class="fa-solid fa-chevron-left text-xs"></i>
+          <span>Catatan</span>
+        </button>
+        <span id="notes-editor-header-title" class="text-[14px] font-semibold text-neutral-300 truncate max-w-[150px]">Catatan Baru</span>
+        <button id="notes-done-btn" class="text-amber-400 font-semibold active:opacity-60 transition text-[14px]">
           Selesai
         </button>
       </div>
-      <div class="pb-2 pt-0.5 flex items-center justify-between text-[11px] text-neutral-400">
-        <span id="notes-time-saved">Tersimpan</span>
-        <span class="text-[10px] text-amber-400/80">Otomatis Tersimpan</span>
-      </div>
     </header>
 
-    <!-- Notes Editor Body -->
-    <main class="flex-1 overflow-y-auto px-6 py-4 flex flex-col bg-black">
+    <!-- VIEW 1: DAFTAR CATATAN (Apple Notes Style) -->
+    <main id="notes-view-list" class="flex-1 overflow-y-auto px-4 py-3 flex flex-col bg-black">
+      <!-- Search Capsule Bar -->
+      <div class="mb-3 px-3 py-1.5 rounded-xl bg-[#1c1c1e] flex items-center gap-2 text-neutral-400 text-xs border border-white/5">
+        <i class="fa-solid fa-magnifying-glass text-[11px]"></i>
+        <input id="notes-search-input" type="text" placeholder="Cari catatan..." class="bg-transparent outline-none flex-1 text-white placeholder-neutral-500 text-xs"/>
+      </div>
+
+      <!-- Notes Count & Folder Header -->
+      <div class="px-1 mb-2 flex items-center justify-between text-neutral-400 text-xs font-medium">
+        <span>Semua Catatan</span>
+        <span id="notes-total-count" class="text-amber-400 font-mono">1 Catatan</span>
+      </div>
+
+      <!-- Notes List Items Container -->
+      <div id="notes-items-container" class="flex flex-col gap-2"></div>
+    </main>
+
+    <!-- VIEW 2: EDITOR CATATAN -->
+    <main id="notes-view-editor" class="flex-1 overflow-y-auto px-5 py-4 flex flex-col bg-black" style="display: none;">
+      <div class="text-[11px] text-neutral-500 pb-2 flex items-center justify-between">
+        <span id="notes-editor-date">Hari ini</span>
+        <span class="text-amber-400/80 text-[10px]">Auto-saved</span>
+      </div>
       <input 
         id="notes-title-input" 
         type="text" 
         placeholder="Judul Catatan..." 
-        value="${escapeAttr(savedData.title || '')}"
         class="w-full bg-transparent text-xl font-bold text-white placeholder-neutral-600 outline-none pb-2 border-b border-white/10"
       />
       <textarea 
         id="notes-content-input" 
-        placeholder="Tulis pesan, kenangan, atau catatan kamu di sini..." 
+        placeholder="Mulai menulis catatan di sini..." 
         class="w-full flex-1 bg-transparent text-sm text-neutral-200 placeholder-neutral-600 outline-none resize-none pt-3 leading-relaxed font-sans"
-      >${escapeAttr(savedData.content || '')}</textarea>
+      ></textarea>
     </main>
 
-    <!-- Bottom Toolbar -->
-    <footer class="h-14 bg-[#1c1c1e]/95 backdrop-blur-xl border-t border-white/5 flex items-center justify-between px-6 text-amber-400 text-lg">
-      <button id="notes-clear-btn" title="Hapus catatan" class="active:scale-90 transition text-neutral-400 hover:text-rose-400">
-        <i class="fa-regular fa-trash-can text-sm"></i>
+    <!-- Bottom Toolbar: List Mode -->
+    <footer id="notes-footer-list" class="h-14 bg-[#1c1c1e]/95 backdrop-blur-xl border-t border-white/5 flex items-center justify-between px-6 text-amber-400">
+      <span class="text-[12px] text-neutral-500" id="notes-footer-summary">1 Catatan Tersimpan</span>
+      <button id="notes-add-btn-bottom" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-400 text-black font-semibold text-xs active:scale-95 transition">
+        <i class="fa-solid fa-plus text-xs"></i>
+        <span>Tambah</span>
       </button>
-      <span class="text-[11px] text-neutral-500 font-normal" id="notes-word-count">0 karakter</span>
-      <button id="notes-share-btn" title="Bagikan" class="active:scale-90 transition text-amber-400">
+    </footer>
+
+    <!-- Bottom Toolbar: Editor Mode -->
+    <footer id="notes-footer-editor" class="h-14 bg-[#1c1c1e]/95 backdrop-blur-xl border-t border-white/5 flex items-center justify-between px-6 text-amber-400 text-lg" style="display: none;">
+      <button id="notes-delete-btn" title="Hapus catatan ini" class="active:scale-90 transition text-neutral-400 hover:text-rose-400">
+        <i class="fa-regular fa-trash-can text-base"></i>
+      </button>
+      <span class="text-[11px] text-neutral-500 font-normal" id="notes-char-count">0 karakter</span>
+      <button id="notes-quick-save-btn" title="Simpan" class="active:scale-90 transition text-amber-400">
         <i class="fa-solid fa-check text-base"></i>
       </button>
     </footer>
   `;
 
-  function escapeAttr(str) {
-    return String(str || '').replace(/"/g, '&quot;');
-  }
-
+  // Status time
   function updateTime() {
     const now = new Date();
     const timeEl = container.querySelector('#notes-status-time');
-    if (timeEl) timeEl.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    if (timeEl) {
+      timeEl.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    }
   }
   updateTime();
   setInterval(updateTime, 1000);
 
+  // Element Selectors
+  const navList = container.querySelector('#notes-nav-list');
+  const navEditor = container.querySelector('#notes-nav-editor');
+  const viewList = container.querySelector('#notes-view-list');
+  const viewEditor = container.querySelector('#notes-view-editor');
+  const footerList = container.querySelector('#notes-footer-list');
+  const footerEditor = container.querySelector('#notes-footer-editor');
+
+  const notesItemsContainer = container.querySelector('#notes-items-container');
+  const totalCountEl = container.querySelector('#notes-total-count');
+  const footerSummaryEl = container.querySelector('#notes-footer-summary');
+  const searchInput = container.querySelector('#notes-search-input');
+
   const titleInput = container.querySelector('#notes-title-input');
   const contentInput = container.querySelector('#notes-content-input');
-  const timeSavedEl = container.querySelector('#notes-time-saved');
-  const wordCountEl = container.querySelector('#notes-word-count');
+  const editorDateEl = container.querySelector('#notes-editor-date');
+  const editorHeaderTitle = container.querySelector('#notes-editor-header-title');
+  const charCountEl = container.querySelector('#notes-char-count');
 
-  function updateWordCount() {
-    const len = (titleInput.value + contentInput.value).length;
-    wordCountEl.textContent = `${len} karakter`;
+  // Render List Catatan
+  function renderNotesList(filterText = '') {
+    notesItemsContainer.innerHTML = '';
+    const q = filterText.trim().toLowerCase();
+
+    const filtered = notes.filter(n => {
+      if (!q) return true;
+      return (n.title || '').toLowerCase().includes(q) || (n.content || '').toLowerCase().includes(q);
+    });
+
+    totalCountEl.textContent = `${notes.length} Catatan`;
+    footerSummaryEl.textContent = `${notes.length} Catatan Tersimpan`;
+
+    if (filtered.length === 0) {
+      notesItemsContainer.innerHTML = `
+        <div class="flex flex-col items-center justify-center py-12 text-neutral-500 gap-2">
+          <i class="fa-regular fa-note-sticky text-3xl text-neutral-600"></i>
+          <span class="text-xs">Tidak ada catatan</span>
+        </div>
+      `;
+      return;
+    }
+
+    filtered.forEach(note => {
+      const card = document.createElement('div');
+      card.className = 'p-3.5 rounded-2xl bg-[#1c1c1e] hover:bg-[#2c2c2e] active:scale-[0.98] transition cursor-pointer border border-white/5 flex flex-col gap-1';
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-white truncate max-w-[240px]">${escapeHtml(note.title || 'Catatan Tanpa Judul')}</h3>
+          <span class="text-[10px] text-neutral-400 font-mono">${escapeHtml(note.time || note.updatedAt || '')}</span>
+        </div>
+        <p class="text-xs text-neutral-400 line-clamp-2 leading-relaxed">${escapeHtml(note.content || 'Tidak ada teks tambahan')}</p>
+      `;
+      card.addEventListener('click', () => {
+        triggerHaptic('light');
+        openEditor(note.id);
+      });
+      notesItemsContainer.appendChild(card);
+    });
   }
 
-  function saveNotes() {
-    const data = {
-      title: titleInput.value,
-      content: contentInput.value,
-      updatedAt: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
-    };
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      timeSavedEl.textContent = `Tersimpan pukul ${data.updatedAt}`;
-    } catch {}
-    updateWordCount();
+  function escapeHtml(str) {
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
-  // Auto-save realtime saat diketik
-  titleInput.addEventListener('input', saveNotes);
-  contentInput.addEventListener('input', saveNotes);
+  // Tampilkan View List
+  function showListView() {
+    currentView = 'list';
+    navList.style.display = 'flex';
+    navEditor.style.display = 'none';
+    viewList.style.display = 'flex';
+    viewEditor.style.display = 'none';
+    footerList.style.display = 'flex';
+    footerEditor.style.display = 'none';
+    renderNotesList(searchInput.value);
+  }
 
-  // Tombol Kembali
-  container.querySelector('#notes-back-btn').addEventListener('click', () => {
-    triggerHaptic('light');
-    saveNotes();
-    container.style.transform = 'translateY(100%)';
-    container.classList.add('pointer-events-none');
-    setTimeout(() => { 
-      container.style.display = 'none'; 
-      container.style.visibility = 'hidden';
-    }, 300);
-    if (typeof onBackToHome === 'function') onBackToHome();
-  });
+  // Buka Editor untuk Catatan Tertentu atau Catatan Baru
+  function openEditor(noteId = null) {
+    currentView = 'editor';
+    currentNoteId = noteId;
 
-  // Tombol Selesai
-  container.querySelector('#notes-done-btn').addEventListener('click', () => {
-    triggerHaptic('medium');
-    saveNotes();
-    showToast('💾 Catatan berhasil disimpan!');
-    container.style.transform = 'translateY(100%)';
-    container.classList.add('pointer-events-none');
-    setTimeout(() => { 
-      container.style.display = 'none'; 
-      container.style.visibility = 'hidden';
-    }, 300);
-    if (typeof onBackToHome === 'function') onBackToHome();
-  });
+    navList.style.display = 'none';
+    navEditor.style.display = 'flex';
+    viewList.style.display = 'none';
+    viewEditor.style.display = 'flex';
+    footerList.style.display = 'none';
+    footerEditor.style.display = 'flex';
 
-  // Tombol Hapus
-  container.querySelector('#notes-clear-btn').addEventListener('click', () => {
-    triggerHaptic('light');
-    if (confirm('Hapus isi catatan ini?')) {
+    if (noteId) {
+      const note = notes.find(n => n.id === noteId);
+      if (note) {
+        titleInput.value = note.title || '';
+        contentInput.value = note.content || '';
+        editorDateEl.textContent = `Terakhir diubah: ${note.time || note.updatedAt || 'Hari ini'}`;
+        editorHeaderTitle.textContent = note.title || 'Catatan';
+      }
+    } else {
+      // Catatan Baru
+      const newId = 'note_' + Date.now();
+      currentNoteId = newId;
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      
+      const newNote = {
+        id: newId,
+        title: '',
+        content: '',
+        updatedAt: 'Hari ini',
+        time: timeStr
+      };
+      notes.unshift(newNote); // Tambah di paling atas
+      saveToStorage();
+
       titleInput.value = '';
       contentInput.value = '';
-      saveNotes();
-      showToast('🗑️ Catatan dikosongkan');
+      editorDateEl.textContent = `Dibuat pukul ${timeStr}`;
+      editorHeaderTitle.textContent = 'Catatan Baru';
+    }
+
+    updateCharCount();
+    titleInput.focus();
+  }
+
+  function updateCharCount() {
+    const len = (titleInput.value + contentInput.value).length;
+    charCountEl.textContent = `${len} karakter`;
+  }
+
+  // Simpan Otomatis Catatan yang Sedang Diedit
+  function autoSaveCurrentNote() {
+    if (!currentNoteId) return;
+    const note = notes.find(n => n.id === currentNoteId);
+    if (!note) return;
+
+    note.title = titleInput.value.trim();
+    note.content = contentInput.value;
+    const now = new Date();
+    note.time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    note.updatedAt = 'Hari ini';
+
+    editorHeaderTitle.textContent = note.title || 'Catatan';
+    updateCharCount();
+    saveToStorage();
+  }
+
+  titleInput.addEventListener('input', autoSaveCurrentNote);
+  contentInput.addEventListener('input', autoSaveCurrentNote);
+  searchInput.addEventListener('input', () => renderNotesList(searchInput.value));
+
+  // Tombol Tambah Catatan Baru
+  container.querySelector('#notes-new-btn-top').addEventListener('click', () => {
+    triggerHaptic('medium');
+    openEditor(null);
+  });
+  container.querySelector('#notes-add-btn-bottom').addEventListener('click', () => {
+    triggerHaptic('medium');
+    openEditor(null);
+  });
+
+  // Tombol Selesai / Kembali ke Daftar
+  container.querySelector('#notes-done-btn').addEventListener('click', () => {
+    triggerHaptic('light');
+    autoSaveCurrentNote();
+    showListView();
+  });
+  container.querySelector('#notes-back-to-list-btn').addEventListener('click', () => {
+    triggerHaptic('light');
+    autoSaveCurrentNote();
+    showListView();
+  });
+
+  // Tombol Hapus Catatan
+  container.querySelector('#notes-delete-btn').addEventListener('click', () => {
+    triggerHaptic('light');
+    if (confirm('Hapus catatan ini?')) {
+      notes = notes.filter(n => n.id !== currentNoteId);
+      saveToStorage();
+      showToast('🗑️ Catatan dihapus');
+      showListView();
     }
   });
 
-  container.querySelector('#notes-share-btn').addEventListener('click', () => {
-    triggerHaptic('light');
-    saveNotes();
-    showToast('✅ Catatan tersimpan dengan aman');
+  // Tombol Quick Save
+  container.querySelector('#notes-quick-save-btn').addEventListener('click', () => {
+    triggerHaptic('medium');
+    autoSaveCurrentNote();
+    showToast('✅ Catatan tersimpan');
   });
 
-  updateWordCount();
+  // Tombol Kembali ke Home Simulator
+  function closeNotesScreen() {
+    triggerHaptic('light');
+    autoSaveCurrentNote();
+    container.style.transform = 'translateY(100%)';
+    container.classList.add('pointer-events-none');
+    setTimeout(() => { 
+      container.style.display = 'none'; 
+      container.style.visibility = 'hidden';
+    }, 300);
+    if (typeof onBackToHome === 'function') onBackToHome();
+  }
+  container.querySelector('#notes-home-btn').addEventListener('click', closeNotesScreen);
+
+  // Inisialisasi tampilan awal
+  showListView();
 
   return {
     element: container,
@@ -175,11 +373,10 @@ export function createNotesScreen({ state, onBackToHome }) {
       container.style.visibility = 'visible';
       container.style.display = 'flex';
       container.classList.remove('pointer-events-none');
+      showListView();
       requestAnimationFrame(() => {
         container.style.transform = 'translateY(0)';
-        titleInput.focus();
       });
     }
   };
 }
-
