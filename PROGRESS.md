@@ -7,9 +7,9 @@
 **Sesi terakhir dikerjakan di:** Kiro IDE
 
 ## Posisi sekarang
-- **Milestone aktif:** M5 (selesai) → M6
-- **Sedang dikerjakan:** M5 selesai: Hadiah dan klaim lengkap dengan form, validasi, konfirmasi, dan status akhir
-- **Langkah berikutnya:** M6 - Multi-teman dan poles UI/UX, dokumentasi (ADD_FRIEND.md, DEPLOY.md, LEARNING.md)
+- **Milestone aktif:** M6
+- **Sedang dikerjakan:** Polishing — bug fix lock screen, notifikasi WA, dan bug WA lainnya
+- **Langkah berikutnya:** Konfirmasi bug badge lock screen teratasi, lalu inventarisir sisa bug WA, lalu lanjut M6
 
 ## Checklist milestone
 - [x] M0 — Kerangka proyek
@@ -26,17 +26,20 @@
 - Catatan: Semua layar utama mengacu pada acuan visual Stitch (Dark mode iOS).
 
 ## Keputusan yang sudah diambil
-- Scripted typing: teks berlebih langsung berhenti; tombol Kirim aktif hanya saat teks lengkap (terintegrasi dengan `typing-engine.js`).
+- Scripted typing: teks berlebih langsung berhenti; tombol Kirim aktif hanya saat teks lengkap.
 - PIN tiap teman diatur sendiri oleh pembuat (env var `PIN_<SLUG>`, default Rina: `1234`).
-- Alur WhatsApp sekarang membaca data riil dari `api/chat.js` (`advance` dan `send`), bukan fallback lokal buatan.
+- Alur WhatsApp membaca data riil dari `api/chat.js` (`advance` dan `send`).
 - Layar Catatan diisolasi ke kontainer terpisah agar tidak mengganggu layout WhatsApp.
 - Tema kado ulang tahun konsisten pada pesan chat dan formulir klaim Hadiah.
-- Hadiah hanya bisa dibuka setelah chat selesai (status LOCKED → UNLOCKED → OPENED → CLAIMED).
-- Toast "Selesaikan chat dulu ya 👀" tampil saat ikon Hadiah ditekan saat masih LOCKED.
-- Badge notifikasi "1" tampil pada ikon Hadiah setelah UNLOCKED sampai pertama kali dibuka.
+- Hadiah hanya bisa dibuka setelah chat selesai (LOCKED → UNLOCKED → OPENED → CLAIMED).
+- Toast "Selesaikan chat dulu ya 👀" + getar saat ikon Hadiah ditekan saat masih LOCKED.
+- Badge "1" pada ikon Hadiah muncul saat UNLOCKED, hilang saat pertama kali dibuka.
+- Notifikasi lock screen menggunakan data dinamis dari `profile.contactName` & `profile.notifText`.
+- Badge WA di lock screen dikontrol via `state.waBadgeCount`; di-reset ke 0 saat WA dibuka.
 
 ## Masalah terbuka
-- (kosong)
+- **[BELUM DIKONFIRMASI]** Badge WA (angka merah di avatar) di lock screen dilaporkan masih muncul setelah WA dibuka. Sudah diperbaiki di commit `a9a6421` — badge dikontrol oleh `state.waBadgeCount` via fungsi `updateLockNotification()`. Belum ada konfirmasi dari pemilik bahwa ini sudah teratasi. Kemungkinan penyebab jika masih terjadi: browser cache lama (solusi: `Ctrl+Shift+R`).
+- **[BELUM DIRINCI]** Bug-bug WA lain dilaporkan ada tapi belum disebutkan detail. Perlu pemilik mendeskripsikan atau screenshot bug spesifik sebelum bisa diperbaiki.
 
 ## Daftar `TODO-M4` yang masih ada di kode
 - (kosong)
@@ -48,18 +51,25 @@
 - [ ] Environment variable terisi di Vercel
 
 ## Catatan sesi (terbaru di atas, simpan 5 terakhir)
+- **30 Oktober 2026 (Sesi 4 — polishing):**
+  - Tambah audio notifikasi WA (`/assets/default/notif.mp3`) + getar di `home.js → showNotification()`.
+  - Durasi banner notifikasi home diperpanjang dari 5 detik ke 8 detik.
+  - Ganti banner notif lock screen dari hardcoded "Satya"/"Jangan ikut campur..." ke data dinamis dari `profile.contactName` dan `profile.notifText`.
+  - Ikon avatar WA di banner lock screen diganti dari gambar eksternal ke ikon WA hijau SVG lokal.
+  - Tambah badge unread (angka merah) di avatar WA pada banner lock screen (`#lock-wa-badge`).
+  - Badge WA lock screen dikontrol via `state.waBadgeCount` + fungsi `updateLockNotification()` di `main.js` — di-reset ke 0 dan disembunyikan saat WA dibuka.
+  - Fix `package.json`: tambah script `"dev": "vercel dev"` yang sebelumnya tidak ada.
+  - **Kendala:** badge lock screen belum dikonfirmasi teratasi oleh pemilik.
+
 - **30 Oktober 2026 (Sesi 3):**
-  - **M5 SELESAI:** Hadiah dan klaim lengkap dengan semua fitur PRD F7.
-  - Memperbaiki `public/js/screens/hadiah.js` agar sesuai PRD: form klaim dengan semua provider (DANA, GoPay, OVO, ShopeePay, LinkAja, SeaBank, Jago, Bank lain), field bank name conditional, validasi form di klien dan server, konfirmasi sebelum klaim, loading overlay, status sukses dan error.
-  - Integrasi penuh dengan backend: `GET /api/hadiah` (cek LOCKED), `POST /api/klaim` dengan payload yang benar (provider, bankName, accountNumber, accountName).
-  - Implementasi logika status Hadiah di main.js: LOCKED menampilkan toast dan getar, UNLOCKED menampilkan badge "1", OPENED menghilangkan badge.
-  - Animasi dan feedback: toast saat Hadiah terbuka, getar saat chat selesai.
+  - M5 SELESAI: Hadiah dan klaim lengkap dengan semua fitur PRD F7.
+  - Redesign `hadiah.js`: form klaim 8 provider, field bank name conditional, validasi klien, konfirmasi, loading, sukses/error.
+  - Integrasi penuh dengan backend `/api/hadiah` dan `/api/klaim`.
+  - Logika status Hadiah di `main.js`: toast + getar saat LOCKED, badge "1" saat UNLOCKED, badge hilang saat OPENED.
   - Semua unit test lolos (13 passed, 0 failed).
-  - Backend Telegram integration sudah siap (mode simulasi lokal jika env belum diisi).
 
 - **30 Oktober 2026 (Sesi 2):**
-  - Mengintegrasikan `public/js/screens/whatsapp.js` dengan `typing-engine.js` dan endpoint `/api/chat` (`advance` & `send`).
-  - Mengaktifkan aturan PRD F4: item pertama instan, pesan kontak dengan animasi typing indikator, dan scripted typing yang mengunci tombol kirim sampai teks lengkap.
+  - Mengintegrasikan `whatsapp.js` dengan `typing-engine.js` dan endpoint `/api/chat`.
+  - PRD F4 aktif: item pertama instan, animasi typing indikator, scripted typing mengunci tombol kirim.
   - Memisahkan elemen Catatan agar tidak menumpuk di DOM WhatsApp.
   - Semua unit test lolos (13 passed, 0 failed).
-
