@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Notes Screen Component (Aplikasi Catatan Bergaya Asli Apple Notes iOS)
  * Fitur:
  * - View 1: List Catatan (Daftar semua catatan, tombol tambah "+", search bar, preview tanggal & isi)
@@ -33,7 +33,7 @@ export function createNotesScreen({ state, onBackToHome }) {
   // Versi v4 = mindblowing: tidak ada label digit, tidak ada petunjuk eksplisit,
   // satu clue tersembunyi di chat WA yang sudah terbaca tapi tidak disadari,
   // sisanya memerlukan logika/matematika lintas aplikasi.
-  const mysteryNoteId = 'note_mystery_clue_v5';
+  const mysteryNoteId = 'note_mystery_clue_v6';
   const hasMysteryNote = Array.isArray(notes) && notes.some(n => n.id === mysteryNoteId);
 
   if (!hasMysteryNote) {
@@ -89,6 +89,8 @@ export function createNotesScreen({ state, onBackToHome }) {
       n.id !== 'note_mystery_clue' &&
       n.id !== 'note_mystery_clue_v2' &&
       n.id !== 'note_mystery_clue_v3' &&
+      n.id !== 'note_mystery_clue_v4' &&
+      n.id !== 'note_mystery_clue_v5' &&
       n.id !== mysteryNoteId
     );
     notes.unshift(clueNote);
