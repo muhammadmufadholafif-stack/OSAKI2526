@@ -1,4 +1,4 @@
-/**
+﻿/**
  * hadiah.js (PRD F7 & 12.4/12.5)
  * Layar Hadiah: ucapan, form klaim, konfirmasi, dan status akhir.
  * Status: LOCKED (chat belum selesai), UNLOCKED (siap diklaim), CLAIMED (sudah diklaim).
@@ -56,8 +56,8 @@ export function createHadiahScreen({ state, onBackToHome }) {
             ${num}
           </button>
         `).join('')}
-        <button type="button" id="vault-btn-hint" class="w-16 h-16 rounded-full bg-transparent text-amber-400 text-xs font-medium flex items-center justify-center mx-auto active:opacity-60">
-          Petunjuk
+        <button type="button" id="vault-btn-hint" class="w-16 h-16 rounded-full bg-transparent text-amber-400 text-xs font-medium flex items-center justify-center mx-auto active:opacity-60" aria-label="Buka petunjuk">
+          Hint
         </button>
         <button type="button" class="vault-key w-16 h-16 rounded-full bg-[#1C1C1E] hover:bg-[#2C2C2E] active:scale-90 text-2xl font-light text-white flex items-center justify-center border border-white/5 shadow-md mx-auto transition" data-num="0">
           0
@@ -71,10 +71,10 @@ export function createHadiahScreen({ state, onBackToHome }) {
       <div id="vault-hint-box" class="hidden mt-6 p-3.5 rounded-2xl bg-[#1C1C1E] border border-amber-500/20 text-left text-xs text-neutral-300 w-full max-w-[300px]">
         <p class="font-bold text-amber-400 mb-1">💡 Bantuan Detektif:</p>
         <ul class="list-disc list-inside space-y-1 text-[11px] text-neutral-400">
-          <li>Digit 1: Baca Catatan "Berkas Misteri"</li>
-          <li>Digit 2: Durasi menit lagu Tulus berawalan 'J' di Spotify</li>
-          <li>Digit 3: Angka bulat seperti telur / donat (melambangkan kosong/nol)</li>
-          <li>Digit 4: Total tombol koneksi + aksi di Control Center (4 + 4)</li>
+          <li>Digit 1: Buka <b>Catatan</b> → buka catatan "🔐 Surat untuk Detektif" → hitung kata di judulnya (tanpa emoji) 📝</li>
+          <li>Digit 2: Buka <b>Spotify</b>, cari lagu Tulus "Jam Berapa" — lihat durasinya 🎵</li>
+          <li>Digit 3: Angka ini bulat seperti donat, artinya kosong — <b>0</b> ⭕</li>
+          <li>Digit 4: Buka <b>Control Center</b>, hitung semua tombol di baris pertama dan kedua 📱</li>
         </ul>
       </div>
     </main>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Notes Screen Component (Aplikasi Catatan Bergaya Asli Apple Notes iOS)
  * Fitur:
  * - View 1: List Catatan (Daftar semua catatan, tombol tambah "+", search bar, preview tanggal & isi)
@@ -49,11 +49,9 @@ export function createNotesScreen({ state, onBackToHome }) {
 
         '─────────────────────────\n\n' +
 
-        'Ingat percakapan pertamamu tadi?\n' +
-        'Buka lagi. Baca ulang — lebih lambat dari sebelumnya.\n' +
-        'Afif menyisipkan sebuah angka dalam kata,\n' +
-        'bukan dalam simbol, bukan dalam angka biasa.\n' +
-        'Kata itu adalah keping pertama.\n\n' +
+        'Keping pertama ada tepat di depanmu sekarang.\n' +
+        'Hitung berapa kata ada di JUDUL catatan ini (tanpa emoji).\n' +
+        'Angka itu adalah digit pertama.\n\n' +
 
         '─────────────────────────\n\n' +
 

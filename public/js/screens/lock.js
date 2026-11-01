@@ -110,7 +110,7 @@ export function createLockScreen({ onUnlock }) {
             </svg>
           </button>
           <span class="text-[13px] text-white/60 font-medium tracking-tight animate-pulse" id="swipe-up-label">
-            Swipe up to open
+            Geser ke atas untuk membuka
           </span>
           <button aria-label="Open Camera" id="btn-lock-camera" class="w-[50px] h-[50px] rounded-full bg-black/40 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white/90 active:bg-white active:text-black transition">
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
