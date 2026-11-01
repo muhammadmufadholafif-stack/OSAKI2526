@@ -44,8 +44,8 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
       <!-- Video Element dari Webcam / Kamera HP -->
       <video id="camera-video" autoplay playsinline muted class="w-full h-full object-cover"></video>
 
-      <!-- Fallback Placeholder jika kamera belum diizinkan -->
-      <div id="camera-fallback" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-neutral-900 text-center px-6">
+      <!-- Fallback Placeholder jika kamera belum diizinkan / tidak tersedia -->
+      <div id="camera-fallback" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-neutral-900 text-center px-6 z-20">
         <div class="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center text-3xl text-neutral-400 mb-3">
           <i class="fa-solid fa-camera"></i>
         </div>
@@ -53,10 +53,22 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
         <p class="text-xs text-neutral-400 max-w-[250px] mb-4 leading-relaxed">
           Ketuk tombol di bawah untuk meminta izin kamera browser atau periksa izin situs.
         </p>
-        <button id="cam-retry-btn" class="px-5 py-2.5 rounded-full bg-amber-500 text-black text-xs font-semibold active:opacity-80 transition shadow-lg flex items-center gap-2">
-          <i class="fa-solid fa-video"></i>
-          <span>Izinkan Kamera</span>
-        </button>
+        <div class="flex flex-col gap-2.5 items-center w-full max-w-[220px]">
+          <button id="cam-retry-btn" class="w-full py-2.5 rounded-full bg-amber-500 text-black text-xs font-semibold active:opacity-80 transition shadow-lg flex items-center justify-center gap-2" type="button">
+            <i class="fa-solid fa-video"></i>
+            <span>Minta Izin Kamera</span>
+          </button>
+          <button id="cam-sim-btn" class="w-full py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 text-xs font-medium active:scale-95 transition flex items-center justify-center gap-2" type="button">
+            <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
+            <span>Mode Foto Simulator</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading Indicator -->
+      <div id="camera-loading" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-black/80 gap-3 text-neutral-300 z-10">
+        <div class="w-9 h-9 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+        <span class="text-xs font-medium">Menghubungkan kamera...</span>
       </div>
 
       <!-- Grid Garis Rule of Thirds -->
@@ -114,15 +126,20 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
   const thumbImg = container.querySelector('#cam-thumb-img');
   const flipBtn = container.querySelector('#cam-flip-btn');
   const retryBtn = container.querySelector('#cam-retry-btn');
+  const simBtn = container.querySelector('#cam-sim-btn');
+  const loadingEl = container.querySelector('#camera-loading');
 
   // Mulai stream kamera
   async function startCamera() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
       console.warn('Browser tidak mendukung navigator.mediaDevices.getUserMedia');
+      if (loadingEl) loadingEl.classList.add('hidden');
       videoEl.classList.add('hidden');
       fallbackEl.classList.remove('hidden');
       return;
     }
+
+    if (loadingEl) loadingEl.classList.remove('hidden');
 
     try {
       if (mediaStream) {
@@ -146,10 +163,12 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
 
       videoEl.srcObject = mediaStream;
       await videoEl.play().catch(() => {});
+      if (loadingEl) loadingEl.classList.add('hidden');
       videoEl.classList.remove('hidden');
       fallbackEl.classList.add('hidden');
     } catch (err) {
       console.warn('Izin kamera ditolak atau perangkat tidak mendukung:', err);
+      if (loadingEl) loadingEl.classList.add('hidden');
       videoEl.classList.add('hidden');
       fallbackEl.classList.remove('hidden');
     }
@@ -159,6 +178,15 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
     retryBtn.addEventListener('click', () => {
       triggerHaptic('medium');
       startCamera();
+    });
+  }
+
+  if (simBtn) {
+    simBtn.addEventListener('click', () => {
+      triggerHaptic('light');
+      fallbackEl.classList.add('hidden');
+      if (loadingEl) loadingEl.classList.add('hidden');
+      videoEl.classList.add('hidden');
     });
   }
 

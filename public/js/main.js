@@ -2,15 +2,15 @@
  * Titik Masuk Utama Frontend & Router Layar Simulator HP (PRD F1, F2, F8)
  */
 import { state } from './state.js';
-import { createLockScreen } from './screens/lock.js';
-import { createHomeScreen } from './screens/home.js?v=2.1';
-import { createWhatsAppScreen } from './screens/whatsapp.js?v=2.1';
-import { createSpotifyScreen } from './screens/spotify.js?v=2.1';
-import { createGalleryScreen } from './screens/gallery.js?v=2.1';
-import { createHadiahScreen } from './screens/hadiah.js?v=2.1';
-import { createNotesScreen } from './screens/notes.js?v=2.1';
-import { createCameraScreen } from './screens/camera.js?v=2.1';
-import { createControlCenter } from './control-center.js?v=2.1';
+import { createLockScreen } from './screens/lock.js?v=2.3';
+import { createHomeScreen } from './screens/home.js?v=2.3';
+import { createWhatsAppScreen } from './screens/whatsapp.js?v=2.3';
+import { createSpotifyScreen } from './screens/spotify.js?v=2.3';
+import { createGalleryScreen } from './screens/gallery.js?v=2.3';
+import { createHadiahScreen } from './screens/hadiah.js?v=2.3';
+import { createNotesScreen } from './screens/notes.js?v=2.3';
+import { createCameraScreen } from './screens/camera.js?v=2.3';
+import { createControlCenter } from './control-center.js?v=2.3';
 
 // Baca slug dari URL pathname atau query param (contoh "/sifa" atau "?slug=sifa")
 function getSlug() {
