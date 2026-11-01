@@ -207,7 +207,7 @@ function initApp() {
       }
       // Picu notifikasi WA setelah Home tampil (Stitch 03)
       setTimeout(() => {
-        const sender = result?.profile?.contactName || 'Fanskey';
+        const sender = result?.profile?.contactName || 'Afif';
         const text = result?.profile?.notifText || 'hai';
         home.showNotification(sender, text);
       }, 1500);

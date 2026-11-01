@@ -2,7 +2,7 @@
   "slug": "sifa",
   "displayName": "Sifa",
   "profile": {
-    "contactName": "Fanskey",
+    "contactName": "Afif",
     "contactAvatar": "/assets/default/wallpaper-lock.jpg",
     "notifText": "Sifa, makasih banyak ya!",
     "clockTime": "",
@@ -16,7 +16,7 @@
     },
     {
       "from": "me",
-      "text": "Eh Fanskey, makasih buat apa?"
+      "text": "Eh Afif, makasih buat apa?"
     },
     {
       "from": "contact",
@@ -234,6 +234,6 @@
       "Event kemarin sukses berkat bantuan dan semangatmu.",
       "Ini ada sedikit traktiran jajan apresiasi dari aku. Pilih e-wallet kamu di bawah ya!"
     ],
-    "giftLabel": "Apresiasi dari Fanskey"
+    "giftLabel": "Apresiasi dari Afif"
   }
 }

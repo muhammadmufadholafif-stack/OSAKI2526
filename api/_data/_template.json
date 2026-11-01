@@ -2,7 +2,7 @@
   "slug": "template",
   "displayName": "Nama Teman",
   "profile": {
-    "contactName": "Fanskey",
+    "contactName": "Afif",
     "contactAvatar": "/assets/template/avatar.jpg",
     "notifText": "hai",
     "clockTime": "09:41",
@@ -25,6 +25,6 @@
       "Semoga panjang umur dan sukses selalu.",
       "Pilih e-wallet kamu di bawah ya."
     ],
-    "giftLabel": "Kado dari Fanskey"
+    "giftLabel": "Kado dari Afif"
   }
 }

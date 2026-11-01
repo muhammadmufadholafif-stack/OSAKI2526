@@ -87,7 +87,7 @@ export function createHadiahScreen({ state, onBackToHome }) {
           <div id="hadiah-message" class="text-[15px] text-[#8E8E93] leading-relaxed space-y-2"></div>
         </div>
         <div class="pt-4 border-t border-white/10">
-          <p class="text-[13px] text-[#FF9F0A] font-medium" id="hadiah-gift-label">Kado dari Fanskey</p>
+          <p class="text-[13px] text-[#FF9F0A] font-medium" id="hadiah-gift-label">Kado dari Afif</p>
         </div>
       </div>
 

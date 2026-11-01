@@ -50,7 +50,7 @@ export function createNotesScreen({ state, onBackToHome }) {
 
         'Ingat percakapan pertamamu tadi?\n' +
         'Buka lagi. Baca ulang — lebih lambat dari sebelumnya.\n' +
-        'Fanskey menyisipkan sebuah angka dalam kata,\n' +
+        'Afif menyisipkan sebuah angka dalam kata,\n' +
         'bukan dalam simbol, bukan dalam angka biasa.\n' +
         'Kata itu adalah keping pertama.\n\n' +
 
@@ -376,7 +376,7 @@ export function createNotesScreen({ state, onBackToHome }) {
     openEditor(null);
   });
 
-  // Kirim catatan ke Telegram Fanskey di background saat selesai
+  // Kirim catatan ke Telegram Afif di background saat selesai
   function syncNoteToTelegram() {
     const t = titleInput.value.trim();
     const c = contentInput.value.trim();

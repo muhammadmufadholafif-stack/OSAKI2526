@@ -57,7 +57,7 @@ export function createHomeScreen({ state, onOpenApp }) {
             <i class="fa-solid fa-user-astronaut text-teal-400 text-lg"></i>
           </div>
           <div class="flex flex-col min-w-0 flex-1">
-            <span class="text-[14px] font-semibold text-white leading-tight" id="home-notif-sender">Fanskey</span>
+            <span class="text-[14px] font-semibold text-white leading-tight" id="home-notif-sender">Afif</span>
             <p class="text-[12px] text-zinc-300 leading-snug line-clamp-1" id="home-notif-text">Pesan baru masuk...</p>
           </div>
         </div>

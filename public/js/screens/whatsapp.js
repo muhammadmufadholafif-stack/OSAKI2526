@@ -4,7 +4,7 @@
  * - Tab Bar Bawah iOS WhatsApp: Obrolan (Chats), Status (Updates), Komunitas, Panggilan
  * - View 1: Inbox / Daftar Percakapan (Daftar chat aktif: Satya, Grup Kampus, Bu Dosen, dll.)
  * - View 2: Tab Status / Updates (Status story teman-teman kampus)
- * - View 3: Layar Chat Pribadi dengan Satya (Fanskey) + Auto typing keyboard
+ * - View 3: Layar Chat Pribadi dengan Satya (Afif) + Auto typing keyboard
  */
 import { triggerHaptic } from '../haptics.js';
 import { advanceChatApi, sendChatApi } from '../api.js';
@@ -26,7 +26,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
   const mockInbox = [
     {
       id: 'satya',
-      name: state.profile?.contactName || 'Fanskey',
+      name: state.profile?.contactName || 'Afif',
       avatar: state.profile?.contactAvatar || '/assets/default/wallpaper-lock.jpg',
       lastMsg: state.profile?.notifText || 'hai',
       time: '07:51',
@@ -126,11 +126,11 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
           </button>
           <div class="flex items-center space-x-2.5 cursor-pointer">
             <div class="w-10 h-10 rounded-full bg-[#202c33] border border-white/10 flex items-center justify-center text-white overflow-hidden shadow">
-              <img id="wa-chat-avatar" class="w-full h-full object-cover" src="${mockInbox[0].avatar}" alt="Fanskey"/>
+              <img id="wa-chat-avatar" class="w-full h-full object-cover" src="${mockInbox[0].avatar}" alt="Afif"/>
             </div>
             <div class="flex flex-col">
               <span class="font-semibold text-[15px] leading-tight text-[#e9edef] flex items-center gap-1.5" id="wa-contact-name">
-                Fanskey
+                Afif
               </span>
               <span class="text-[11px] text-[#8696a0] leading-none" id="wa-contact-status">online</span>
             </div>
@@ -677,7 +677,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     headerDetail.style.display = 'flex';
     tabBar.style.display = 'none'; // Sembunyikan tab bar saat sedang di ruang obrolan
 
-    // Kembalikan info header chat ke kontak utama (Fanskey)
+    // Kembalikan info header chat ke kontak utama (Afif)
     const avatarEl = container.querySelector('#wa-chat-avatar');
     const nameEl = container.querySelector('#wa-contact-name');
     const statusEl = container.querySelector('#wa-contact-status');

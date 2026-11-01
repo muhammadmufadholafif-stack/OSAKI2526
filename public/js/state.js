@@ -6,7 +6,7 @@ export const state = {
   token: null,
   profile: {
     displayName: 'Teman',
-    contactName: 'Fanskey',
+    contactName: 'Afif',
     notifText: 'hai',
     clockTime: '',
     dateLabel: '',

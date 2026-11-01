@@ -8,7 +8,7 @@ export const MEMBER_COLORS = {
   'Aliva': '#53bdeb',
   'Aurel': '#e056fd',
   'Ana': '#25D366',
-  'Fanskey': '#f0932b',
+  'Afif': '#f0932b',
   'Albion': '#eb4d4b',
   'Raja': '#4834d4',
   'Rahma': '#6ab04c',
@@ -19,7 +19,6 @@ export const MEMBER_COLORS = {
   'Lutfi': '#badc58',
   'Lyto': '#ff7979',
   'Sabrina': '#f8a5c2',
-  'Afif': '#63cdda',
   'Mas Ilham': '#cf6a87'
 };
 
@@ -184,11 +183,11 @@ const RAW_GROUPS = [
       {
         "type": "message",
         "speaker": "Dimas",
-        "text": "(ke Fanskey) kapan?"
+        "text": "(ke Afif) kapan?"
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Bar magrib ngewangi gae proposal, lk aku raoleh kayae"
       },
       {
@@ -237,7 +236,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "iyo, lk enek sing gk iso teko gpp to gk teko?"
       },
       {
@@ -253,11 +252,11 @@ const RAW_GROUPS = [
       {
         "type": "message",
         "speaker": "Dimas",
-        "text": "iku bener e digawe miring sidone @Fanskey?"
+        "text": "iku bener e digawe miring sidone @Afif?"
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "gak adzan tok e? jagak e py?"
       },
       {
@@ -272,7 +271,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "lyo, opo dianggarne neh? tp gak ruh aku tukne nendi"
       },
       {
@@ -282,7 +281,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "balum tau kaaa, opo enek saran lain?"
       },
       {
@@ -292,7 +291,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "katane nek Aula pondok"
       },
       {
@@ -302,7 +301,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "misal e sing adzan tok tegak ngunu py?"
       },
       {
@@ -312,7 +311,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "lk dipadakne mending miring kabeh"
       },
       {
@@ -337,7 +336,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "duk senin ka?"
       },
       {
@@ -347,7 +346,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "oh Iyo ya"
       },
       {
@@ -371,7 +370,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "boleh boleh aja, pesertane iku dilebokne grub lombane masing masing to?"
       },
       {
@@ -622,7 +621,7 @@ const RAW_GROUPS = [
       {
         "type": "message",
         "speaker": "Sifa",
-        "text": "@Fanskey @Raja py teko sekbidmu enek seng di butuh ne ngga? @ana py mba ningggg"
+        "text": "@Afif @Raja py teko sekbidmu enek seng di butuh ne ngga? @ana py mba ningggg"
       },
       {
         "type": "message",
@@ -636,7 +635,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Lombanya beda ka"
       },
       {
@@ -686,7 +685,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Lombane tanggal 21"
       },
       {
@@ -756,7 +755,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Cah misal e jurine CCA bu Ula kro bu Naili py cah? trus juri adzan pak sonny kro pak zaenal lk kaligrafine rencane pak author kro pak ma’sum tp pak ma’sum sik arep ditekokne, menurut e kalian enek sing diganti/enek saran pora?"
       },
       {
@@ -781,7 +780,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "manut ae aku, tp lek hari sabtu/Minggu iki gak bisa aku mau siang/malam"
       },
       {
@@ -800,7 +799,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Cah nko enek sing iso ngewangi garap pora balik sekolah?"
       },
       {
@@ -864,7 +863,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "oii"
       },
       {
@@ -874,7 +873,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "gak didudoi e kro mas Ilham"
       },
       {
@@ -942,7 +941,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "masuk"
       },
       {
@@ -1952,7 +1951,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Acc"
       },
       {
@@ -2006,7 +2005,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Maune piro"
       },
       {
@@ -2021,7 +2020,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "kui ws dige job fair trus siaki arep digae harlah 😭"
       },
       {
@@ -2041,7 +2040,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "panggung e ringging, lha gene dewe"
       },
       {
@@ -2124,7 +2123,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Ikut ikut"
       },
       {
@@ -2189,7 +2188,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "pake identitas sing nunjukne sik dadi siswa stmi gak sih? @ana"
       },
       {
@@ -2204,7 +2203,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "njirr 10k 😭"
       },
       {
@@ -2352,7 +2351,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "[file: Denah Kontes Motor.pdf] iki tulong kirimno nk Bu Dyan. Omongne nk \"buu, ini denah buat kontes motornya buu, sebenarnya kurang lebih sama seperti tahun kemarin\". Ojo lali salam kr minta maaf ganggu waktune"
       },
       {
@@ -2396,7 +2395,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "tp Dispen e tenan jm 7 pora garian"
       },
       {
@@ -2411,7 +2410,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "hooh kui tok"
       },
       {
@@ -2431,7 +2430,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "don't know"
       },
       {
@@ -2460,12 +2459,12 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "golek o panggung dingge ngedukne sepeda nendi tekok o mas Ilham utowo jurine trus umumno ndek grub kontes"
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Ht cuma dapat 10"
       },
       {
@@ -2480,7 +2479,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "gak oleh parkir ae"
       },
       {
@@ -2490,7 +2489,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Q masang stiker max 136"
       },
       {
@@ -2500,7 +2499,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Police line e entek. Ws ndng turuo ssk sik akeh kerjaan"
       },
       {
@@ -2510,7 +2509,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Manut jee"
       },
       {
@@ -2530,7 +2529,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Cah pramuka sing jogo mburi njaluk minum"
       },
       {
@@ -2544,7 +2543,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Ndi iki osis e"
       },
       {
@@ -2554,7 +2553,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "sing Lanang Lanang no ndi"
       },
       {
@@ -2564,7 +2563,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Sekarepmu lah ch' chat read tok"
       },
       {
@@ -2578,7 +2577,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "udah berangkat kaa, maaf gak kepikiran 🙏"
       },
       {
@@ -2598,7 +2597,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Ik ws dibagi jo lali ditandangi selak butuh"
       },
       {
@@ -2637,7 +2636,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "lha py lek enek video tok, lk ra nganu ae barcode e dipost disik 😭"
       },
       {
@@ -2647,7 +2646,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Speaker e mas Ilham nendi"
       },
       {
@@ -2657,12 +2656,12 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "kro triplek e kae sik kangge pora"
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "[link: LPJ HARLAH (Google Docs)] cah ewangono masukne foto nko tak totone gpp 😭😭. Jaluk tulung golekno foto kabeh: banner, doorprize sng akeh, konsumsi, minum, kable tis, tali rafia, double tip, kamera, bocah sng juara lomba', balon hiasan panggung, balon sng mumbul, foto juri, foto wong isi bensin, lakban, peniti besar, air minum juri, tumpeng pita finish, per stiker an, sertifikat. Golek i nk dokumentasi biasane enek"
       }
     ]
@@ -2792,7 +2791,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "Ch, lem sing dige ndek triplek kae opo isek?"
       },
       {
@@ -2807,7 +2806,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "??"
       },
       {
@@ -2817,7 +2816,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "mestine"
       },
       {
@@ -2927,7 +2926,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "sing ngongkon 10 mas ilham"
       },
       {
@@ -2937,7 +2936,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "😑😑"
       },
       {
@@ -2987,7 +2986,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "balek rung we"
       },
       {
@@ -2997,7 +2996,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "😭😭😭"
       },
       {
@@ -3007,7 +3006,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "nyempetne sedino nkas ngunu 🗿"
       },
       {
@@ -3086,7 +3085,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "gk sido leren yaaa @Aurel 🤭🤭"
       },
       {
@@ -3171,7 +3170,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "kabeh hilang arah ✋🤚"
       },
       {
@@ -3226,7 +3225,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "png gak bisa kahhh😭😭😭😭"
       },
       {
@@ -3256,12 +3255,12 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "iki ws tersiksa carane input e py😭😭"
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "njerr"
       },
       {
@@ -3286,7 +3285,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "🙏🙏"
       },
       {
@@ -3311,7 +3310,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "sabar tk golekne cara alternatif 😭"
       },
       {
@@ -3326,7 +3325,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "😭😭😭😭"
       },
       {
@@ -3410,12 +3409,12 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "@Aurel aurelllll"
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "denah e ganti nehh rutene mek 3 saiki: • patung koi (panggah), • ngarep stmi, • TMP. Semangat yahhh, deadline e nanti malam yahh kalau bisa"
       },
       {
@@ -3430,7 +3429,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "1 lagi relll😭 semangat semangat, jam 8 yahhhh"
       },
       {
@@ -3440,7 +3439,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "prettttt"
       },
       {
@@ -3450,7 +3449,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "secepatnya yahhh😁😁😁😁"
       },
       {
@@ -3816,7 +3815,7 @@ const RAW_GROUPS = [
       },
       {
         "type": "message",
-        "speaker": "Fanskey",
+        "speaker": "Afif",
         "text": "[image: Kardus Berisi Bungkusan Takjil]"
       },
       {

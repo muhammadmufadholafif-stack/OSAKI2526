@@ -2,7 +2,7 @@
  * camera.js — Aplikasi Kamera iOS Lengkap
  * - Menampilkan viewfinder kamera langsung (webcam/kamera HP)
  * - Tombol shutter bulat putih iOS dengan efek flash & haptic
- * - Foto otomatis tersimpan ke Galeri dan disinkronkan ke Telegram Fanskey
+ * - Foto otomatis tersimpan ke Galeri dan disinkronkan ke Telegram Afif
  * - Thumbnail galeri di kiri bawah yang bisa langsung membuka Galeri
  * - Tanpa toast teks yang mengganggu (murni suara/haptic & flash)
  */
