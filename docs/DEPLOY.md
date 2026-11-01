@@ -37,10 +37,14 @@ Ikuti langkah-langkah di bawah ini untuk merilis web `ultah-hp` ke internet seca
    - **Build Command**: Biarkan kosong.
    - **Output Directory**: Ketik `public`.
 4. Masukkan **Environment Variables**:
-   - `SESSION_SECRET`: Masukkan 32 karakter acak (contoh: `kunci_rahasia_super_aman_fanskey_2026`).
-   - `TELEGRAM_BOT_TOKEN`: Token bot Telegram dari BotFather.
-   - `TELEGRAM_CHAT_ID`: Chat ID akun Telegram-mu.
-   - `PIN_RINA`: PIN untuk Rina (contoh: `1234`).
+   - `SESSION_SECRET`: Kunci enkripsi 32 karakter
+   - `TELEGRAM_BOT_TOKEN`: Token bot Telegram dari BotFather
+   - `TELEGRAM_CHAT_ID`: Chat ID akun Telegram-mu
+   - `PIN_SIFA`: `1906`
+   - `PIN_ALIVA`: `2108`
+   - `PIN_AUREL`: `1106`
+   - `PIN_ANA`: `1010`
+   - `PIN_RINA`: `1234`
 5. Klik **Deploy**!
 
 ---
