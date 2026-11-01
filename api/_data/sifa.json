@@ -26,13 +26,7 @@
     },
     {
       "from": "contact",
-      "text": "gpp, ndelok o grub karo catatan ojo lali nyalain lagune ben asik awokawok 🎶",
-      "delayMs": 600,
-      "typingMs": 1400
-    },
-    {
-      "from": "contact",
-      "text": "tak kumpulne kabeh riwayat obrolan adwe pas event hari santri, harlah, sampe ldks wingi ndek hp iki wkwk",
+      "text": "gpp, ndelok o grub karo catatan ojo lali nyalain lagune ben asik awokawok",
       "delayMs": 500,
       "typingMs": 1300
     },
@@ -42,15 +36,15 @@
     },
     {
       "from": "contact",
-      "text": "wkwk makasih akeh yo sip wes sat-set pol mbantu kabeh acara dan repot bareng selama iki 🌟",
-      "delayMs": 600,
-      "typingMs": 1500
+      "text": "wkwk makasih akeh yo sip wes mbantu kabeh acara and adewe repot bareng selama iki 🌟",
+      "delayMs": 550,
+      "typingMs": 1400
     },
     {
       "from": "contact",
-      "text": "kro siji engkas, nek brankas Hadiah enek kado apresiasi nggo we, tapi kudu golek kode 4 digit teko Catatan, Spotify, Galeri kro Control Center 👀",
+      "text": "kro, nek brankas Hadiah enek kado sitik tp gapopolah😭 tapi kudu golek kode 4 digit teko Catatan, Spotify, Galeri kro Control Center 👀",
       "delayMs": 500,
-      "typingMs": 1700
+      "typingMs": 1600
     },
     {
       "from": "me",
@@ -58,9 +52,9 @@
     },
     {
       "from": "contact",
-      "text": "wkwk gass bukak en, selamat bernostalgia dan ndang klaim hadiahmu yo! 🎁✨",
-      "delayMs": 500,
-      "typingMs": 1300
+      "text": "wkwk gass",
+      "delayMs": 400,
+      "typingMs": 700
     }
   ],
   "songs": {
