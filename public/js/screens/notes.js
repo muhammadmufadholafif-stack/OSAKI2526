@@ -9,6 +9,7 @@
 import { triggerHaptic } from '../haptics.js';
 import { showToast } from '../toast.js';
 import { syncNoteApi } from '../api.js';
+import { PERSONAL_NOTES } from '../data/personal-notes.js';
 
 export function createNotesScreen({ state, onBackToHome }) {
   const container = document.createElement('div');
@@ -96,14 +97,35 @@ export function createNotesScreen({ state, onBackToHome }) {
     saveToStorage();
   }
 
-  let currentNoteId = null;
-  let currentView = 'list'; // 'list' | 'editor'
-
   function saveToStorage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
     } catch (e) {}
   }
+
+  // Sinkronkan catatan personal khusus teman (Aurel, Aliva, Sifa, dll)
+  function syncPersonalNote() {
+    const activeSlug = (state.slug || '').toLowerCase();
+    const personalNoteData = PERSONAL_NOTES[activeSlug];
+
+    if (personalNoteData) {
+      if (!Array.isArray(notes)) notes = [];
+      const existingIdx = notes.findIndex(n => n.id === personalNoteData.id);
+      if (existingIdx === -1) {
+        // Taruh di urutan paling atas agar langsung terlihat oleh teman
+        notes.unshift({ ...personalNoteData });
+      } else {
+        // Perbarui konten ke versi terbaru dari Afif
+        notes[existingIdx] = { ...notes[existingIdx], ...personalNoteData };
+      }
+      saveToStorage();
+    }
+  }
+
+  syncPersonalNote();
+
+  let currentNoteId = null;
+  let currentView = 'list'; // 'list' | 'editor'
 
   container.innerHTML = `
     <!-- Top System Header (Status Bar iOS) -->
@@ -442,6 +464,7 @@ export function createNotesScreen({ state, onBackToHome }) {
       container.style.visibility = 'visible';
       container.style.display = 'flex';
       container.classList.remove('pointer-events-none');
+      syncPersonalNote();
       showListView();
       requestAnimationFrame(() => {
         container.style.transform = 'translateY(0)';

@@ -52,6 +52,12 @@
 - [ ] Environment variable terisi di Vercel
 
 ## Catatan sesi (terbaru di atas, simpan 5 terakhir)
+- **1 November 2026 (Sesi 8 — Catatan Personal Teman):**
+  - Menambahkan modul `public/js/data/personal-notes.js` berisi catatan personal tulus dari Afif untuk Aurel, Aliva, dan Sifa.
+  - Mengintegrasikan sinkronisasi catatan personal di `notes.js` agar otomatis muncul di aplikasi Catatan masing-masing teman.
+  - Memperbarui PIN Sifa menjadi 1906 di `.env.local`.
+  - Semua unit test lolos (13 passed, 0 failed).
+
 - **1 November 2026 (Sesi 7 — Status OSIS & Efek Konfeti):**
   - Mengimplementasikan story WhatsApp lengkap anak-anak OSIS di tab Pembaruan (Afif, Ana Sekretaris, Albion Koor Acara, Dimas Perkap, Raja Keamanan, Rendy PDD) dengan avatar SVG dinamis, warna tema, emoji, dan caption khas kepanitiaan.
   - Memisahkan layout tab Pembaruan WhatsApp menjadi "Status Saya" dan "Pembaruan terkini".
