@@ -8,8 +8,8 @@
 
 ## Posisi sekarang
 - **Milestone aktif:** M6 - Multi-teman & Konten Chat
-- **Sedang dikerjakan:** 4 grup riwayat kepanitiaan WhatsApp dengan POV dinamis
-- **Langkah berikutnya:** Menambah event ke-5 bila ada dan finalisasi
+- **Sedang dikerjakan:** Status WhatsApp OSIS & efek selebrasi konfeti Brankas Hadiah
+- **Langkah berikutnya:** Menunggu penulisan catatan personal dari pemilik serta foto/video kenangan teman
 
 ## Checklist milestone
 - [x] M0 — Kerangka proyek
@@ -52,6 +52,21 @@
 - [ ] Environment variable terisi di Vercel
 
 ## Catatan sesi (terbaru di atas, simpan 5 terakhir)
+- **1 November 2026 (Sesi 7 — Status OSIS & Efek Konfeti):**
+  - Mengimplementasikan story WhatsApp lengkap anak-anak OSIS di tab Pembaruan (Afif, Ana Sekretaris, Albion Koor Acara, Dimas Perkap, Raja Keamanan, Rendy PDD) dengan avatar SVG dinamis, warna tema, emoji, dan caption khas kepanitiaan.
+  - Memisahkan layout tab Pembaruan WhatsApp menjadi "Status Saya" dan "Pembaruan terkini".
+  - Membuat modul `public/js/lib/confetti.js` berbasis HTML5 Canvas dan requestAnimationFrame murni tanpa dependency.
+  - Mengintegrasikan efek konfeti saat Brankas Hadiah berhasil dibuka dengan kode PIN `3508` dan saat formulir klaim hadiah sukses terkirim ke server.
+  - Semua unit test lolos (13 passed, 0 failed).
+
+- **1 November 2026 (Sesi 6 — Chat Personal & Kepanitiaan):**
+  - Mengganti seluruh nama Fanskey menjadi Afif.
+  - Naskah chat personal Afif disesuaikan dengan bahasa percakapan santai Blitar & sopan.
+  - Menambahkan 4 riwayat grup WhatsApp kepanitiaan dengan POV dinamis untuk tiap teman.
+  - Input teks WhatsApp disempurnakan dengan multiline auto-wrap (`break-words whitespace-pre-wrap`).
+  - Clue 3 disederhanakan menjadi angka bulat seperti telur/donat untuk digit 0.
+  - Lokasi cuaca Home disesuaikan ke Blitar.
+
 - **30 Oktober 2026 (Sesi 4 — polishing):**
   - Tambah audio notifikasi WA (`/assets/default/notif.mp3`) + getar di `home.js → showNotification()`.
   - Durasi banner notifikasi home diperpanjang dari 5 detik ke 8 detik.

@@ -38,46 +38,138 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     ...eventGroups
   ];
 
+  function makeStatusAvatar(initials, bg1, bg2) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="grad-${initials}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${bg1}" />
+          <stop offset="100%" stop-color="${bg2}" />
+        </linearGradient>
+      </defs>
+      <rect width="100" height="100" rx="50" fill="url(#grad-${initials})" />
+      <text x="50" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="700" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${initials}</text>
+    </svg>`;
+    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  }
+
   const mockStatuses = [
     {
       name: 'Status Saya',
       time: 'Ketuk untuk menambahkan status',
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80',
+      avatar: state.profile?.contactAvatar || makeStatusAvatar('ME', '#374151', '#4b5563'),
       isMe: true
-      // Tidak punya story — tombol tambah
     },
     {
-      name: 'Satya',
-      time: '15 menit yang lalu',
-      avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAytJh5EsgkQ7f7_MU67YKboGD5iMC2VL9mP3PoTvr6OKhSXqGR2ZofcTeY9slIeUn4D7IorsDO1PEfdEki-BX9aQA-PqnVGiBr2pHk70EcTg-LKrsNg2UoduEOma4F3KPT8T3ttdtTnYAV94rCiot6x1CoRTqd8-FzWQ7Sd20XSwTPXoA59Taa6QLQWXzJaxQNlLXica32Yh2iWO-x9TJxayPJD4ELYASTFtbkPlTV',
+      name: 'Afif',
+      time: '10 menit yang lalu',
+      avatar: makeStatusAvatar('AF', '#312e81', '#4f46e5'),
       hasStory: true,
-      // Slide-slide story Satya
       slides: [
         {
-          bg: '#0d1b2a',
-          caption: '🎂 Hari ini hari spesial buat seseorang...',
-          emoji: '🎉',
-          color: '#FFD700'
+          bg: '#0f172a',
+          caption: 'Alhamdulillah purna tugas kabeh rek... Maturnuwun sanget wis berjuang bareng selama iki! Kalian luar biasa 🤍',
+          emoji: '🌟',
+          color: '#38bdf8'
         },
         {
-          bg: '#1a0a2e',
-          caption: 'Udah nyiapin sesuatu yang spesial nih 👀',
+          bg: '#1c1917',
+          caption: 'Seng lagi ulang tahun ojo lali buka Brankas Hadiah yaa 👀 Petunjuke wis tak sebar nek Catatan, Spotify, Galeri kro Control Center wkwk',
           emoji: '🎁',
+          color: '#fbbf24'
+        },
+        {
+          bg: '#172554',
+          caption: 'Mari ngene agendakne ngopi santai tanpa mikir rundown karo proposal maneh haha ☕',
+          emoji: '☕',
+          color: '#93c5fd'
+        }
+      ]
+    },
+    {
+      name: 'Ana (Sekretaris)',
+      time: '35 menit yang lalu',
+      avatar: makeStatusAvatar('AN', '#831843', '#db2777'),
+      hasStory: true,
+      slides: [
+        {
+          bg: '#18181b',
+          caption: 'Akhirnya revisi LPJ 100 lembar beres tanpa coretan pembina 😭🤲🏻 Tanganku wis mati rasa ngetik wkwk',
+          emoji: '📑',
+          color: '#f472b6'
+        },
+        {
+          bg: '#2e1065',
+          caption: 'Mode hibernasi diaktifkan. Tolong seminggu ke depan jangan ada yang chat tanya template surat ya rek 😂',
+          emoji: '😴',
           color: '#c084fc'
         }
       ]
     },
     {
-      name: 'Dimas Anggara',
+      name: 'Albion',
       time: '1 jam yang lalu',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+      avatar: makeStatusAvatar('AL', '#064e3b', '#059669'),
       hasStory: true,
       slides: [
         {
-          bg: '#0f2417',
-          caption: 'Nongkrong dulu sebelum chaos minggu ini 😂☕',
-          emoji: '☕',
-          color: '#86efac'
+          bg: '#022c22',
+          caption: 'Mangan sego bebek sek mari marathon evaluasi panitia 3 hari berturut-turut 🔥',
+          emoji: '🍗',
+          color: '#4ade80'
+        },
+        {
+          bg: '#1e293b',
+          caption: 'Koor acara resmi pamit undur diri, waktunya kembali jadi rakyat biasa wkwk',
+          emoji: '🫡',
+          color: '#94a3b8'
+        }
+      ]
+    },
+    {
+      name: 'Dimas (Perkap)',
+      time: '2 jam yang lalu',
+      avatar: makeStatusAvatar('DM', '#78350f', '#d97706'),
+      hasStory: true,
+      slides: [
+        {
+          bg: '#1c1917',
+          caption: 'Ngeling-ngeling pasang tratak karo nggelar terpal jam 2 bengi ben panggung ora teles kebes wkwk 🔨',
+          emoji: '⛺',
+          color: '#fcd34d'
+        },
+        {
+          bg: '#0f172a',
+          caption: 'Sound system aman, genset lancar jaya. Awak remuk tapi hepi pol bareng konco-konco!',
+          emoji: '💪',
+          color: '#60a5fa'
+        }
+      ]
+    },
+    {
+      name: 'Raja (Keamanan)',
+      time: '3 jam yang lalu',
+      avatar: makeStatusAvatar('RJ', '#4c1d95', '#7c3aed'),
+      hasStory: true,
+      slides: [
+        {
+          bg: '#09090b',
+          caption: 'Kondisi lapangan kondusif & aman lur. Solid terus bolo-bolo sekbid! 🫡',
+          emoji: '🦅',
+          color: '#a78bfa'
+        }
+      ]
+    },
+    {
+      name: 'Rendy (PDD)',
+      time: '5 jam yang lalu',
+      avatar: makeStatusAvatar('RN', '#164e63', '#0891b2'),
+      hasStory: true,
+      slides: [
+        {
+          bg: '#082f49',
+          caption: 'Export ribuan foto & aftermovie done! Banyak momen aib tapi seru parah wkwk 🎞️',
+          emoji: '📸',
+          color: '#22d3ee'
         }
       ]
     }
@@ -183,15 +275,33 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     <!-- VIEW 2: STATUS / UPDATES TAB -->
     <main id="wa-view-status" class="flex-1 overflow-y-auto no-scrollbar flex flex-col bg-[#0B141A]" style="display: none;">
       <div class="p-4 flex flex-col space-y-4">
-        <h2 class="text-base font-bold text-white">Pembaruan Status</h2>
-        ${mockStatuses.map((s, i) => `
-          <div class="status-item flex items-center space-x-3 cursor-pointer group active:opacity-75" data-index="${i}">
-            <div class="relative w-12 h-12 rounded-full overflow-hidden p-0.5 ${s.hasStory ? 'ring-2 ring-[#25D366]' : s.isMe ? 'ring-2 ring-dashed ring-zinc-500' : ''}">
-              <img class="w-full h-full object-cover rounded-full" src="${s.avatar}" alt="${s.name}"/>
-              ${s.isMe ? `<div class="absolute bottom-0 right-0 w-4 h-4 bg-[#25D366] rounded-full flex items-center justify-center"><i class="fa-solid fa-plus text-[8px] text-white"></i></div>` : ''}
+        <!-- Status Saya -->
+        <div class="status-item flex items-center space-x-3 cursor-pointer group active:opacity-75" data-index="0">
+          <div class="relative w-12 h-12 rounded-full overflow-hidden p-0.5 ring-2 ring-dashed ring-zinc-500">
+            <img class="w-full h-full object-cover rounded-full" src="${mockStatuses[0].avatar}" alt="${mockStatuses[0].name}"/>
+            <div class="absolute bottom-0 right-0 w-4 h-4 bg-[#25D366] rounded-full flex items-center justify-center">
+              <i class="fa-solid fa-plus text-[8px] text-white"></i>
             </div>
-            <div class="flex flex-col">
-              <span class="text-sm font-semibold text-white">${s.name}</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm font-semibold text-white">${mockStatuses[0].name}</span>
+            <span class="text-xs text-zinc-400">${mockStatuses[0].time}</span>
+          </div>
+        </div>
+
+        <!-- Section Title: Pembaruan Terkini -->
+        <div class="pt-2">
+          <h2 class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Pembaruan terkini</h2>
+        </div>
+
+        <!-- Daftar Story Teman-teman OSIS -->
+        ${mockStatuses.slice(1).map((s, i) => `
+          <div class="status-item flex items-center space-x-3 cursor-pointer group active:opacity-75" data-index="${i + 1}">
+            <div class="relative w-12 h-12 rounded-full overflow-hidden p-0.5 ring-2 ring-[#25D366]">
+              <img class="w-full h-full object-cover rounded-full" src="${s.avatar}" alt="${s.name}"/>
+            </div>
+            <div class="flex flex-col flex-1 min-w-0">
+              <span class="text-sm font-semibold text-white truncate">${s.name}</span>
               <span class="text-xs text-zinc-400">${s.time}</span>
             </div>
           </div>

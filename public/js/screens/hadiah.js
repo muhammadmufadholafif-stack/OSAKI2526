@@ -5,6 +5,7 @@
  */
 import { triggerHaptic } from '../haptics.js';
 import { getHadiahApi, claimHadiahApi } from '../api.js';
+import { fireConfetti } from '../lib/confetti.js';
 
 export function createHadiahScreen({ state, onBackToHome }) {
   const container = document.createElement('div');
@@ -241,6 +242,9 @@ export function createHadiahScreen({ state, onBackToHome }) {
       vaultLockIcon.className = 'fa-solid fa-lock-open text-emerald-400';
       vaultPinDots.forEach(d => d.className = 'w-4 h-4 rounded-full bg-emerald-400 border-2 border-emerald-400 scale-125 transition-all');
       
+      // Ledakkan konfeti selebrasi pembukaan brankas
+      fireConfetti({ duration: 3200, particleCount: 85 });
+
       setTimeout(() => {
         vaultLockView.classList.add('hidden');
         formView.classList.remove('hidden');
@@ -375,6 +379,9 @@ export function createHadiahScreen({ state, onBackToHome }) {
         container.querySelector('#success-provider').textContent = summary.provider || selectedProvider;
         container.querySelector('#success-number').textContent = `***${summary.last3 || ''}`;
         
+        // Hujan konfeti meriah tanda klaim hadiah berhasil dikirim!
+        fireConfetti({ duration: 4500, particleCount: 110 });
+
         formView.classList.add('hidden');
         successView.classList.remove('hidden');
       } else {
