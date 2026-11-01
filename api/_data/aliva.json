@@ -21,11 +21,39 @@
     "playlistTitle": "OSAKIKU Memories 🎵",
     "items": [
       {
-        "title": "Ingatlah Hari Ini",
-        "artist": "Project Pop",
+        "title": "Kita Ke Sana",
+        "artist": "Hindia",
         "src": "/assets/rina/a1b2c3.mp3",
         "cover": "/assets/rina/f-a1b2.jpg",
         "durationLabel": "04:18"
+      },
+      {
+        "title": "Sahabat Sejati",
+        "artist": "Sheila On 7",
+        "src": "/assets/rina/d4e5f6.mp3",
+        "cover": "/assets/rina/f-c3d4.jpg",
+        "durationLabel": "04:15"
+      },
+      {
+        "title": "Semua Aku Dirayakan",
+        "artist": "Nadin Amizah",
+        "src": "/assets/rina/g7h8i9.mp3",
+        "cover": "/assets/rina/f-e5f6.jpg",
+        "durationLabel": "04:52"
+      },
+      {
+        "title": "About You",
+        "artist": "The 1975",
+        "src": "/assets/rina/j0k1l2.mp3",
+        "cover": "/assets/rina/f-g7h8.jpg",
+        "durationLabel": "05:40"
+      },
+      {
+        "title": "Jatuh Suka",
+        "artist": "Tulus",
+        "src": "/assets/rina/m3n4o5.mp3",
+        "cover": "/assets/rina/f-i9j0.jpg",
+        "durationLabel": "04:01"
       },
       {
         "title": "Monokrom",
@@ -37,8 +65,25 @@
     ]
   },
   "photos": [
-    { "src": "/assets/rina/f-a1b2.jpg", "caption": "Event Terakhir", "dateLabel": "Dokumentasi OSIS" },
-    { "src": "/assets/rina/f-c3d4.jpg", "caption": "Panitia Hebat", "dateLabel": "Kenangan OSAKIKU" }
+    { "src": "/assets/rina/f-a1b2.jpg", "caption": "Momen Pertama", "dateLabel": "Awal cerita kita" },
+    { "src": "/assets/rina/f-c3d4.jpg", "caption": "Tersenyum Lepas", "dateLabel": "Kenangan Indah" },
+    { "src": "/assets/rina/f-e5f6.jpg", "caption": "Hari Spesial", "dateLabel": "Tak Terlupakan" },
+    { "src": "/assets/rina/f-g7h8.jpg", "caption": "Petualangan", "dateLabel": "Momen Seru" },
+    { "src": "/assets/rina/f-i9j0.jpg", "caption": "Kenangan", "dateLabel": "Sesuatu yang paling sempurna di alam semesta tidak memiliki sudut. Benda itu seperti apa? Hitunglah sudutnya." },
+    { "src": "/assets/rina/f-k1l2.jpg", "caption": "Tertawa Bareng", "dateLabel": "Momen Bahagia" },
+    { "src": "/assets/rina/f-m3n4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-o5p6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-q7r8.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-s9t0.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-u1v2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-w3x4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-y5z6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-a7b8.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-c9d0.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-e1f2.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-g3h4.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-i5j6.jpg", "caption": "", "dateLabel": "" },
+    { "src": "/assets/rina/f-k7l8.jpg", "caption": "", "dateLabel": "" }
   ],
   "hadiah": {
     "title": "Terima Kasih, Aliva! 🌟",
