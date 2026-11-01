@@ -9,6 +9,7 @@ import { createSpotifyScreen } from './screens/spotify.js?v=2.1';
 import { createGalleryScreen } from './screens/gallery.js?v=2.1';
 import { createHadiahScreen } from './screens/hadiah.js?v=2.1';
 import { createNotesScreen } from './screens/notes.js?v=2.1';
+import { createCameraScreen } from './screens/camera.js?v=2.1';
 import { createControlCenter } from './control-center.js?v=2.1';
 
 // Baca slug dari URL pathname atau query param (contoh "/sifa" atau "?slug=sifa")
@@ -41,6 +42,7 @@ function initApp() {
   let galleryScreenInstance = null;
   let hadiahScreenInstance = null;
   let notesScreenInstance = null;
+  let cameraScreenInstance = null;
 
   const home = createHomeScreen({
     state,
@@ -90,6 +92,8 @@ function initApp() {
         galleryScreenInstance.openScreen();
       } else if (appName === 'notes' && notesScreenInstance) {
         notesScreenInstance.openScreen();
+      } else if (appName === 'camera' && cameraScreenInstance) {
+        cameraScreenInstance.openScreen();
       }
     }
   });
@@ -153,6 +157,20 @@ function initApp() {
   notesScreenInstance = createNotesScreen({
     state,
     onBackToHome: () => { state.currentScreen = 'home'; }
+  });
+
+  cameraScreenInstance = createCameraScreen({
+    state,
+    onBackToHome: () => { state.currentScreen = 'home'; },
+    onOpenGallery: () => {
+      state.currentScreen = 'gallery';
+      if (galleryScreenInstance) galleryScreenInstance.openScreen();
+    },
+    onNewPhotoTaken: (photoDataUrl) => {
+      if (galleryScreenInstance && galleryScreenInstance.addPhoto) {
+        galleryScreenInstance.addPhoto(photoDataUrl);
+      }
+    }
   });
 
   // 4. Buat Lock Screen
@@ -219,7 +237,16 @@ function initApp() {
   screenContainer.appendChild(galleryScreenInstance.element);
   screenContainer.appendChild(hadiahScreenInstance.element);
   screenContainer.appendChild(waScreenInstance.element);
+  screenContainer.appendChild(cameraScreenInstance.element);
   screenContainer.appendChild(lock);
+
+  // Hubungkan tombol kamera di Lock Screen (kanan bawah)
+  const lockCameraBtn = lock.querySelector('#btn-lock-camera');
+  if (lockCameraBtn) {
+    lockCameraBtn.addEventListener('click', () => {
+      cameraScreenInstance.openScreen();
+    });
+  }
 
   // Inisialisasi Sistem Control Center iPhone (Tarik dari pojok kanan atas)
   const phoneFrame = document.getElementById('phone-frame');

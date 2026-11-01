@@ -312,6 +312,14 @@ export function createGalleryScreen({ state, onBackToHome }) {
 
   return {
     element: container,
+    addPhoto: (photoSrc) => {
+      photos.unshift({
+        src: photoSrc,
+        caption: 'Kamera OSAKIKU',
+        dateLabel: 'Baru saja'
+      });
+      renderGrid();
+    },
     openScreen: async () => {
       container.style.transform = 'translateY(0)';
       if (photos.length === 0) {

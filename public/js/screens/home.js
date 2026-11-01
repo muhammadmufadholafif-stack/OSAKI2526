@@ -161,6 +161,16 @@ export function createHomeScreen({ state, onOpenApp }) {
           </div>
           <span class="text-white text-[11px] font-medium tracking-tight mt-1.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Catatan</span>
         </div>
+
+        <!-- App 6: Kamera -->
+        <div class="flex flex-col items-center cursor-pointer group active:scale-95 transition-transform" id="btn-app-camera">
+          <div class="w-[60px] h-[60px] ios-squircle bg-gradient-to-b from-[#4a4a4e] to-[#2c2c2e] flex items-center justify-center text-white text-2xl shadow-md border border-white/10 relative overflow-hidden">
+            <div class="w-8 h-8 rounded-full bg-black/60 border border-white/20 flex items-center justify-center">
+              <i class="fa-solid fa-camera text-neutral-200 text-base"></i>
+            </div>
+          </div>
+          <span class="text-white text-[11px] font-medium tracking-tight mt-1.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Kamera</span>
+        </div>
       </section>
 
       <!-- Center Spacer -->
@@ -257,6 +267,14 @@ export function createHomeScreen({ state, onOpenApp }) {
     notesBtn.addEventListener('click', () => {
       triggerHaptic('light');
       if (typeof onOpenApp === 'function') onOpenApp('notes');
+    });
+  }
+
+  const cameraBtn = container.querySelector('#btn-app-camera');
+  if (cameraBtn) {
+    cameraBtn.addEventListener('click', () => {
+      triggerHaptic('light');
+      if (typeof onOpenApp === 'function') onOpenApp('camera');
     });
   }
 

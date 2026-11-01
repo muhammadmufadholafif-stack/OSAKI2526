@@ -574,8 +574,6 @@ export function createControlCenter({ phoneFrame, audioPlayer, onNextTrack, onPr
     } catch (e) {
       console.warn('Gagal capture foto:', e);
     }
-
-    showToast('📸 Foto tersimpan di Simulator!');
   });
 
   // Quick Action Buttons Handlers
