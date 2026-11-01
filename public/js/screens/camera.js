@@ -237,3 +237,4 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
     closeScreen
   };
 }
+

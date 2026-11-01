@@ -9,6 +9,7 @@
 import { triggerHaptic } from '../haptics.js';
 import { advanceChatApi, sendChatApi } from '../api.js';
 import { createTypingEngine } from '../lib/typing-engine.js';
+import { getChatGroups, MEMBER_COLORS } from '../data/chat-groups.js';
 
 export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
   const container = document.createElement('div');
@@ -20,65 +21,21 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
   let chatLoaded = false;
   let typingEngine = createTypingEngine('');
 
+  const eventGroups = getChatGroups(state.slug || 'sifa');
+
   const mockInbox = [
     {
       id: 'satya',
-      name: 'Fanskey',
-      avatar: '/assets/rina/f-a1b2.jpg',
-      lastMsg: 'hai',
+      name: state.profile?.contactName || 'Fanskey',
+      avatar: state.profile?.contactAvatar || '/assets/default/wallpaper-lock.jpg',
+      lastMsg: state.profile?.notifText || 'hai',
       time: '07:51',
       unread: 1,
       isSpecial: true,
       // Percakapan utama — ditangani oleh logika scripted typing
       isMain: true
     },
-    {
-      id: 'grup_tugas',
-      name: 'Kelompok Riset Gedung B 🏛️',
-      avatar: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=100&auto=format&fit=crop&q=80',
-      lastMsg: 'Rian: Ada yang lihat kunci lab semalam?',
-      time: '07:15',
-      unread: 3,
-      isSpecial: false,
-      // Percakapan read-only dekoratif
-      history: [
-        { sender: 'other', name: 'Rian', text: 'Eh guys, ada yang lihat kunci lab semalam nggak?', time: '06:48' },
-        { sender: 'other', name: 'Lina', text: 'Nggak tau, aku pulang duluan kemarin', time: '06:52' },
-        { sender: 'user', text: 'Aku juga nggak lihat, coba tanya ke Pak Hendra kali', time: '07:01' },
-        { sender: 'other', name: 'Rian', text: 'Ada yang lihat kunci lab semalam?', time: '07:15' },
-      ]
-    },
-    {
-      id: 'dosen',
-      name: 'Bu Maya Pembimbing',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=80',
-      lastMsg: 'Revisi bab 3 kamu sudah saya kirim ya.',
-      time: 'Kemarin',
-      unread: 0,
-      isSpecial: false,
-      history: [
-        { sender: 'user', text: 'Bu, saya sudah kirim draft bab 3 tadi pagi.', time: '09:22' },
-        { sender: 'other', name: 'Bu Maya', text: 'Iya sudah saya terima, nanti saya baca dulu ya.', time: '10:05' },
-        { sender: 'other', name: 'Bu Maya', text: 'Revisi bab 3 kamu sudah saya kirim ya.', time: '14:31' },
-        { sender: 'user', text: 'Siap Bu, terima kasih! 🙏', time: '14:45' },
-      ]
-    },
-    {
-      id: 'dimas',
-      name: 'Dimas Anggara',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
-      lastMsg: 'Nanti jadi kumpul di kafe biasa kan?',
-      time: 'Kemarin',
-      unread: 0,
-      isSpecial: false,
-      history: [
-        { sender: 'other', name: 'Dimas', text: 'Bro, besok masih jadi main kan?', time: '18:10' },
-        { sender: 'user', text: 'Jadi dong, jam berapa?', time: '18:22' },
-        { sender: 'other', name: 'Dimas', text: 'Abis maghrib aja, sekitar jam 7an', time: '18:25' },
-        { sender: 'user', text: 'Oke siap!', time: '18:26' },
-        { sender: 'other', name: 'Dimas', text: 'Nanti jadi kumpul di kafe biasa kan?', time: '19:03' },
-      ]
-    }
+    ...eventGroups
   ];
 
   const mockStatuses = [
@@ -550,7 +507,70 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
   });
   // ─── END STORY VIEWER ────────────────────────────────────────────────────────
 
-  // Buka chat read-only untuk percakapan dekoratif (bukan Satya)
+  function formatMessageText(text) {
+    if (!text) return '';
+    let escaped = escapeHtml(text);
+
+    // [file: ...]
+    escaped = escaped.replace(/\[file:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-white/10 text-xs text-white">
+        <i class="fa-solid fa-file-lines text-amber-400 text-base"></i>
+        <span class="font-medium truncate flex-1">${p1}</span>
+      </div>
+    `);
+
+    // [image: ...]
+    escaped = escaped.replace(/\[image:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-emerald-500/20 text-xs text-emerald-300">
+        <i class="fa-solid fa-image text-emerald-400 text-base"></i>
+        <span class="font-medium truncate flex-1">📷 ${p1}</span>
+      </div>
+    `);
+
+    // [video: ...]
+    escaped = escaped.replace(/\[video:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-rose-500/20 text-xs text-rose-300">
+        <i class="fa-solid fa-video text-rose-400 text-base"></i>
+        <span class="font-medium truncate flex-1">🎥 ${p1}</span>
+      </div>
+    `);
+
+    // [call: ...]
+    escaped = escaped.replace(/\[call:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-sky-500/20 text-xs text-sky-300">
+        <i class="fa-solid fa-phone text-sky-400 text-sm"></i>
+        <span class="font-medium truncate flex-1">${p1}</span>
+      </div>
+    `);
+
+    // [poll: ...]
+    escaped = escaped.replace(/\[poll:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-purple-500/20 text-xs text-purple-300">
+        <i class="fa-solid fa-square-poll-vertical text-purple-400 text-base"></i>
+        <span class="font-medium truncate flex-1">📊 ${p1}</span>
+      </div>
+    `);
+
+    // [location: ...]
+    escaped = escaped.replace(/\[location:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-red-500/20 text-xs text-red-300">
+        <i class="fa-solid fa-location-dot text-red-400 text-sm"></i>
+        <span class="font-medium truncate flex-1">📍 ${p1}</span>
+      </div>
+    `);
+
+    // [link: ...]
+    escaped = escaped.replace(/\[link:\s*(.*?)\]/g, (m, p1) => `
+      <div class="flex items-center gap-2 p-2 my-1 rounded-lg bg-black/30 border border-blue-500/20 text-xs text-blue-300">
+        <i class="fa-solid fa-link text-blue-400 text-sm"></i>
+        <span class="font-medium truncate flex-1">🔗 ${p1}</span>
+      </div>
+    `);
+
+    return escaped;
+  }
+
+  // Buka chat read-only untuk percakapan grup dan riwayat kepanitiaan
   function openReadonlyChat(contact) {
     currentView = 'readonly';
     viewInbox.style.display = 'none';
@@ -570,40 +590,68 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     }
     contact.unread = 0;
 
-    // Isi header detail dengan info kontak yang dipilih
+    // Isi header detail dengan info kontak/grup yang dipilih
     const avatarEl = container.querySelector('#wa-chat-avatar');
     const nameEl = container.querySelector('#wa-contact-name');
     const statusEl = container.querySelector('#wa-contact-status');
     if (avatarEl) avatarEl.src = contact.avatar;
     if (nameEl) nameEl.textContent = contact.name;
-    if (statusEl) statusEl.textContent = contact.id === 'grup_tugas' ? '3 anggota' : 'terakhir dilihat kemarin';
+    if (statusEl) statusEl.textContent = contact.members || (contact.isGroup ? 'anggota grup' : 'online');
 
     // Render riwayat pesan read-only
     const readonlyContainer = container.querySelector('#wa-readonly-messages');
     readonlyContainer.innerHTML = '';
 
     (contact.history || []).forEach(msg => {
+      // 1. Tanggal (Date Separator Pill)
+      if (msg.isDate) {
+        const dateEl = document.createElement('div');
+        dateEl.className = 'flex justify-center my-3 select-none sticky top-1 z-10';
+        dateEl.innerHTML = `
+          <span class="bg-[#182229]/95 text-[#8696a0] text-[10.5px] font-semibold px-3 py-1 rounded-lg shadow-sm border border-white/5 backdrop-blur-sm">
+            ${escapeHtml(msg.text)}
+          </span>
+        `;
+        readonlyContainer.appendChild(dateEl);
+        return;
+      }
+
+      // 2. Pesan Sistem
+      if (msg.isSystem) {
+        const sysEl = document.createElement('div');
+        sysEl.className = 'flex justify-center my-2 select-none';
+        sysEl.innerHTML = `
+          <span class="bg-[#182229]/70 text-[#8696a0] text-[10px] px-2.5 py-0.5 rounded shadow-sm text-center">
+            ${escapeHtml(msg.text)}
+          </span>
+        `;
+        readonlyContainer.appendChild(sysEl);
+        return;
+      }
+
+      // 3. Pesan Bubble Normal (User vs Other)
       const isUser = msg.sender === 'user';
       const bubble = document.createElement('div');
       bubble.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
 
       if (isUser) {
         bubble.innerHTML = `
-          <div class="max-w-[78%] bg-[#005C4B] text-[#e9edef] rounded-2xl rounded-tr-sm px-3 pt-2 pb-1.5 shadow-md">
-            <p class="leading-relaxed text-[14px]">${escapeHtml(msg.text)}</p>
+          <div class="max-w-[82%] bg-[#005C4B] text-[#e9edef] rounded-2xl rounded-tr-sm px-3 pt-2 pb-1.5 shadow-md">
+            <p class="leading-relaxed text-[13.5px] whitespace-pre-wrap">${formatMessageText(msg.text)}</p>
             <div class="flex justify-end items-center mt-0.5 space-x-1">
-              <span class="text-[10px] text-white/60">${msg.time}</span>
-              <i class="fa-solid fa-check-double text-[10px] text-[#53bdeb]"></i>
+              <span class="text-[9.5px] text-white/60">${msg.time || ''}</span>
+              <i class="fa-solid fa-check-double text-[9.5px] text-[#53bdeb]"></i>
             </div>
           </div>
         `;
       } else {
+        const nameColor = MEMBER_COLORS[msg.name] || '#53bdeb';
         bubble.innerHTML = `
-          <div class="max-w-[78%] bg-[#202c33] text-[#e9edef] rounded-2xl rounded-tl-sm px-3 pt-2 pb-1.5 shadow-md">
-            ${contact.id === 'grup_tugas' ? `<span class="text-[11px] text-[#53bdeb] font-semibold">${escapeHtml(msg.name || '')}</span><br>` : ''}
-            <p class="leading-relaxed text-[14px]">${escapeHtml(msg.text)}</p>
+          <div class="max-w-[82%] bg-[#202c33] text-[#e9edef] rounded-2xl rounded-tl-sm px-3 pt-2 pb-1.5 shadow-md">
+            <span class="text-[11px] font-semibold block mb-0.5" style="color: ${nameColor};">${escapeHtml(msg.name || '')}</span>
+            <p class="leading-relaxed text-[13.5px] whitespace-pre-wrap">${formatMessageText(msg.text)}</p>
             <div class="flex justify-end items-center mt-0.5 space-x-1">
-              <span class="text-[10px] text-[#8696a0]">${msg.time}</span>
+              <span class="text-[9.5px] text-[#8696a0]">${msg.time || ''}</span>
             </div>
           </div>
         `;
@@ -612,8 +660,10 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
       readonlyContainer.appendChild(bubble);
     });
 
-    // Scroll ke bawah
-    viewReadonly.scrollTop = viewReadonly.scrollHeight;
+    // Scroll ke paling bawah
+    setTimeout(() => {
+      viewReadonly.scrollTop = viewReadonly.scrollHeight;
+    }, 50);
   }
 
   function openChatDetail() {

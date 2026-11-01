@@ -10,12 +10,36 @@
     "wallpaper": "/assets/default/wallpaper-lock.jpg"
   },
   "chat": [
-    { "from": "contact", "text": "Aurel, makasih banyak ya!" },
-    { "from": "me", "text": "Eh Fanskey, makasih buat apa?" },
-    { "from": "contact", "text": "Buat semua kerja kerasmu di event kemarin dan selama di OSIS bareng-bareng 🌟", "delayMs": 600, "typingMs": 1500 },
-    { "from": "me", "text": "Wah iya, akhirnya selesai juga ya proker kita!" },
-    { "from": "contact", "text": "Iya, bangga banget sama kamu. Ada kenang-kenangan kecil buat kamu di brankas Kapsul Kenangan 🎁", "delayMs": 500, "typingMs": 1400 },
-    { "from": "contact", "text": "Jangan lupa buka aplikasi Hadiah ya, ada traktiran apresiasi purna tugas buat kamu! ✨", "delayMs": 400, "typingMs": 1600 }
+    {
+      "from": "contact",
+      "text": "Aurel, makasih banyak ya!"
+    },
+    {
+      "from": "me",
+      "text": "Eh Fanskey, makasih buat apa?"
+    },
+    {
+      "from": "contact",
+      "text": "Buat semua kerja kerasmu di event kemarin dan selama di OSIS bareng-bareng 🌟",
+      "delayMs": 600,
+      "typingMs": 1500
+    },
+    {
+      "from": "me",
+      "text": "Wah iya, akhirnya selesai juga ya proker kita!"
+    },
+    {
+      "from": "contact",
+      "text": "Iya, bangga banget sama kamu. Ada kenang-kenangan kecil buat kamu di brankas Kapsul Kenangan 🎁",
+      "delayMs": 500,
+      "typingMs": 1400
+    },
+    {
+      "from": "contact",
+      "text": "Jangan lupa buka aplikasi Hadiah ya, ada traktiran apresiasi purna tugas buat kamu! ✨",
+      "delayMs": 400,
+      "typingMs": 1600
+    }
   ],
   "songs": {
     "playlistTitle": "OSAKIKU Memories 🎵",
@@ -23,67 +47,185 @@
       {
         "title": "Kita Ke Sana",
         "artist": "Hindia",
-        "src": "/assets/rina/a1b2c3.mp3",
-        "cover": "/assets/rina/f-a1b2.jpg",
+        "src": "/assets/audio/hindia-kita-ke-sana.mp3",
+        "cover": "/assets/covers/kita-ke-sana.jpg",
         "durationLabel": "04:18"
       },
       {
-        "title": "Sahabat Sejati",
-        "artist": "Sheila On 7",
-        "src": "/assets/rina/d4e5f6.mp3",
-        "cover": "/assets/rina/f-c3d4.jpg",
-        "durationLabel": "04:15"
+        "title": "Ingatlah Hari Ini",
+        "artist": "Project Pop",
+        "src": "/assets/audio/project-pop-ingatlah-hari-ini.mp3",
+        "cover": "/assets/covers/ingatlah-hari-ini.jpg",
+        "durationLabel": "05:22"
       },
       {
-        "title": "Semua Aku Dirayakan",
+        "title": "Sampai Jumpa",
+        "artist": "Endank Soekamti",
+        "src": "/assets/audio/endank-soekamti-sampai-jumpa.mp3",
+        "cover": "/assets/covers/sampai-jumpa.jpg",
+        "durationLabel": "04:02"
+      },
+      {
+        "title": "Sampai Jadi Debu",
+        "artist": "Banda Neira",
+        "src": "/assets/audio/banda-neira-sampai-jadi-debu.mp3",
+        "cover": "/assets/covers/sampai-jadi-debu.jpg",
+        "durationLabel": "04:40"
+      },
+      {
+        "title": "Nina",
+        "artist": ".Feast",
+        "src": "/assets/audio/feast-nina.mp3",
+        "cover": "/assets/covers/nina.jpg",
+        "durationLabel": "04:54"
+      },
+      {
+        "title": "Kekal",
         "artist": "Nadin Amizah",
-        "src": "/assets/rina/g7h8i9.mp3",
-        "cover": "/assets/rina/f-e5f6.jpg",
-        "durationLabel": "04:52"
+        "src": "/assets/audio/nadin-amizah-kekal.mp3",
+        "cover": "/assets/covers/kekal.jpg",
+        "durationLabel": "04:17"
+      },
+      {
+        "title": "Rumah",
+        "artist": "Salma Salsabil",
+        "src": "/assets/audio/salma-salsabil-rumah.mp3",
+        "cover": "/assets/covers/rumah.webp",
+        "durationLabel": "03:58"
+      },
+      {
+        "title": "Fix You",
+        "artist": "Coldplay",
+        "src": "/assets/audio/coldplay-fix-you.mp3",
+        "cover": "/assets/covers/fix-you.svg",
+        "durationLabel": "04:55"
       },
       {
         "title": "About You",
         "artist": "The 1975",
-        "src": "/assets/rina/j0k1l2.mp3",
-        "cover": "/assets/rina/f-g7h8.jpg",
-        "durationLabel": "05:40"
+        "src": "/assets/audio/the-1975-about-you.mp3",
+        "cover": "/assets/covers/about-you.jpg",
+        "durationLabel": "05:26"
+      },
+      {
+        "title": "Tujuh Belas",
+        "artist": "Tulus",
+        "src": "/assets/audio/tulus-tujuh-belas.mp3",
+        "cover": "/assets/covers/tujuh-belas.jpg",
+        "durationLabel": "04:03"
       },
       {
         "title": "Jatuh Suka",
         "artist": "Tulus",
-        "src": "/assets/rina/m3n4o5.mp3",
-        "cover": "/assets/rina/f-i9j0.jpg",
+        "src": "/assets/audio/tulus-jatuh-suka.mp3",
+        "cover": "/assets/covers/jatuh-suka.jpg",
         "durationLabel": "04:01"
       },
       {
         "title": "Monokrom",
         "artist": "Tulus",
-        "src": "/assets/rina/p6q7r8.mp3",
-        "cover": "/assets/rina/f-k1l2.jpg",
+        "src": "/assets/audio/tulus-monokrom.mp3",
+        "cover": "/assets/covers/monokrom.jpg",
         "durationLabel": "03:52"
       }
     ]
   },
   "photos": [
-    { "src": "/assets/rina/f-a1b2.jpg", "caption": "Momen Pertama", "dateLabel": "Awal cerita kita" },
-    { "src": "/assets/rina/f-c3d4.jpg", "caption": "Tersenyum Lepas", "dateLabel": "Kenangan Indah" },
-    { "src": "/assets/rina/f-e5f6.jpg", "caption": "Hari Spesial", "dateLabel": "Tak Terlupakan" },
-    { "src": "/assets/rina/f-g7h8.jpg", "caption": "Petualangan", "dateLabel": "Momen Seru" },
-    { "src": "/assets/rina/f-i9j0.jpg", "caption": "Kenangan", "dateLabel": "Sesuatu yang paling sempurna di alam semesta tidak memiliki sudut. Benda itu seperti apa? Hitunglah sudutnya." },
-    { "src": "/assets/rina/f-k1l2.jpg", "caption": "Tertawa Bareng", "dateLabel": "Momen Bahagia" },
-    { "src": "/assets/rina/f-m3n4.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-o5p6.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-q7r8.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-s9t0.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-u1v2.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-w3x4.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-y5z6.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-a7b8.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-c9d0.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-e1f2.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-g3h4.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-i5j6.jpg", "caption": "", "dateLabel": "" },
-    { "src": "/assets/rina/f-k7l8.jpg", "caption": "", "dateLabel": "" }
+    {
+      "src": "/assets/rina/f-a1b2.jpg",
+      "caption": "Momen Pertama",
+      "dateLabel": "Awal cerita kita"
+    },
+    {
+      "src": "/assets/rina/f-c3d4.jpg",
+      "caption": "Tersenyum Lepas",
+      "dateLabel": "Kenangan Indah"
+    },
+    {
+      "src": "/assets/rina/f-e5f6.jpg",
+      "caption": "Hari Spesial",
+      "dateLabel": "Tak Terlupakan"
+    },
+    {
+      "src": "/assets/rina/f-g7h8.jpg",
+      "caption": "Petualangan",
+      "dateLabel": "Momen Seru"
+    },
+    {
+      "src": "/assets/rina/f-i9j0.jpg",
+      "caption": "Kenangan",
+      "dateLabel": "Sesuatu yang paling sempurna di alam semesta tidak memiliki sudut. Benda itu seperti apa? Hitunglah sudutnya."
+    },
+    {
+      "src": "/assets/rina/f-k1l2.jpg",
+      "caption": "Tertawa Bareng",
+      "dateLabel": "Momen Bahagia"
+    },
+    {
+      "src": "/assets/rina/f-m3n4.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-o5p6.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-q7r8.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-s9t0.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-u1v2.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-w3x4.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-y5z6.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-a7b8.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-c9d0.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-e1f2.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-g3h4.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-i5j6.jpg",
+      "caption": "",
+      "dateLabel": ""
+    },
+    {
+      "src": "/assets/rina/f-k7l8.jpg",
+      "caption": "",
+      "dateLabel": ""
+    }
   ],
   "hadiah": {
     "title": "Terima Kasih, Aurel! 🌟",
@@ -95,4 +237,3 @@
     "giftLabel": "Apresiasi dari Fanskey"
   }
 }
-

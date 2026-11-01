@@ -57,9 +57,9 @@ export function createNotesScreen({ state, onBackToHome }) {
         '─────────────────────────\n\n' +
 
         'Di Spotify, dengarkan semua yang sudah disiapkan.\n' +
-        'Bukan lagunya yang kamu hitung — tapi orangnya.\n' +
-        'Berapa banyak nama berbeda yang menyanyikan lagu-lagu itu?\n' +
-        'Angka itu adalah keping kedua.\n\n' +
+        'Cari lagu yang judulnya diambil dari nama seorang anak perempuan tersayang.\n' +
+        'Hitung dari atas: lagu itu ada di urutan ke berapa dalam playlist?\n' +
+        'Angka urutan itu adalah keping kedua.\n\n' +
 
         '─────────────────────────\n\n' +
 

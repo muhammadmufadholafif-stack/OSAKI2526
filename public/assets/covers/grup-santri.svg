@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" fill="url(#grad1)" rx="50"/>
+  <path d="M50 25 A18 18 0 0 0 50 61 A22 22 0 1 1 50 25 Z" fill="#FBBF24" />
+  <circle cx="62" cy="35" r="4" fill="#FBBF24"/>
+  <text x="50" y="80" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#A7F3D0" text-anchor="middle">HSN 2025</text>
+</svg>

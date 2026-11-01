@@ -3,13 +3,13 @@
 > Diperbarui oleh agent di akhir setiap sesi. Jika berbeda dengan kode/git,
 > percaya kode dan git, lalu perbaiki berkas ini.
 
-**Terakhir diperbarui:** 30 Oktober 2026
-**Sesi terakhir dikerjakan di:** Kiro IDE
+**Terakhir diperbarui:** 1 November 2026
+**Sesi terakhir dikerjakan di:** Antigravity
 
 ## Posisi sekarang
-- **Milestone aktif:** M7
-- **Sedang dikerjakan:** M7 - Deploy ke Vercel
-- **Langkah berikutnya:** Buat repo GitHub lalu push, import ke Vercel, isi env var, test produksi
+- **Milestone aktif:** M6 - Multi-teman & Konten Chat
+- **Sedang dikerjakan:** 4 grup riwayat kepanitiaan WhatsApp dengan POV dinamis
+- **Langkah berikutnya:** Menambah event ke-5 bila ada dan finalisasi
 
 ## Checklist milestone
 - [x] M0 — Kerangka proyek

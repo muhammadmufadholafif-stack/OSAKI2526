@@ -18,8 +18,37 @@ export function createSpotifyScreen({ state, onBackToHome, audioPlayer, onTrackC
   let currentSongIndex = 0;
   let isPlaying = false;
   let isLiked = false;
-  let isShuffle = false;
+  let isShuffle = true; // Default aktif: shuffle cerdas tanpa double
   let isRepeat = false;
+  let playedSongIndices = [];
+
+  // Algoritma Smart Shuffle: Memutar lagu lain secara acak tanpa double (PRD / User Request)
+  function getNextSmartShuffleIndex() {
+    if (!songs || songs.length <= 1) return 0;
+
+    // Cari lagu yang belum diputar dalam siklus putaran ini
+    let unplayed = [];
+    for (let i = 0; i < songs.length; i++) {
+      if (!playedSongIndices.includes(i) && i !== currentSongIndex) {
+        unplayed.push(i);
+      }
+    }
+
+    // Jika semua lagu dalam playlist sudah pernah diputar, reset siklus baru
+    if (unplayed.length === 0) {
+      playedSongIndices = [currentSongIndex];
+      for (let i = 0; i < songs.length; i++) {
+        if (i !== currentSongIndex) {
+          unplayed.push(i);
+        }
+      }
+    }
+
+    // Pilih 1 acak dari lagu-lagu yang belum diputar
+    const chosenIndex = unplayed[Math.floor(Math.random() * unplayed.length)];
+    playedSongIndices.push(chosenIndex);
+    return chosenIndex;
+  }
 
   container.innerHTML = `
     <!-- VIEW 1: Playlist Browser (Stitch Screen 06) -->
@@ -252,7 +281,7 @@ export function createSpotifyScreen({ state, onBackToHome, audioPlayer, onTrackC
     miniTitle.textContent = song.title;
     miniArtist.textContent = song.artist;
     npTitle.textContent = song.title;
-    npArtist.textContent = `${song.artist} • Spesial Ultah`;
+    npArtist.textContent = `${song.artist} • OSAKIKU Memories`;
 
     const coverUrl = song.cover || 'https://lh3.googleusercontent.com/aida-public/AB6AXuBUL1Wopa-0RmVbJGJEDDEvvfp1QDNbQvl1MyoD-SACW3DWh_e9oGsC8RqM-gclfstXv-5uvYJb8kShARjezRDOuucZCc6vJzD5It6ZfX26_crXgdl3TqsMCM3BH1pZU3BlAkMbN4ckrFX6kR6MAR7HE2CarptUBmCNWGwToGYbWdbpjv9KVDctsIXMNQpUzWPsBu-QKBeJCwIjgwyWl7fXMmK_0NCw8yyVnAamSTte';
     miniCover.src = coverUrl;
@@ -261,6 +290,9 @@ export function createSpotifyScreen({ state, onBackToHome, audioPlayer, onTrackC
 
   function playSong(idx) {
     currentSongIndex = idx;
+    if (!playedSongIndices.includes(idx)) {
+      playedSongIndices.push(idx);
+    }
     const song = songs[currentSongIndex];
     if (!song) return;
 
@@ -324,7 +356,7 @@ export function createSpotifyScreen({ state, onBackToHome, audioPlayer, onTrackC
       if (isRepeat) {
         playSong(currentSongIndex);
       } else {
-        const next = (currentSongIndex + 1) % songs.length;
+        const next = isShuffle ? getNextSmartShuffleIndex() : (currentSongIndex + 1) % songs.length;
         playSong(next);
       }
     });

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500">
+<rect fill="#063" width="500" height="500"/>
+<rect width="23" height="23" x="170" y="116"/>
+<rect width="23" height="23" x="216" y="116"/>
+<rect width="23" height="23" x="262" y="116"/>
+<rect width="23" height="23" x="308" y="116"/>
+<rect fill="#888" width="23" height="23" x="170" y="139"/>
+<rect fill="#888" width="23" height="23" x="216" y="139"/>
+<rect fill="#888" width="23" height="23" x="262" y="139"/>
+<rect fill="#888" width="23" height="23" x="308" y="139"/>
+<rect fill="#888" width="23" height="23" x="193" y="169"/>
+<rect fill="#888" width="23" height="23" x="308" y="169"/>
+<rect fill="#FFF" width="23" height="23" x="193" y="192"/>
+<rect fill="#FFF" width="23" height="23" x="308" y="192"/>
+<rect fill="#E33" width="13" height="4" x="175" y="222"/>
+<rect fill="#E33" width="13" height="4" x="198" y="222"/>
+<rect fill="#E33" width="13" height="4" x="221" y="222"/>
+<rect fill="#E33" width="13" height="4" x="267" y="222"/>
+<rect fill="#E33" width="13" height="4" x="290" y="222"/>
+<rect fill="#E33" width="13" height="4" x="313" y="222"/>
+<rect fill="#E33" width="69" height="23" x="170" y="233"/>
+<rect fill="#E33" width="23" height="23" x="262" y="233"/>
+<rect fill="#E33" width="23" height="23" x="308" y="233"/>
+<rect fill="#E73" width="69" height="23" x="170" y="256"/>
+<rect fill="#E73" width="23" height="23" x="308" y="256"/>
+<rect fill="#E73" width="23" height="23" x="170" y="287"/>
+<rect fill="#E73" width="23" height="23" x="216" y="287"/>
+<rect fill="#527" width="23" height="23" x="262" y="256"/>
+<rect fill="#527" width="23" height="23" x="262" y="339"/>
+<rect fill="#FC0" width="23" height="23" x="285" y="286"/>
+<rect fill="#FC0" width="23" height="23" x="170" y="309"/>
+<rect fill="#084" width="23" height="23" x="216" y="309"/>
+<rect fill="#084" width="23" height="23" x="285" y="309"/>
+<rect fill="#084" width="23" height="23" x="216" y="339"/>
+<rect fill="#084" width="23" height="23" x="285" y="339"/>
+<rect fill="#05A" width="23" height="23" x="216" y="363"/>
+<rect fill="#05A" width="46" height="23" x="262" y="363"/>
+</svg>
