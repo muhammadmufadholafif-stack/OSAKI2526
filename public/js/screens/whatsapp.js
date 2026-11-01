@@ -264,13 +264,13 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
       </section>
 
       <!-- Input Bar Area -->
-      <div class="bg-[#1e2428] px-3 py-2 flex items-center space-x-2 shrink-0 border-t border-white/5">
-        <button class="text-zinc-400 hover:text-white text-lg px-1"><i class="fa-solid fa-plus"></i></button>
-        <div class="flex-1 bg-[#2a3942] rounded-full px-3.5 py-1.5 flex items-center text-sm">
-          <span id="wa-input-display" class="text-white min-h-[20px] outline-none flex-1 truncate">Ketik balasan Anda...</span>
+      <div class="bg-[#1e2428] px-3 py-2 flex items-end space-x-2 shrink-0 border-t border-white/5">
+        <button class="text-zinc-400 hover:text-white text-lg px-1 pb-1.5"><i class="fa-solid fa-plus"></i></button>
+        <div class="flex-1 bg-[#2a3942] rounded-2xl px-3.5 py-2 flex items-center min-h-[38px] max-h-24 overflow-y-auto">
+          <span id="wa-input-display" class="text-zinc-400 text-[14px] leading-snug outline-none flex-1 break-words whitespace-pre-wrap">Ketik balasan Anda...</span>
         </div>
-        <button class="text-zinc-400 hover:text-white text-lg px-1"><i class="fa-solid fa-camera"></i></button>
-        <button id="wa-send-btn" class="w-8 h-8 rounded-full bg-[#00a884] text-white flex items-center justify-center active:scale-95 transition-transform">
+        <button class="text-zinc-400 hover:text-white text-lg px-1 pb-1.5"><i class="fa-solid fa-camera"></i></button>
+        <button id="wa-send-btn" class="w-8 h-8 mb-0.5 rounded-full bg-[#00a884] text-white flex items-center justify-center active:scale-95 transition-transform shrink-0">
           <i class="fa-solid fa-paper-plane text-xs"></i>
         </button>
       </div>
@@ -884,6 +884,16 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     }
   }
 
+  function updateInputDisplay(text) {
+    if (text) {
+      inputDisplay.textContent = text;
+      inputDisplay.className = 'text-white text-[14px] leading-snug outline-none flex-1 break-words whitespace-pre-wrap';
+    } else {
+      inputDisplay.textContent = 'Ketik balasan Anda...';
+      inputDisplay.className = 'text-zinc-400 text-[14px] leading-snug outline-none flex-1 break-words whitespace-pre-wrap';
+    }
+  }
+
   // Keyboard typing engine listener
   function handleKeyStroke() {
     if (isTyping || !typingEngine.totalLength()) return;
@@ -891,7 +901,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
 
     typingEngine.press();
     const current = typingEngine.text();
-    inputDisplay.textContent = current || 'Ketik balasan Anda...';
+    updateInputDisplay(current);
     updateSendButtonState();
   }
 
@@ -907,7 +917,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
 
     const textToSend = typingEngine.text();
     typingEngine.reset('');
-    inputDisplay.textContent = 'Ketik balasan Anda...';
+    updateInputDisplay('');
     updateSendButtonState();
 
     renderBubble({ sender: 'user', text: textToSend });
@@ -934,7 +944,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     triggerHaptic('light');
     typingEngine.backspace();
     const current = typingEngine.text();
-    inputDisplay.textContent = current || 'Ketik balasan Anda...';
+    updateInputDisplay(current);
     updateSendButtonState();
   });
 
