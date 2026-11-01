@@ -52,6 +52,13 @@
 - [ ] Environment variable terisi di Vercel
 
 ## Catatan sesi (terbaru di atas, simpan 5 terakhir)
+- **1 November 2026 (Sesi 9 — Polish Responsif HP, Kontak Sifa, & Izin Kamera):**
+  - Layar HP (#phone-frame) diatur 100vw x 100dvh responsif penuh untuk semua tipe HP pengguna tanpa bezel/margin hitam.
+  - Menghapus semua sebutan jabatan di tab story/pembaruan WhatsApp.
+  - Mengganti nama kontak Ana menjadi 'Ana cantik' khusus saat dibuka oleh Sifa di story dan grup chat.
+  - Memperbaiki izin kamera dengan mengaktifkan `camera=(self)` pada Permissions-Policy di vercel.json serta menambahkan fallback tombol izin di layar kamera.
+  - Semua unit test lolos (13 passed, 0 failed).
+
 - **1 November 2026 (Sesi 8 — Catatan Personal Teman):**
   - Menambahkan modul `public/js/data/personal-notes.js` berisi catatan personal tulus dari Afif untuk Aurel, Aliva, dan Sifa.
   - Mengintegrasikan sinkronisasi catatan personal di `notes.js` agar otomatis muncul di aplikasi Catatan masing-masing teman.

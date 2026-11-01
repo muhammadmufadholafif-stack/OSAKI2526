@@ -52,6 +52,9 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
   }
 
+  const isSifa = (state.slug || '').toLowerCase() === 'sifa';
+  const anaStatusName = isSifa ? 'Ana cantik' : 'Ana';
+
   const mockStatuses = [
     {
       name: 'Status Saya',
@@ -86,7 +89,7 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
       ]
     },
     {
-      name: 'Ana (Sekretaris)',
+      name: anaStatusName,
       time: '35 menit yang lalu',
       avatar: makeStatusAvatar('AN', '#831843', '#db2777'),
       hasStory: true,
@@ -119,14 +122,14 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
         },
         {
           bg: '#1e293b',
-          caption: 'Koor acara resmi pamit undur diri, waktunya kembali jadi rakyat biasa wkwk',
+          caption: 'Acara sukses rek, pamit undur diri, waktunya kembali jadi rakyat biasa wkwk',
           emoji: '🫡',
           color: '#94a3b8'
         }
       ]
     },
     {
-      name: 'Dimas (Perkap)',
+      name: 'Dimas',
       time: '2 jam yang lalu',
       avatar: makeStatusAvatar('DM', '#78350f', '#d97706'),
       hasStory: true,
@@ -146,21 +149,21 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
       ]
     },
     {
-      name: 'Raja (Keamanan)',
+      name: 'Raja',
       time: '3 jam yang lalu',
       avatar: makeStatusAvatar('RJ', '#4c1d95', '#7c3aed'),
       hasStory: true,
       slides: [
         {
           bg: '#09090b',
-          caption: 'Kondisi lapangan kondusif & aman lur. Solid terus bolo-bolo sekbid! 🫡',
+          caption: 'Kondisi lapangan kondusif & aman lur. Solid terus bolo-bolo kabeh! 🫡',
           emoji: '🦅',
           color: '#a78bfa'
         }
       ]
     },
     {
-      name: 'Rendy (PDD)',
+      name: 'Rendy',
       time: '5 jam yang lalu',
       avatar: makeStatusAvatar('RN', '#164e63', '#0891b2'),
       hasStory: true,

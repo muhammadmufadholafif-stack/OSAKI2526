@@ -44,13 +44,19 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
       <!-- Video Element dari Webcam / Kamera HP -->
       <video id="camera-video" autoplay playsinline muted class="w-full h-full object-cover"></video>
 
-      <!-- Fallback Placeholder jika kamera tidak diizinkan / laptop tanpa webcam -->
+      <!-- Fallback Placeholder jika kamera belum diizinkan -->
       <div id="camera-fallback" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-neutral-900 text-center px-6">
         <div class="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center text-3xl text-neutral-400 mb-3">
           <i class="fa-solid fa-camera"></i>
         </div>
-        <p class="text-sm font-medium text-neutral-300 mb-1">Kamera Simulator</p>
-        <p class="text-xs text-neutral-500 max-w-[240px]">Izinkan akses kamera di browser untuk melihat preview langsung.</p>
+        <p class="text-sm font-medium text-neutral-300 mb-1">Akses Kamera Diperlukan</p>
+        <p class="text-xs text-neutral-400 max-w-[250px] mb-4 leading-relaxed">
+          Ketuk tombol di bawah untuk meminta izin kamera browser atau periksa izin situs.
+        </p>
+        <button id="cam-retry-btn" class="px-5 py-2.5 rounded-full bg-amber-500 text-black text-xs font-semibold active:opacity-80 transition shadow-lg flex items-center gap-2">
+          <i class="fa-solid fa-video"></i>
+          <span>Izinkan Kamera</span>
+        </button>
       </div>
 
       <!-- Grid Garis Rule of Thirds -->
@@ -107,18 +113,39 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
   const thumbBtn = container.querySelector('#cam-thumb-btn');
   const thumbImg = container.querySelector('#cam-thumb-img');
   const flipBtn = container.querySelector('#cam-flip-btn');
+  const retryBtn = container.querySelector('#cam-retry-btn');
 
   // Mulai stream kamera
   async function startCamera() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.warn('Browser tidak mendukung navigator.mediaDevices.getUserMedia');
+      videoEl.classList.add('hidden');
+      fallbackEl.classList.remove('hidden');
+      return;
+    }
+
     try {
       if (mediaStream) {
         mediaStream.getTracks().forEach(t => t.stop());
+        mediaStream = null;
       }
-      mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: currentFacingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
-        audio: false
-      });
+
+      // Coba constraints dengan facingMode
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: currentFacingMode },
+          audio: false
+        });
+      } catch (errConstraint) {
+        // Fallback jika facingMode spesifik ditolak perangkat
+        mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: false
+        });
+      }
+
       videoEl.srcObject = mediaStream;
+      await videoEl.play().catch(() => {});
       videoEl.classList.remove('hidden');
       fallbackEl.classList.add('hidden');
     } catch (err) {
@@ -126,6 +153,13 @@ export function createCameraScreen({ state, onBackToHome, onOpenGallery, onNewPh
       videoEl.classList.add('hidden');
       fallbackEl.classList.remove('hidden');
     }
+  }
+
+  if (retryBtn) {
+    retryBtn.addEventListener('click', () => {
+      triggerHaptic('medium');
+      startCamera();
+    });
   }
 
   // Matikan stream kamera
