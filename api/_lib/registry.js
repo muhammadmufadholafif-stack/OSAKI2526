@@ -11,5 +11,9 @@
  */
 module.exports = {
   rina: require('../_data/rina.json'),
-  budi: require('../_data/budi.json')
+  budi: require('../_data/budi.json'),
+  sifa: require('../_data/sifa.json'),
+  aliva: require('../_data/aliva.json'),
+  aurel: require('../_data/aurel.json'),
+  ana: require('../_data/ana.json')
 };

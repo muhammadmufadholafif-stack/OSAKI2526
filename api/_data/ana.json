@@ -1,0 +1,52 @@
+{
+  "slug": "ana",
+  "displayName": "Ana",
+  "profile": {
+    "contactName": "Fanskey",
+    "contactAvatar": "/assets/default/wallpaper-lock.jpg",
+    "notifText": "Ana, makasih banyak ya!",
+    "clockTime": "",
+    "dateLabel": "",
+    "wallpaper": "/assets/default/wallpaper-lock.jpg"
+  },
+  "chat": [
+    { "from": "contact", "text": "Ana, makasih banyak ya!" },
+    { "from": "me", "text": "Eh Fanskey, makasih buat apa?" },
+    { "from": "contact", "text": "Buat semua kerja kerasmu di event kemarin dan selama di OSIS bareng-bareng 🌟", "delayMs": 600, "typingMs": 1500 },
+    { "from": "me", "text": "Wah iya, akhirnya selesai juga ya proker kita!" },
+    { "from": "contact", "text": "Iya, bangga banget sama kamu. Ada kenang-kenangan kecil buat kamu di brankas Kapsul Kenangan 🎁", "delayMs": 500, "typingMs": 1400 },
+    { "from": "contact", "text": "Jangan lupa buka aplikasi Hadiah ya, ada traktiran apresiasi purna tugas buat kamu! ✨", "delayMs": 400, "typingMs": 1600 }
+  ],
+  "songs": {
+    "playlistTitle": "OSAKIKU Memories 🎵",
+    "items": [
+      {
+        "title": "Ingatlah Hari Ini",
+        "artist": "Project Pop",
+        "src": "/assets/rina/a1b2c3.mp3",
+        "cover": "/assets/rina/f-a1b2.jpg",
+        "durationLabel": "04:18"
+      },
+      {
+        "title": "Monokrom",
+        "artist": "Tulus",
+        "src": "/assets/rina/p6q7r8.mp3",
+        "cover": "/assets/rina/f-k1l2.jpg",
+        "durationLabel": "03:52"
+      }
+    ]
+  },
+  "photos": [
+    { "src": "/assets/rina/f-a1b2.jpg", "caption": "Event Terakhir", "dateLabel": "Dokumentasi OSIS" },
+    { "src": "/assets/rina/f-c3d4.jpg", "caption": "Panitia Hebat", "dateLabel": "Kenangan OSAKIKU" }
+  ],
+  "hadiah": {
+    "title": "Terima Kasih, Ana! 🌟",
+    "message": [
+      "Terima kasih atas dedikasi dan kerja kerasmu selama di kepengurusan OSIS.",
+      "Event kemarin sukses berkat bantuan dan semangatmu.",
+      "Ini ada sedikit traktiran jajan apresiasi dari aku. Pilih e-wallet kamu di bawah ya!"
+    ],
+    "giftLabel": "Apresiasi dari Fanskey"
+  }
+}

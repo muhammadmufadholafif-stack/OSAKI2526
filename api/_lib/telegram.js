@@ -19,8 +19,7 @@ async function kirimTelegram(teks) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       chat_id: chatId,
-      text: teks,
-      parse_mode: 'HTML'
+      text: teks
     })
   });
 
