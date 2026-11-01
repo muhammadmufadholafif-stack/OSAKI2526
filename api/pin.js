@@ -25,11 +25,8 @@ module.exports = async (req, res) => {
     return error(res, 401, 'WRONG_PIN', 'PIN salah');
   }
 
-  // Rahasia sesi
-  const secret = process.env.SESSION_SECRET || 'dev_secret_key_antigravity_ultah_hp_2026';
-
   // Terbitkan token bertanda tangan dengan step = 0
-  const token = sign({ slug, step: 0 }, secret, 12 * 3600);
+  const token = sign({ slug, step: 0 });
 
   // Kembalikan token + profil (tanpa skrip chat, lagu lengkap, atau hadiah!)
   return json(res, 200, {

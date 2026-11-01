@@ -14,8 +14,7 @@ module.exports = async (req, res) => {
     return error(res, 401, 'INVALID_TOKEN', 'Token diperlukan');
   }
 
-  const secret = process.env.SESSION_SECRET || 'dev_secret_key_antigravity_ultah_hp_2026';
-  const tokenPayload = verify(rawToken, secret);
+  const tokenPayload = verify(rawToken);
 
   if (!tokenPayload || !tokenPayload.slug) {
     return error(res, 401, 'INVALID_TOKEN', 'Token tidak valid');

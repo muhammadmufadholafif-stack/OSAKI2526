@@ -14,8 +14,7 @@ module.exports = async (req, res) => {
     return error(res, 401, 'INVALID_TOKEN', 'Token otorisasi diperlukan');
   }
 
-  const secret = process.env.SESSION_SECRET || 'dev_secret_key_antigravity_ultah_hp_2026';
-  const tokenPayload = verify(rawToken, secret);
+  const tokenPayload = verify(rawToken);
 
   if (!tokenPayload || !tokenPayload.slug) {
     return error(res, 401, 'INVALID_TOKEN', 'Token tidak valid atau kedaluwarsa');
@@ -55,7 +54,7 @@ module.exports = async (req, res) => {
     }
 
     // Terbitkan token baru dengan step yang diperbarui
-    const newToken = sign({ slug: tokenPayload.slug, step: k }, secret, 12 * 3600);
+    const newToken = sign({ slug: tokenPayload.slug, step: k });
 
     return json(res, 200, {
       items,
@@ -71,7 +70,7 @@ module.exports = async (req, res) => {
 
     // Naikkan step sebanyak 1
     const nextStep = step + 1;
-    const newToken = sign({ slug: tokenPayload.slug, step: nextStep }, secret, 12 * 3600);
+    const newToken = sign({ slug: tokenPayload.slug, step: nextStep });
 
     return json(res, 200, {
       ok: true,
