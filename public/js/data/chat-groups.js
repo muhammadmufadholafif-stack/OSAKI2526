@@ -26,7 +26,7 @@ const RAW_GROUPS = [
   {
     "id": "grup_santri",
     "title": "Koor Hari Santri 2025 🌙",
-    "avatar": "/assets/covers/grup-santri.svg",
+    "avatar": "/assets/foto/ppgrub.jpeg",
     "members": "32 anggota",
     "history": [
       {
