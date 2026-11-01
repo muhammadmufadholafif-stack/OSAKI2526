@@ -4,7 +4,7 @@
   "profile": {
     "contactName": "Afif",
     "contactAvatar": "/assets/default/wallpaper-lock.jpg",
-    "notifText": "Sifa, makasih banyak ya!",
+    "notifText": "p",
     "clockTime": "",
     "dateLabel": "",
     "wallpaper": "/assets/default/wallpaper-lock.jpg"
@@ -12,33 +12,55 @@
   "chat": [
     {
       "from": "contact",
-      "text": "Sifa, makasih banyak ya!"
-    },
-    {
-      "from": "me",
-      "text": "Eh Afif, makasih buat apa?"
+      "text": "p"
     },
     {
       "from": "contact",
-      "text": "Buat semua kerja kerasmu di event kemarin dan selama di OSIS bareng-bareng 🌟",
+      "text": "sip",
+      "delayMs": 350,
+      "typingMs": 500
+    },
+    {
+      "from": "me",
+      "text": "nyapo pip"
+    },
+    {
+      "from": "contact",
+      "text": "gpp, ndelok o grub karo catatan ojo lali nyalain lagune ben asik awokawok 🎶",
       "delayMs": 600,
-      "typingMs": 1500
-    },
-    {
-      "from": "me",
-      "text": "Wah iya, akhirnya selesai juga ya proker kita!"
-    },
-    {
-      "from": "contact",
-      "text": "Iya, bangga banget sama kamu. Ada kenang-kenangan kecil buat kamu di brankas Kapsul Kenangan 🎁",
-      "delayMs": 500,
       "typingMs": 1400
     },
     {
       "from": "contact",
-      "text": "Jangan lupa buka aplikasi Hadiah ya, ada traktiran apresiasi purna tugas buat kamu! ✨",
-      "delayMs": 400,
-      "typingMs": 1600
+      "text": "tak kumpulne kabeh riwayat obrolan adwe pas event hari santri, harlah, sampe ldks wingi ndek hp iki wkwk",
+      "delayMs": 500,
+      "typingMs": 1300
+    },
+    {
+      "from": "me",
+      "text": "lah tumben men, tak kirakne enek opo 😭"
+    },
+    {
+      "from": "contact",
+      "text": "wkwk makasih akeh yo sip wes sat-set pol mbantu kabeh acara dan repot bareng selama iki 🌟",
+      "delayMs": 600,
+      "typingMs": 1500
+    },
+    {
+      "from": "contact",
+      "text": "kro siji engkas, nek brankas Hadiah enek kado apresiasi nggo we, tapi kudu golek kode 4 digit teko Catatan, Spotify, Galeri kro Control Center 👀",
+      "delayMs": 500,
+      "typingMs": 1700
+    },
+    {
+      "from": "me",
+      "text": "wkwk siap bos, tak bongkar kabeh petunjuk e!"
+    },
+    {
+      "from": "contact",
+      "text": "wkwk gass bukak en, selamat bernostalgia dan ndang klaim hadiahmu yo! 🎁✨",
+      "delayMs": 500,
+      "typingMs": 1300
     }
   ],
   "songs": {

@@ -4,7 +4,7 @@
   "profile": {
     "contactName": "Afif",
     "contactAvatar": "/assets/default/wallpaper-lock.jpg",
-    "notifText": "hai",
+    "notifText": "p",
     "clockTime": "",
     "dateLabel": "",
     "wallpaper": "/assets/default/wallpaper-lock.jpg"
@@ -12,33 +12,55 @@
   "chat": [
     {
       "from": "contact",
-      "text": "hai"
-    },
-    {
-      "from": "me",
-      "text": "hai juga, ini siapa?"
+      "text": "p"
     },
     {
       "from": "contact",
-      "text": "Eh, kamu beneran lupa? 👀",
+      "text": "rin",
+      "delayMs": 350,
+      "typingMs": 500
+    },
+    {
+      "from": "me",
+      "text": "nyapo pip"
+    },
+    {
+      "from": "contact",
+      "text": "gpp, ndelok o grub karo catatan ojo lali nyalain lagune ben asik awokawok 🎶",
       "delayMs": 600,
       "typingMs": 1400
     },
     {
-      "from": "me",
-      "text": "Ya ampun, kamu toh!"
-    },
-    {
       "from": "contact",
-      "text": "Selamat ulang tahun ya 🎂 Nggak kerasa kita udah tiga tahun kenal lho!",
+      "text": "tak kumpulne kabeh riwayat obrolan adwe pas event hari santri, harlah, sampe ldks wingi ndek hp iki wkwk",
       "delayMs": 500,
-      "typingMs": 1400
+      "typingMs": 1300
+    },
+    {
+      "from": "me",
+      "text": "lah tumben men, tak kirakne enek opo 😭"
     },
     {
       "from": "contact",
-      "text": "Ada kado buat kamu di brankas Hadiah — tapi terkunci kode misteri 🔒 Petunjuknya? Buka Catatan dulu ya! 🗒️",
-      "delayMs": 400,
-      "typingMs": 1800
+      "text": "makasih akeh yo rin wes berjuang bareng selama iki di OSIS, bangga pol iso sak angkatan kro kalian ✨",
+      "delayMs": 600,
+      "typingMs": 1500
+    },
+    {
+      "from": "contact",
+      "text": "kro siji engkas, nek brankas Hadiah enek kado apresiasi nggo we, tapi kudu golek kode 4 digit teko Catatan, Spotify, Galeri kro Control Center 👀",
+      "delayMs": 500,
+      "typingMs": 1700
+    },
+    {
+      "from": "me",
+      "text": "wkwk siap bos, tak bongkar kabeh petunjuk e!"
+    },
+    {
+      "from": "contact",
+      "text": "wkwk gass bukak en, selamat bernostalgia dan ndang klaim hadiahmu yo! 🎁✨",
+      "delayMs": 500,
+      "typingMs": 1300
     }
   ],
   "songs": {
