@@ -7,9 +7,9 @@
 **Sesi terakhir dikerjakan di:** Antigravity
 
 ## Posisi sekarang
-- **Milestone aktif:** M6 - Multi-teman & Konten Chat
-- **Sedang dikerjakan:** Status WhatsApp OSIS & efek selebrasi konfeti Brankas Hadiah
-- **Langkah berikutnya:** Menunggu penulisan catatan personal dari pemilik serta foto/video kenangan teman
+- **Milestone aktif:** M6 - Multi-teman & Konten Chat (Siap masuk M7)
+- **Sedang dikerjakan:** Finalisasi konten personal teman (Sifa, Aliva, Aurel selesai, siap untuk Ana & Galeri)
+- **Langkah berikutnya:** Catatan Ana, aset foto/video kenangan, dan persiapan deploy Vercel (M7)
 
 ## Checklist milestone
 - [x] M0 — Kerangka proyek
