@@ -4971,6 +4971,20 @@ export function getChatGroups(userSlug) {
 
   const currentSpeakerName = slugToSpeaker[currentSlug] || '';
 
+  // Baca riwayat grup yang sudah pernah dibuka
+  let readGroups = [];
+  try {
+    const raw = typeof localStorage !== 'undefined' ? localStorage.getItem(`wa_read_groups_${currentSlug}`) : null;
+    readGroups = raw ? JSON.parse(raw) : [];
+  } catch {}
+
+  const defaultUnread = {
+    'grup_santri': 4,
+    'grup_harlah': 7,
+    'grup_bukber': 12,
+    'grup_ldks': 5
+  };
+
   return RAW_GROUPS.map(grp => {
     // Generate filtered history with POV
     const history = grp.history.map(item => {
@@ -4999,6 +5013,8 @@ export function getChatGroups(userSlug) {
       }
     }
 
+    const isAlreadyRead = readGroups.includes(grp.id);
+
     return {
       id: grp.id,
       name: grp.title,
@@ -5006,7 +5022,7 @@ export function getChatGroups(userSlug) {
       members: grp.members,
       lastMsg: lastMsg,
       time: grp.id === 'grup_santri' ? '20/10/25' : grp.id === 'grup_harlah' ? '10/02/26' : grp.id === 'grup_bukber' ? '09/03/26' : '03/10/26',
-      unread: 0,
+      unread: isAlreadyRead ? 0 : (defaultUnread[grp.id] || 3),
       isGroup: true,
       history: history
     };

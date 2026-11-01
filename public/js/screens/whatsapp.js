@@ -164,12 +164,12 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
             <div class="flex-1 min-w-0 pr-1">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-sm font-semibold text-white truncate ${c.isSpecial ? 'text-amber-300' : ''}">${c.name}</span>
-                <span class="text-[11px] text-zinc-400">${c.time}</span>
+                <span class="wa-item-time text-[11px] ${c.unread > 0 ? 'text-[#25D366] font-medium' : 'text-zinc-400'}">${c.time}</span>
               </div>
               <div class="flex items-center justify-between">
-                <p class="text-xs text-zinc-400 truncate pr-2">${c.lastMsg}</p>
+                <p class="text-xs ${c.unread > 0 ? 'text-zinc-300' : 'text-zinc-400'} truncate pr-2">${c.lastMsg}</p>
                 ${c.unread > 0 ? `
-                  <span class="wa-unread-badge bg-[#25D366] text-black font-bold text-[10px] min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1">
+                  <span class="wa-unread-badge bg-[#25D366] text-black font-bold text-[10px] min-w-[19px] h-[19px] rounded-full flex items-center justify-center px-1 shadow-sm">
                     ${c.unread}
                   </span>
                 ` : ''}
@@ -582,13 +582,30 @@ export function createWhatsAppScreen({ state, onBackToHome, onCompleteChat }) {
     headerDetail.style.display = 'flex';
     tabBar.style.display = 'none';
 
-    // Hapus badge unread untuk kontak ini
+    // Hapus badge unread untuk kontak/grup ini
     const itemEl = container.querySelector(`.inbox-item[data-id="${contact.id}"]`);
     if (itemEl) {
       const badge = itemEl.querySelector('.wa-unread-badge');
       if (badge) badge.remove();
+      const timeEl = itemEl.querySelector('.wa-item-time');
+      if (timeEl) {
+        timeEl.className = 'wa-item-time text-[11px] text-zinc-400';
+      }
     }
     contact.unread = 0;
+
+    // Simpan status sudah dibuka ke localStorage agar tidak muncul lagi
+    try {
+      if (state.slug && contact.id) {
+        const key = `wa_read_groups_${state.slug}`;
+        const raw = localStorage.getItem(key);
+        const list = raw ? JSON.parse(raw) : [];
+        if (!list.includes(contact.id)) {
+          list.push(contact.id);
+          localStorage.setItem(key, JSON.stringify(list));
+        }
+      }
+    } catch {}
 
     // Isi header detail dengan info kontak/grup yang dipilih
     const avatarEl = container.querySelector('#wa-chat-avatar');
