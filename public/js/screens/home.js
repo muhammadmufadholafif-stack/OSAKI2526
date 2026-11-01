@@ -95,8 +95,8 @@ export function createHomeScreen({ state, onOpenApp }) {
             </div>
           </div>
           <div>
-            <p class="text-white/90 text-[12px] font-medium leading-tight">Surabaya</p>
-            <p class="text-white/70 text-[10px] leading-tight">Mostly Sunny • H:32° L:25°</p>
+            <p class="text-white/90 text-[12px] font-medium leading-tight">Blitar</p>
+            <p class="text-white/70 text-[10px] leading-tight">Cerah Berawan • H:31° L:23°</p>
           </div>
         </div>
       </section>
