@@ -4997,7 +4997,7 @@ export function getChatGroups(userSlug) {
 
       const isMe = currentSpeakerName && item.speaker.toLowerCase() === currentSpeakerName.toLowerCase();
       let speakerName = item.speaker;
-      if (slug.toLowerCase() === 'sifa' && item.speaker.toLowerCase() === 'ana') {
+      if (currentSlug === 'sifa' && item.speaker.toLowerCase() === 'ana') {
         speakerName = 'Ana cantik';
       }
       return {
@@ -5023,7 +5023,7 @@ export function getChatGroups(userSlug) {
       id: grp.id,
       name: grp.title,
       avatar: grp.avatar,
-      members: slug.toLowerCase() === 'sifa' && Array.isArray(grp.members) ? grp.members.map(m => m === 'Ana' ? 'Ana cantik' : m) : grp.members,
+      members: currentSlug === 'sifa' && Array.isArray(grp.members) ? grp.members.map(m => m === 'Ana' ? 'Ana cantik' : m) : grp.members,
       lastMsg: lastMsg,
       time: grp.id === 'grup_santri' ? '20/10/25' : grp.id === 'grup_harlah' ? '10/02/26' : grp.id === 'grup_bukber' ? '09/03/26' : '03/10/26',
       unread: isAlreadyRead ? 0 : (defaultUnread[grp.id] || 3),
