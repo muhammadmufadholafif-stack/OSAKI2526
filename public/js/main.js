@@ -11,8 +11,11 @@ import { createHadiahScreen } from './screens/hadiah.js?v=2.1';
 import { createNotesScreen } from './screens/notes.js?v=2.1';
 import { createControlCenter } from './control-center.js?v=2.1';
 
-// Baca slug dari URL pathname (contoh "/rina" -> "rina")
+// Baca slug dari URL pathname atau query param (contoh "/sifa" atau "?slug=sifa")
 function getSlug() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramSlug = urlParams.get('slug');
+  if (paramSlug) return paramSlug;
   const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
   return path || 'rina';
 }

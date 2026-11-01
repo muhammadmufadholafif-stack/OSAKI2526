@@ -343,8 +343,10 @@ export function createLockScreen({ onUnlock }) {
           isChecking = true;
           errorMsg.style.opacity = '0';
 
+          // Ambil slug dari pathname atau query string (misal ?slug=sifa untuk dev)
+          const urlParams = new URLSearchParams(window.location.search);
           const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
-          const slug = path || 'default';
+          const slug = urlParams.get('slug') || path || 'rina';
 
           try {
             const res = await verifyPinApi(slug, currentPin);
