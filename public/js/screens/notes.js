@@ -32,7 +32,7 @@ export function createNotesScreen({ state, onBackToHome }) {
   // Versi v4 = mindblowing: tidak ada label digit, tidak ada petunjuk eksplisit,
   // satu clue tersembunyi di chat WA yang sudah terbaca tapi tidak disadari,
   // sisanya memerlukan logika/matematika lintas aplikasi.
-  const mysteryNoteId = 'note_mystery_clue_v4';
+  const mysteryNoteId = 'note_mystery_clue_v5';
   const hasMysteryNote = Array.isArray(notes) && notes.some(n => n.id === mysteryNoteId);
 
   if (!hasMysteryNote) {
@@ -63,11 +63,10 @@ export function createNotesScreen({ state, onBackToHome }) {
 
         '─────────────────────────\n\n' +
 
-        'Akar kuadrat dari dua puluh lima\n' +
-        'adalah nomor sebuah foto di galeri.\n' +
-        'Buka foto itu. Di sana ada pertanyaan\n' +
-        'tentang sesuatu yang paling sempurna — dan paling tak bersudut.\n' +
-        'Jawabannya adalah keping ketiga.\n\n' +
+        'Keping ketiga adalah angka yang paling bulat:\n' +
+        'Bentuknya persis seperti donat atau telur bebek,\n' +
+        'angka yang melambangkan kata "kosong" (nol).\n' +
+        'Itu adalah keping ketiga.\n\n' +
 
         '─────────────────────────\n\n' +
 

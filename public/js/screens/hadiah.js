@@ -72,8 +72,8 @@ export function createHadiahScreen({ state, onBackToHome }) {
         <ul class="list-disc list-inside space-y-1 text-[11px] text-neutral-400">
           <li>Digit 1: Baca Catatan "Berkas Misteri"</li>
           <li>Digit 2: Durasi menit lagu Tulus berawalan 'J' di Spotify</li>
-          <li>Digit 3: Petunjuk sudut lingkaran di foto ke-5 Galeri</li>
-          <li>Digit 4: Total tombol koneksi + aksi cepat di Control Center</li>
+          <li>Digit 3: Angka bulat seperti telur / donat (melambangkan kosong/nol)</li>
+          <li>Digit 4: Total tombol koneksi + aksi di Control Center (4 + 4)</li>
         </ul>
       </div>
     </main>
