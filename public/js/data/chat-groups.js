@@ -1237,7 +1237,7 @@ const RAW_GROUPS = [
   {
     "id": "grup_harlah",
     "title": "Panitia Harlah ke-58 🎉",
-    "avatar": "/assets/covers/grup-harlah.svg",
+    "avatar": "/assets/foto/ppgrub.jpeg",
     "members": "45 anggota",
     "history": [
       {
@@ -2669,7 +2669,7 @@ const RAW_GROUPS = [
   {
     "id": "grup_bukber",
     "title": "Bagi Takjil & Bukber 1447 H 🕌",
-    "avatar": "/assets/covers/grup-bukber.svg",
+    "avatar": "/assets/foto/ppgrub.jpeg",
     "members": "38 anggota",
     "history": [
       {
@@ -3842,7 +3842,7 @@ const RAW_GROUPS = [
   {
     "id": "grup_ldks",
     "title": "Panitia LDKS 2026 ⛺",
-    "avatar": "/assets/covers/grup-ldks.svg",
+    "avatar": "/assets/foto/ppgrub.jpeg",
     "members": "40 anggota",
     "history": [
       {
